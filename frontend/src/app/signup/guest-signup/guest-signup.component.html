@@ -20,54 +20,54 @@
 
     <!-- HEADER -->
     <div class="signup-header">
-      <h2>Join LinkedU</h2>
-      <p>Start your study abroad journey</p>
+      <h2>Rejoignez LinkedU</h2>
+      <p>Commencez votre voyage d'études à l'étranger</p>
     </div>
 
     <!-- TABS -->
     <div class="tab-switcher">
       <a routerLink="/signup/guest" class="tab-btn active">
         <i class="fa-solid fa-globe"></i>
-        Guest Registration
+        Inscription Invité
       </a>
       <a routerLink="/signup/contract" class="tab-btn">
         <i class="fa-solid fa-file-contract"></i>
-        Contract Registration
+        Inscription par Contrat
       </a>
     </div>
 
     <p class="tab-description">
       <i class="fa-solid fa-info-circle"></i>
-      Register as a guest to explore our platform.
+      Inscrivez-vous en tant qu'invité pour explorer notre plateforme.
     </p>
 
     <form class="signup-form" (ngSubmit)="onSubmit()">
 
       <div class="input-icon-wrapper">
         <i class="fa-solid fa-user input-icon"></i>
-        <input class="form-input" name="username" [(ngModel)]="form.username" placeholder="Username *" required />
+        <input class="form-input" name="username" [(ngModel)]="form.username" placeholder="Nom d'utilisateur *" required />
       </div>
 
       <div class="form-row">
         <div class="input-icon-wrapper">
           <i class="fa-solid fa-user-pen input-icon"></i>
-          <input class="form-input" name="firstName" [(ngModel)]="form.firstName" placeholder="First name *" required />
+          <input class="form-input" name="firstName" [(ngModel)]="form.firstName" placeholder="Prénom *" required />
         </div>
         <div class="input-icon-wrapper">
           <i class="fa-solid fa-user-pen input-icon"></i>
-          <input class="form-input" name="lastName" [(ngModel)]="form.lastName" placeholder="Last name *" required />
+          <input class="form-input" name="lastName" [(ngModel)]="form.lastName" placeholder="Nom *" required />
         </div>
       </div>
       <br>
       <div class="input-icon-wrapper">
         <i class="fa-solid fa-envelope input-icon"></i>
-        <input class="form-input" name="email" type="email" [(ngModel)]="form.email" placeholder="Email address *" required />
+        <input class="form-input" name="email" type="email" [(ngModel)]="form.email" placeholder="Adresse e-mail *" required />
       </div>
 
       <div class="form-row">
         <div class="input-icon-wrapper">
           <i class="fa-solid fa-phone input-icon"></i>
-          <input class="form-input" name="phoneNumber" [(ngModel)]="form.phoneNumber" placeholder="Phone number *" required />
+          <input class="form-input" name="phoneNumber" [(ngModel)]="form.phoneNumber" placeholder="Numéro de téléphone *" required />
         </div>
         <div class="input-icon-wrapper">
           <i class="fa-solid fa-calendar input-icon"></i>
@@ -77,28 +77,28 @@
       <br>
       <div class="input-icon-wrapper">
         <i class="fa-solid fa-location-dot input-icon"></i>
-        <input class="form-input" name="address" [(ngModel)]="form.address" placeholder="Address (optional)" />
+        <input class="form-input" name="address" [(ngModel)]="form.address" placeholder="Adresse (optionnelle)" />
       </div>
 
       <!-- PASSWORD -->
       <div class="input-icon-wrapper">
         <i class="fa-solid fa-lock input-icon"></i>
-        <input class="form-input" name="password" type="password" [(ngModel)]="form.password" placeholder="Password *" required />
+        <input class="form-input" name="password" type="password" [(ngModel)]="form.password" placeholder="Mot de passe *" required />
       </div>
 
       <!-- STRENGTH BAR -->
       <div *ngIf="form.password.length > 0" class="strength-bar">
         <div class="strength-fill"
           [ngClass]="{
-            'weak': passwordStrength === 'Weak',
-            'medium': passwordStrength === 'Medium',
-            'strong': passwordStrength === 'Strong'
+            'weak': passwordStrength === 'Faible',
+            'medium': passwordStrength === 'Moyen',
+            'strong': passwordStrength === 'Fort'
           }">
         </div>
       </div>
 
       <p *ngIf="form.password.length > 0" class="password-strength">
-        <i class="fa-solid fa-shield-haltered"></i>
+        <i class="fa-solid fa-shield-halved"></i>
         {{ passwordStrength }}
       </p>
 
@@ -109,13 +109,13 @@
           name="confirmPassword"
           type="password"
           [(ngModel)]="form.confirmPassword"
-          placeholder="Confirm Password *"
+          placeholder="Confirmez le mot de passe *"
           required />
       </div>
 
       <p *ngIf="form.confirmPassword && !passwordsMatch" class="error-message">
         <i class="fa-solid fa-circle-exclamation"></i>
-        Passwords do not match
+        Les mots de passe ne correspondent pas
       </p>
 
       <div *ngIf="errorMessage" class="error-message">
@@ -131,15 +131,15 @@
         [disabled]="isSubmitting || !passwordsMatch">
         <i *ngIf="!isSubmitting" class="fa-solid fa-user-plus"></i>
         <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin"></i>
-        {{ isSubmitting ? 'Creating account...' : 'Create Guest Account' }}
+        {{ isSubmitting ? 'Inscription en cours...' : 'Créer un compte invité' }}
       </button>
 
     </form>
 
     <div class="signup-footer">
-      Already have an account? <a routerLink="/login">
+      Vous avez déjà un compte ? <a routerLink="/login">
         <i class="fa-solid fa-sign-in-alt"></i>
-        Sign in
+        Se connecter
       </a>
     </div>
 

@@ -87,19 +87,19 @@ export class AgentComponent implements OnInit, OnDestroy {
 
   // Updated stageLabels with all stages
   stageLabels: Record<ProgressStage, string> = {
-    ORIENTATION: 'Orientation & Planning',
-    DOSSIER_PREPARATION: 'Dossier Preparation',
-    DOCUMENT_COLLECTION: 'Document Collection',
-    LANGUAGE_TESTS: 'Language Tests (IELTS/TOEFL)',
-    UNIVERSITY_SELECTION: 'University Selection',
-    APPLICATION_SUBMISSION: 'Application Submission',
-    INTERVIEW_PREPARATION: 'Interview Preparation',
-    ACCEPTANCE_LETTER: 'Acceptance Letter',
-    VISA_APPLICATION: 'Visa Application',
-    ACCOMMODATION: 'Accommodation Arrangement',
-    TRAVEL_PLANNING: 'Travel Planning',
-    PRE_DEPARTURE: 'Pre-Departure Preparation',
-    ARRIVAL_SETTLEMENT: 'Arrival & Settlement'
+    ORIENTATION: 'Orientation & Planification',
+    DOSSIER_PREPARATION: 'Préparation du dossier',
+    DOCUMENT_COLLECTION: 'Collecte de documents',
+    LANGUAGE_TESTS: 'Tests de langue (IELTS/TOEFL)',
+    UNIVERSITY_SELECTION: 'Sélection d\'université',
+    APPLICATION_SUBMISSION: 'Soumission de la candidature',
+    INTERVIEW_PREPARATION: 'Préparation à l\'entretien',
+    ACCEPTANCE_LETTER: 'Lettre d\'acceptation',
+    VISA_APPLICATION: 'Demande de visa',
+    ACCOMMODATION: 'Logement',
+    TRAVEL_PLANNING: 'Planification du voyage',
+    PRE_DEPARTURE: 'Préparation au départ',
+    ARRIVAL_SETTLEMENT: 'Arrivée & Installation'
   };
 
   // Updated stageIcons with FontAwesome classes
@@ -249,7 +249,7 @@ export class AgentComponent implements OnInit, OnDestroy {
   loadStudents(): void {
     if (!this.isBrowser || !this.agentId || this.agentId === 0) {
       this.isLoadingStudents = false;
-      this.studentsError = 'Please login to view students';
+      this.studentsError = 'Veuillez vous connecter pour voir les étudiants';
       return;
     }
     
@@ -260,7 +260,7 @@ export class AgentComponent implements OnInit, OnDestroy {
         this.isLoadingStudents = false;
       },
       error: () => {
-        this.studentsError = 'Failed to load students.';
+        this.studentsError = 'Échec du chargement des étudiants.';
         this.isLoadingStudents = false;
       }
     });
@@ -355,12 +355,12 @@ export class AgentComponent implements OnInit, OnDestroy {
     this.verifyError = '';
     this.agentService.verifyDocument(documentId, this.agentId, status).subscribe({
       next: () => {
-        this.verifySuccess = `Document ${status.toLowerCase()} successfully!`;
+        this.verifySuccess = `Document ${status === 'APPROVED' ? 'approuvé' : 'rejeté'} avec succès !`;
         this.isVerifying = false;
         this.loadDocuments();
       },
       error: (err: { error?: { error?: string } }) => {
-        this.verifyError = err?.error?.error || 'Failed to update document status.';
+        this.verifyError = err?.error?.error || 'Échec de la mise à jour du statut du document.';
         this.isVerifying = false;
       }
     });
@@ -373,9 +373,9 @@ export class AgentComponent implements OnInit, OnDestroy {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'APPROVED') return 'Approved';
-    if (status === 'REJECTED') return 'Rejected';
-    return 'Pending';
+    if (status === 'APPROVED') return 'Approuvé';
+    if (status === 'REJECTED') return 'Rejeté';
+    return 'En attente';
   }
 
   // ── Progress Helper Methods ──
@@ -433,13 +433,13 @@ export class AgentComponent implements OnInit, OnDestroy {
     if (existing) {
       this.agentService.updateProgressStatus(existing.id, newStatus).subscribe({
         next: () => {
-          this.progressSuccess = `${this.getStageLabel(stage)} updated to ${newStatus.replace('_', ' ')}!`;
+          this.progressSuccess = `${this.getStageLabel(stage)} mis à jour !`;
           this.isUpdatingProgress = false;
           this.loadProgress();
           setTimeout(() => this.progressSuccess = '', 3000);
         },
         error: () => {
-          this.progressError = 'Failed to update progress.';
+          this.progressError = 'Échec de la mise à jour de la progression.';
           this.isUpdatingProgress = false;
         }
       });
@@ -448,19 +448,19 @@ export class AgentComponent implements OnInit, OnDestroy {
         next: (created) => {
           this.agentService.updateProgressStatus(created.id, newStatus).subscribe({
             next: () => {
-              this.progressSuccess = `${this.getStageLabel(stage)} set to ${newStatus.replace('_', ' ')}!`;
+              this.progressSuccess = `${this.getStageLabel(stage)} mis à jour !`;
               this.isUpdatingProgress = false;
               this.loadProgress();
               setTimeout(() => this.progressSuccess = '', 3000);
             },
             error: () => {
-              this.progressError = 'Failed to update progress.';
+              this.progressError = 'Échec de la mise à jour de la progression.';
               this.isUpdatingProgress = false;
             }
           });
         },
         error: () => {
-          this.progressError = 'Failed to create progress stage.';
+          this.progressError = 'Échec de la création de l\'étape de progression.';
           this.isUpdatingProgress = false;
         }
       });

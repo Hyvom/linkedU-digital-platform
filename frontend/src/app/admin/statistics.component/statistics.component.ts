@@ -19,19 +19,19 @@ export class AdminStatisticsComponent implements OnInit {
   private maxSingleCount = 0;
 
   readonly stageLabels: Record<string, string> = {
-    ORIENTATION: 'Orientation & Planning',
-    DOSSIER_PREPARATION: 'Dossier Preparation',
-    DOCUMENT_COLLECTION: 'Document Collection',
-    LANGUAGE_TESTS: 'Language Tests',
-    UNIVERSITY_SELECTION: 'University Selection',
-    APPLICATION_SUBMISSION: 'Application Submission',
-    INTERVIEW_PREPARATION: 'Interview Preparation',
-    ACCEPTANCE_LETTER: 'Acceptance Letter',
-    VISA_APPLICATION: 'Visa Application',
-    ACCOMMODATION: 'Accommodation',
-    TRAVEL_PLANNING: 'Travel Planning',
-    PRE_DEPARTURE: 'Pre-Departure',
-    ARRIVAL_SETTLEMENT: 'Arrival & Settlement'
+    ORIENTATION: 'Orientation & Planification',
+    DOSSIER_PREPARATION: 'Préparation du dossier',
+    DOCUMENT_COLLECTION: 'Collecte de documents',
+    LANGUAGE_TESTS: 'Tests de langue',
+    UNIVERSITY_SELECTION: 'Sélection d\'université',
+    APPLICATION_SUBMISSION: 'Soumission de candidature',
+    INTERVIEW_PREPARATION: 'Préparation à l\'entretien',
+    ACCEPTANCE_LETTER: 'Lettre d\'acceptation',
+    VISA_APPLICATION: 'Demande de visa',
+    ACCOMMODATION: 'Hébergement',
+    TRAVEL_PLANNING: 'Planification du voyage',
+    PRE_DEPARTURE: 'Pré-départ',
+    ARRIVAL_SETTLEMENT: 'Arrivée & Installation'
   };
 
   constructor(private readonly adminService: AdminService) {}
@@ -50,7 +50,7 @@ export class AdminStatisticsComponent implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.errorMsg = 'Failed to load statistics.';
+        this.errorMsg = 'Échec du chargement des statistiques.';
         this.loading = false;
       }
     });

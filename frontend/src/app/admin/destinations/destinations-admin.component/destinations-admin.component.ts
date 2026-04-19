@@ -57,7 +57,7 @@ export class DestinationsAdminComponent implements OnInit {
         this.isLoading = false;
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Failed to load destinations.';
+        this.errorMessage = err?.error?.message || 'Échec du chargement des destinations.';
         this.isLoading = false;
       }
     });
@@ -87,7 +87,7 @@ export class DestinationsAdminComponent implements OnInit {
 
   onSave(): void {
     if (!this.form.countryName.trim()) {
-      this.errorMessage = 'Country name is required.';
+      this.errorMessage = 'Le nom du pays est obligatoire.';
       return;
     }
 
@@ -97,26 +97,26 @@ export class DestinationsAdminComponent implements OnInit {
     if (this.viewMode === 'create') {
       this.destinationService.create(this.form).subscribe({
         next: (res) => {
-          this.successMessage = res.message || 'Destination created!';
+          this.successMessage = res.message || 'Destination créée !';
           this.isSaving = false;
           this.loadDestinations();
           setTimeout(() => this.showList(), 1200);
         },
         error: (err: { error?: { message?: string } }) => {
-          this.errorMessage = err?.error?.message || 'Failed to create destination.';
+          this.errorMessage = err?.error?.message || 'Échec de la création de la destination.';
           this.isSaving = false;
         }
       });
     } else if (this.viewMode === 'edit' && this.selectedDestination?.id) {
       this.destinationService.update(this.selectedDestination.id, this.form).subscribe({
         next: (res) => {
-          this.successMessage = res.message || 'Destination updated!';
+          this.successMessage = res.message || 'Destination mise à jour !';
           this.isSaving = false;
           this.loadDestinations();
           setTimeout(() => this.showList(), 1200);
         },
         error: (err: { error?: { message?: string } }) => {
-          this.errorMessage = err?.error?.message || 'Failed to update destination.';
+          this.errorMessage = err?.error?.message || 'Échec de la mise à jour de la destination.';
           this.isSaving = false;
         }
       });
@@ -138,11 +138,11 @@ export class DestinationsAdminComponent implements OnInit {
         this.destinations = this.destinations.filter(d => d.id !== id);
         this.deleteConfirmId = null;
         this.isDeleting = false;
-        this.successMessage = 'Destination deleted successfully.';
+        this.successMessage = 'Destination supprimée avec succès.';
         setTimeout(() => this.successMessage = '', 3000);
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Failed to delete destination.';
+        this.errorMessage = err?.error?.message || 'Échec de la suppression de la destination.';
         this.isDeleting = false;
         this.deleteConfirmId = null;
       }

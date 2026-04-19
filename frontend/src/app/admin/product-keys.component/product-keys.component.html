@@ -4,9 +4,9 @@
   <div class="pk-header">
     <h2>
       <i class="fa-solid fa-key header-icon"></i>
-      Product Key Management
+      Gestion des clés de produit
     </h2>
-    <p>Generate contract registration keys and manage available keys.</p>
+    <p>Générer des clés d'enregistrement de contrat et gérer les clés disponibles.</p>
   </div>
 
   <!-- Create Section -->
@@ -15,21 +15,21 @@
     <div class="pk-card-header">
       <h3>
         <i class="fa-solid fa-plus-circle"></i>
-        Generate New Keys
+        Générer de nouvelles clés
       </h3>
     </div>
 
     <!-- FORM ROW -->
     <div class="pk-form-row">
       <div class="input-group">
-        <label for="quantity">Number of keys</label>
+        <label for="quantity">Nombre de clés</label>
         <input
           id="quantity"
           type="number"
           [(ngModel)]="quantity"
           min="1"
           max="100"
-          placeholder="e.g. 5"
+          placeholder="ex: 5"
         />
       </div>
 
@@ -38,7 +38,7 @@
         (click)="createKeys()"
         [disabled]="creating || quantity < 1">
         <i class="fa-solid fa-bolt"></i>
-        {{ creating ? 'Generating...' : 'Generate' }}
+        {{ creating ? 'Génération...' : 'Générer' }}
       </button>
     </div>
 
@@ -56,14 +56,14 @@
     <div *ngIf="newlyCreatedKeys.length > 0" class="pk-new-keys">
       <h4>
         <i class="fa-solid fa-copy"></i>
-        Newly Created Keys
+        Clés nouvellement créées
       </h4>
 
       <div class="pk-key-row" *ngFor="let key of newlyCreatedKeys">
         <span class="key-value">{{ key.keyValue }}</span>
         <button class="btn-copy" (click)="copyKey(key.keyValue)">
           <i class="fa-solid fa-copy"></i>
-          Copy
+          Copier
         </button>
       </div>
     </div>
@@ -75,18 +75,18 @@
     <div class="pk-table-header">
       <h3>
         <i class="fa-solid fa-database"></i>
-        Available Keys
+        Clés disponibles
       </h3>
 
       <button class="btn-refresh" (click)="loadAvailableKeys()">
         <i class="fa-solid fa-rotate-right"></i>
-        Refresh
+        Actualiser
       </button>
     </div>
 
     <p *ngIf="loading" class="loading-msg">
       <i class="fa-solid fa-spinner fa-spin"></i>
-      Loading...
+      Chargement...
     </p>
 
     <table *ngIf="!loading && availableKeys.length > 0" class="pk-table">
@@ -95,11 +95,11 @@
           <th>#</th>
           <th>
             <i class="fa-solid fa-key"></i>
-            Key Value
+            Valeur de la clé
           </th>
           <th>
             <i class="fa-solid fa-circle-check"></i>
-            Status
+            Statut
           </th>
           <th>
             <i class="fa-solid fa-copy"></i>
@@ -114,13 +114,13 @@
           <td class="key-value">{{ key.keyValue }}</td>
           <td>
             <span class="badge-available">
-              Available
+              Disponible
             </span>
           </td>
           <td>
             <button class="btn-copy" (click)="copyKey(key.keyValue)">
               <i class="fa-solid fa-copy"></i>
-              Copy
+              Copier
             </button>
           </td>
         </tr>
@@ -129,7 +129,7 @@
 
     <p *ngIf="!loading && availableKeys.length === 0" class="empty-msg">
       <i class="fa-solid fa-database"></i>
-      No available keys found.
+      Aucune clé disponible trouvée.
     </p>
 
   </div>

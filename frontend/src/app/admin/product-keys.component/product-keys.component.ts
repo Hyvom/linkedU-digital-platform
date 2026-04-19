@@ -36,7 +36,7 @@ export class ProductKeysComponent implements OnInit {
         this.loading = false;
       },
       error: (err) => {
-        this.errorMsg = 'Failed to load product keys.';
+        this.errorMsg = 'Échec du chargement des clés de produit.';
         this.loading = false;
       }
     });
@@ -52,12 +52,12 @@ export class ProductKeysComponent implements OnInit {
     this.adminService.createProductKeys(this.quantity).subscribe({
       next: (keys) => {
         this.newlyCreatedKeys = keys;
-        this.successMsg = `${keys.length} key(s) created successfully.`;
+        this.successMsg = `${keys.length} clé(s) créée(s) avec succès.`;
         this.creating = false;
         this.loadAvailableKeys();
       },
       error: (err) => {
-        this.errorMsg = 'Failed to create product keys.';
+        this.errorMsg = 'Échec de la création des clés de produit.';
         this.creating = false;
       }
     });

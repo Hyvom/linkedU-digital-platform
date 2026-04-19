@@ -4,7 +4,7 @@
     <div class="loading-spinner"></div>
     <p>
       <i class="fa-solid fa-spinner fa-spin"></i>
-      Loading profile...
+      Chargement du profil...
     </p>
   </div>
 
@@ -24,7 +24,7 @@
             class="avatar-initials">{{ getInitials() }}</span>
         </div>
 
-        <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar" title="Change avatar">
+        <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar" title="Changer l'avatar">
           <input type="file" accept="image/*" (change)="onAvatarSelected($event)"
             [disabled]="isUploadingAvatar" style="display:none" />
           <i *ngIf="!isUploadingAvatar" class="fa-solid fa-camera"></i>
@@ -55,35 +55,35 @@
         <div class="stat-item">
           <span class="stat-label">
             <i class="fa-regular fa-calendar"></i>
-            Member Since
+            Membre depuis
           </span>
           <span class="stat-value">2024</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">
             <i class="fa-solid fa-tag"></i>
-            Role
+            Rôle
           </span>
           <span class="stat-value">{{ userRole }}</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">
             <i class="fa-solid fa-check-circle"></i>
-            Profile
+            Profil
           </span>
           <span class="stat-value" [class.text-green]="hasProfile" [class.text-gray]="!hasProfile">
-            {{ hasProfile ? 'Complete' : 'Incomplete' }}
+            {{ hasProfile ? 'Complet' : 'Incomplet' }}
           </span>
         </div>
       </div>
 
       <button *ngIf="!isEditing" (click)="startEditing()" class="edit-btn">
         <i class="fa-solid fa-pen"></i>
-        {{ hasProfile ? 'Edit Profile' : 'Create Profile' }}
+        {{ hasProfile ? 'Modifier le profil' : 'Créer le profil' }}
       </button>
       <button *ngIf="isEditing" (click)="cancelEditing()" class="cancel-btn">
         <i class="fa-solid fa-times"></i>
-        Cancel
+        Annuler
       </button>
     </div>
 
@@ -105,8 +105,8 @@
           <div class="no-profile-icon">
             <i class="fa-solid fa-user"></i>
           </div>
-          <h3>No profile yet</h3>
-          <p>Click "Create Profile" to set up your agent profile.</p>
+          <h3>Aucun profil pour le moment</h3>
+          <p>Cliquez sur "Créer le profil" pour configurer votre profil d'agent.</p>
         </div>
 
         <div *ngIf="hasProfile">
@@ -115,22 +115,22 @@
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-address-card"></i>
-              About
+              À propos
             </h3>
-            <p class="bio-text">{{ profile?.bio || 'No bio added yet.' }}</p>
+            <p class="bio-text">{{ profile?.bio || 'Aucune bio ajoutée pour le moment.' }}</p>
           </div>
 
           <!-- Contact & Status -->
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-phone"></i>
-              Contact & Status
+              Contact et Statut
             </h3>
             <div class="info-grid">
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-solid fa-circle"></i>
-                  Status
+                  Statut
                 </span>
                 <span class="info-value">
                   <span class="status-dot" [ngClass]="getStatusClass()"></span>
@@ -140,35 +140,35 @@
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-regular fa-clock"></i>
-                  Availability
+                  Disponibilité
                 </span>
                 <span class="info-value">{{ profile?.availabilityTime || '—' }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-solid fa-location-dot"></i>
-                  Address
+                  Adresse
                 </span>
                 <span class="info-value">{{ profile?.address || '—' }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-solid fa-phone"></i>
-                  Phone
+                  Téléphone
                 </span>
                 <span class="info-value">{{ profile?.phoneNumber || '—' }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-solid fa-user"></i>
-                  Contact Name
+                  Nom de contact
                 </span>
                 <span class="info-value">{{ profile?.contactName || '—' }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">
                   <i class="fa-solid fa-envelope"></i>
-                  Contact Email
+                  Email de contact
                 </span>
                 <span class="info-value">{{ profile?.email || '—' }}</span>
               </div>
@@ -182,7 +182,7 @@
       <div *ngIf="isEditing">
         <h3 class="form-title">
           <i class="fa-solid fa-pen"></i>
-          {{ hasProfile ? 'Update Profile' : 'Create Profile' }}
+          {{ hasProfile ? 'Mettre à jour le profil' : 'Créer le profil' }}
         </h3>
 
         <form class="profile-form" (ngSubmit)="onSave()">
@@ -194,7 +194,7 @@
               Bio
             </label>
             <textarea name="bio" [(ngModel)]="form.bio" rows="3"
-              placeholder="Tell us about yourself..."
+              placeholder="Dites-nous en plus sur vous..."
               class="form-input form-textarea"></textarea>
           </div>
 
@@ -202,7 +202,7 @@
           <div class="form-group">
             <label class="form-label">
               <i class="fa-regular fa-calendar"></i>
-              Date of Birth
+              Date de naissance
             </label>
             <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth"
               class="form-input" />
@@ -213,21 +213,21 @@
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-circle"></i>
-                Online Status
+                Statut en ligne
               </label>
               <select name="onlineStatus" [(ngModel)]="form.onlineStatus"
                 class="form-input form-select">
-                <option [ngValue]="undefined">— Select —</option>
+                <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let s of onlineStatusOptions" [value]="s">{{ s }}</option>
               </select>
             </div>
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-regular fa-clock"></i>
-                Availability Time
+                Disponibilité horaire
               </label>
               <input type="text" name="availabilityTime" [(ngModel)]="form.availabilityTime"
-                placeholder="e.g. Mon–Fri 9AM–6PM" class="form-input" />
+                placeholder="ex: Lun–Ven 9h–18h" class="form-input" />
             </div>
           </div>
 
@@ -236,18 +236,18 @@
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-location-dot"></i>
-                Address
+                Adresse
               </label>
               <input type="text" name="address" [(ngModel)]="form.address"
-                placeholder="e.g. 12 Rue de Paris, Tunis" class="form-input" />
+                placeholder="ex: 12 Rue de Paris, Tunis" class="form-input" />
             </div>
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-phone"></i>
-                Phone Number
+                Numéro de téléphone
               </label>
               <input type="text" name="phoneNumber" [(ngModel)]="form.phoneNumber"
-                placeholder="e.g. +216 XX XXX XXX" class="form-input" />
+                placeholder="ex: +216 XX XXX XXX" class="form-input" />
             </div>
           </div>
 
@@ -256,18 +256,18 @@
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-user"></i>
-                Contact Name
+                Nom de contact
               </label>
               <input type="text" name="contactName" [(ngModel)]="form.contactName"
-                placeholder="e.g. John Doe" class="form-input" />
+                placeholder="ex: Jean Dupont" class="form-input" />
             </div>
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-envelope"></i>
-                Contact Email
+                Email de contact
               </label>
               <input type="email" name="email" [(ngModel)]="form.email"
-                placeholder="e.g. agent@company.com" class="form-input" />
+                placeholder="ex: agent@societe.com" class="form-input" />
             </div>
           </div>
 
@@ -275,12 +275,12 @@
           <div class="form-actions">
             <button type="button" (click)="cancelEditing()" class="cancel-btn">
               <i class="fa-solid fa-times"></i>
-              Cancel
+              Annuler
             </button>
             <button type="submit" [disabled]="isSaving" class="save-btn">
               <i *ngIf="!isSaving" class="fa-solid fa-save"></i>
               <i *ngIf="isSaving" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isSaving ? 'Saving...' : hasProfile ? 'Update Profile' : 'Create Profile' }}
+              {{ isSaving ? 'Enregistrement...' : hasProfile ? 'Mettre à jour le profil' : 'Créer le profil' }}
             </button>
           </div>
 

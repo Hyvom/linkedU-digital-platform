@@ -166,13 +166,13 @@ export class ProfileComponent implements OnInit {
 
     action.subscribe({
       next: (res) => {
-        this.successMessage = res.message || 'Profile saved successfully!';
+        this.successMessage = res.message || 'Profil enregistré avec succès !';
         this.isSaving = false;
         this.isEditing = false;
         this.loadProfile(false);
       },
       error: (err: { error?: { error?: string } }) => {
-        this.errorMessage = err?.error?.error || 'Failed to save profile.';
+        this.errorMessage = err?.error?.error || 'Échec de l\'enregistrement du profil.';
         this.isSaving = false;
       }
     });
@@ -215,12 +215,12 @@ export class ProfileComponent implements OnInit {
     const file = input.files[0];
 
     if (!file.type.startsWith('image/')) {
-      this.errorMessage = 'Please select a valid image file.';
+      this.errorMessage = 'Veuillez sélectionner un fichier image valide.';
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      this.errorMessage = 'Image must be less than 5MB.';
+      this.errorMessage = 'L\'image doit peser moins de 5 Mo.';
       return;
     }
 
@@ -235,7 +235,7 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.uploadAvatar(file).subscribe({
       next: (res) => {
-        this.successMessage = 'Avatar updated successfully!';
+        this.successMessage = 'Avatar mis à jour avec succès !';
         this.isUploadingAvatar = false;
         if (this.profile) {
           this.profile.avatar = res.avatarUrl;
@@ -243,7 +243,7 @@ export class ProfileComponent implements OnInit {
         this.loadProfile(false);
       },
       error: (err: { error?: { error?: string } }) => {
-        this.errorMessage = err?.error?.error || 'Failed to upload avatar.';
+        this.errorMessage = err?.error?.error || 'Échec du téléchargement de l\'avatar.';
         this.isUploadingAvatar = false;
         this.avatarPreview = null;
       }

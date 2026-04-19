@@ -206,8 +206,8 @@ export class ChatComponent implements OnInit, OnDestroy, AfterViewChecked {
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
 
-    if (date.toDateString() === today.toDateString()) return 'Today';
-    if (date.toDateString() === yesterday.toDateString()) return 'Yesterday';
+    if (date.toDateString() === today.toDateString()) return "Aujourd'hui";
+    if (date.toDateString() === yesterday.toDateString()) return 'Hier';
     return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
   }
 

@@ -66,9 +66,9 @@ export class SignupComponent {
   get passwordStrength(): string {
     const len = this.currentPassword.length;
     if (len === 0) return '';
-    if (len < 6) return 'Weak';
-    if (len < 9) return 'Medium';
-    return 'Strong';
+    if (len < 6) return 'Faible';
+    if (len < 9) return 'Moyen';
+    return 'Fort';
   }
 
   get passwordStrengthClass(): string {
@@ -86,36 +86,36 @@ export class SignupComponent {
     if (this.registrationType === 'guest') {
       const f = this.guestForm;
       if (!f.username || !f.firstName || !f.lastName || !f.email || !f.password || !f.phoneNumber || !f.birthDate) {
-        this.errorMessage = 'Please fill all required fields.';
+        this.errorMessage = 'Veuillez remplir tous les champs obligatoires.';
         this.isSubmitting = false;
         return;
       }
       this.authService.registerGuest(f).subscribe({
         next: (res) => {
-          this.successMessage = res.message || 'Account created! Please check your email to verify your account.';
+          this.successMessage = res.message || 'Compte créé ! Veuillez vérifier votre e-mail pour valider votre compte.';
           this.isSubmitting = false;
           setTimeout(() => this.router.navigateByUrl('/login'), 3000);
         },
         error: (err: { error?: { message?: string } }) => {
-          this.errorMessage = err?.error?.message || 'Registration failed. Please try again.';
+          this.errorMessage = err?.error?.message || "Échec de l'inscription. Veuillez réessayer.";
           this.isSubmitting = false;
         }
       });
     } else {
       const f = this.contractForm;
       if (!f.username || !f.firstName || !f.lastName || !f.email || !f.password || !f.phoneNumber || !f.birthDate || !f.productKey) {
-        this.errorMessage = 'Please fill all required fields including product key.';
+        this.errorMessage = 'Veuillez remplir tous les champs obligatoires, y compris la clé produit.';
         this.isSubmitting = false;
         return;
       }
       this.authService.registerContract(f).subscribe({
         next: (res) => {
-          this.successMessage = res.message || 'Account created! Please check your email to verify your account.';
+          this.successMessage = res.message || 'Compte créé ! Veuillez vérifier votre e-mail pour valider votre compte.';
           this.isSubmitting = false;
           setTimeout(() => this.router.navigateByUrl('/login'), 3000);
         },
         error: (err: { error?: { message?: string } }) => {
-          this.errorMessage = err?.error?.message || 'Registration failed. Invalid product key or existing account.';
+          this.errorMessage = err?.error?.message || "Échec de l'inscription. Clé produit invalide ou compte déjà existant.";
           this.isSubmitting = false;
         }
       });

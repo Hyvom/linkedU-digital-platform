@@ -28,7 +28,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (!this.form.identifier || !this.form.password) {
-      this.errorMessage = 'Please fill all fields.';
+      this.errorMessage = 'Veuillez remplir tous les champs.';
       return;
     }
 
@@ -57,7 +57,7 @@ export class LoginComponent {
         }
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Invalid credentials.';
+        this.errorMessage = err?.error?.message || 'Identifiants invalides.';
         this.isSubmitting = false;
       }
     });

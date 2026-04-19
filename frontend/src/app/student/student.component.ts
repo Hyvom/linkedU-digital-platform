@@ -238,10 +238,10 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   initRecommendationForm(): void {
     // Set sensible default values first, ensuring they are never empty
     this.recommendationForm = {
-      country: 'Any', // Default country
-      major: 'Any Field', // Default major
-      language: 'English', // Default language
-      skills: 'Problem Solving, Communication, Teamwork', // Default skills
+      country: 'N\'importe lequel', // Default country
+      major: 'N\'importe quel domaine', // Default major
+      language: 'Français', // Default language
+      skills: 'Résolution de problèmes, Communication, Travail d\'équipe', // Default skills
       moyenne: 15 // Default average grade (e.g., out of 20), ensuring it's a number
     };
 
@@ -293,7 +293,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.isLoadingQuizzes = false;
-        this.quizError = 'Failed to load assigned quizzes.';
+        this.quizError = 'Échec du chargement des quiz assignés.';
       }
     });
   }
@@ -313,7 +313,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.selectedQuizQuestions = [];
-        this.quizError = 'Could not load quiz questions.';
+        this.quizError = 'Impossible de charger les questions du quiz.';
       }
     });
   }
@@ -332,14 +332,14 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       const end = this.getQuizEndTime(quiz).getTime();
 
       if (now < start) {
-        this.remainingTime = 'Starting Soon';
+        this.remainingTime = 'Commence bientôt';
       } else if (now >= end) {
-        this.remainingTime = 'EXPIRED';
+        this.remainingTime = 'EXPIRÉ';
         clearInterval(this.quizTimer);
         if (!this.quizResult && !this.submittingQuiz) {
           const endedAt = this.getQuizEndTime(quiz);
-          const endedAtText = endedAt.getTime() > 0 ? endedAt.toLocaleString() : 'the deadline';
-          this.timeExpiredMessage = `Time ended at ${endedAtText}. Your quiz is being submitted automatically.`;
+          const endedAtText = endedAt.getTime() > 0 ? endedAt.toLocaleString() : 'la date limite';
+          this.timeExpiredMessage = `Le temps s'est terminé à ${endedAtText}. Votre quiz est soumis automatiquement.`;
           this.submitQuiz(true);
           alert(this.timeExpiredMessage);
         }
@@ -400,7 +400,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
   enterReviewMode(): void {
     if (!this.canSubmitQuiz()) {
-      this.quizError = 'Please answer all questions before reviewing.';
+      this.quizError = 'Veuillez répondre à toutes les questions avant de réviser.';
       return;
     }
     this.quizError = '';
@@ -413,7 +413,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
   submitQuiz(isAuto = false): void {
     if (!this.selectedQuiz || (!isAuto && !this.canSubmitQuiz())) {
-      this.quizError = 'Please answer all questions before submitting.';
+      this.quizError = 'Veuillez répondre à toutes les questions avant de soumettre.';
       return;
     }
 
@@ -438,7 +438,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.submittingQuiz = false;
-        this.quizError = 'Quiz submission failed.';
+        this.quizError = 'Échec de la soumission du quiz.';
       }
     });
   }
@@ -505,7 +505,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   }
 
   uploadCv(): void {
-    if (!this.cvFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.cvFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -515,14 +515,14 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.cvForm.summary, this.cvForm.experience, this.cvForm.skills
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'CV uploaded successfully!';
+        this.uploadSuccess = 'CV téléchargé avec succès !';
         this.isUploading = false;
         this.cvFile = null;
         this.cvForm = { summary: '', experience: '', skills: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
@@ -540,7 +540,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.isAnalyzingCv = false;
     },
     error: (err: { error?: { error?: string } }) => {
-      this.analysisError = err?.error?.error || 'CV analysis failed. Make sure your CV is a text-based PDF.';
+      this.analysisError = err?.error?.error || 'L\'analyse du CV a échoué. Assurez-vous que votre CV est un PDF textuel.';
       this.isAnalyzingCv = false;
     }
     });
@@ -555,9 +555,9 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
   getScoreLabel(score: number): string {
     if (score >= 80) return 'Excellent';
-    if (score >= 60) return 'Good';
-    if (score >= 40) return 'Needs Improvement';
-    return 'Poor';
+    if (score >= 60) return 'Bon';
+    if (score >= 40) return 'À améliorer';
+    return 'Médiocre';
   }
 
   parseList(text: string): string[] {
@@ -568,7 +568,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   
 
   uploadPassport(): void {
-    if (!this.passportFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.passportFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -577,21 +577,21 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.passportForm.issueDate, this.passportForm.expiryDate, this.passportForm.issuingCountry
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'Passport uploaded successfully!';
+        this.uploadSuccess = 'Passeport téléchargé avec succès !';
         this.isUploading = false;
         this.passportFile = null;
         this.passportForm = { issueDate: '', expiryDate: '', issuingCountry: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
   }
 
   uploadIdCard(): void {
-    if (!this.idCardFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.idCardFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -600,21 +600,21 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.idCardForm.numId, this.idCardForm.birthday
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'ID Card uploaded successfully!';
+        this.uploadSuccess = 'Carte d\'identité téléchargée avec succès !';
         this.isUploading = false;
         this.idCardFile = null;
         this.idCardForm = { numId: '', birthday: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
   }
   
   uploadDiploma(): void {
-    if (!this.diplomaFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.diplomaFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -624,21 +624,21 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.diplomaForm.graduationYear, this.diplomaForm.fieldOfStudy
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'Diploma uploaded successfully!';
+        this.uploadSuccess = 'Diplôme téléchargé avec succès !';
         this.isUploading = false;
         this.diplomaFile = null;
         this.diplomaForm = { degree: '', institution: '', graduationYear: '', fieldOfStudy: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
   }
 
   uploadTranscript(): void {
-    if (!this.transcriptFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.transcriptFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -647,21 +647,21 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.transcriptForm.institution, this.transcriptForm.academicYear, this.transcriptForm.average
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'Transcript uploaded successfully!';
+        this.uploadSuccess = 'Relevé de notes téléchargé avec succès !';
         this.isUploading = false;
         this.transcriptFile = null;
         this.transcriptForm = { institution: '', academicYear: '', average: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
   }
 
   uploadCoverLetter(): void {
-    if (!this.coverLetterFile) { this.uploadError = 'Please select a file.'; return; }
+    if (!this.coverLetterFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
@@ -670,14 +670,14 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.coverLetterForm.targetUniversity, this.coverLetterForm.targetProgram, this.coverLetterForm.content
     ).subscribe({
       next: () => {
-        this.uploadSuccess = 'Cover letter uploaded successfully!';
+        this.uploadSuccess = 'Lettre de motivation téléchargée avec succès !';
         this.isUploading = false;
         this.coverLetterFile = null;
         this.coverLetterForm = { targetUniversity: '', targetProgram: '', content: '' };
         this.loadDocuments();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.uploadError = err?.error?.message || 'Upload failed.';
+        this.uploadError = err?.error?.message || 'Échec du téléchargement.';
         this.isUploading = false;
       }
     });
@@ -713,9 +713,9 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   }
 
   getStatusLabel(status: string): string {
-    if (status === 'APPROVED') return 'Approved';
-    if (status === 'REJECTED') return 'Rejected';
-    return 'Pending';
+    if (status === 'APPROVED') return 'Approuvé';
+    if (status === 'REJECTED') return 'Rejeté';
+    return 'En attente';
   }
 
   // ── Progress ──

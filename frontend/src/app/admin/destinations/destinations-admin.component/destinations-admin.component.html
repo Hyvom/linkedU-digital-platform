@@ -10,18 +10,18 @@
       <div *ngIf="viewMode !== 'list'" class="breadcrumb">
         <button (click)="showList()" class="back-btn">
           <i class="fa-solid fa-arrow-left"></i>
-          Back
+          Retour
         </button>
         <h2>
           <i *ngIf="viewMode === 'create'" class="fa-solid fa-plus-circle"></i>
           <i *ngIf="viewMode === 'edit'" class="fa-solid fa-pen"></i>
-          {{ viewMode === 'create' ? 'New Destination' : 'Edit Destination' }}
+          {{ viewMode === 'create' ? 'Nouvelle destination' : 'Modifier la destination' }}
         </h2>
       </div>
     </div>
     <button *ngIf="viewMode === 'list'" (click)="showCreate()" class="primary-btn">
       <i class="fa-solid fa-plus"></i>
-      Add Destination
+      Ajouter une destination
     </button>
   </div>
 
@@ -43,7 +43,7 @@
       <div class="spinner"></div>
       <p>
         <i class="fa-solid fa-spinner fa-spin"></i>
-        Loading destinations...
+        Chargement des destinations...
       </p>
     </div>
 
@@ -52,8 +52,8 @@
       <div class="empty-icon">
         <i class="fa-solid fa-globe"></i>
       </div>
-      <h3>No destinations yet</h3>
-      <p>Click "Add Destination" to create your first one.</p>
+      <h3>Aucune destination pour le moment</h3>
+      <p>Cliquez sur "Ajouter une destination" pour créer votre première.</p>
     </div>
 
     <!-- Grid -->
@@ -62,15 +62,15 @@
 
         <!-- Delete confirm overlay -->
         <div *ngIf="deleteConfirmId === dest.id" class="delete-confirm">
-          <p>Delete <strong>{{ dest.countryName }}</strong>?</p>
+          <p>Supprimer <strong>{{ dest.countryName }}</strong> ?</p>
           <div class="delete-actions">
             <button (click)="cancelDelete()" class="cancel-btn">
               <i class="fa-solid fa-times"></i>
-              Cancel
+              Annuler
             </button>
             <button (click)="onDelete(dest.id!)" [disabled]="isDeleting" class="danger-btn">
               <i class="fa-solid fa-trash"></i>
-              {{ isDeleting ? 'Deleting...' : 'Delete' }}
+              {{ isDeleting ? 'Suppression...' : 'Supprimer' }}
             </button>
           </div>
         </div>
@@ -81,10 +81,10 @@
             <i class="fa-solid fa-flag-checkered"></i>
           </div>
           <div class="dest-card-actions">
-            <button (click)="showEdit(dest)" class="icon-btn edit-icon" title="Edit">
+            <button (click)="showEdit(dest)" class="icon-btn edit-icon" title="Modifier">
               <i class="fa-solid fa-pen"></i>
             </button>
-            <button (click)="confirmDelete(dest.id!)" class="icon-btn delete-icon" title="Delete">
+            <button (click)="confirmDelete(dest.id!)" class="icon-btn delete-icon" title="Supprimer">
               <i class="fa-solid fa-trash"></i>
             </button>
           </div>
@@ -96,11 +96,11 @@
         <div class="dest-stats">
           <span class="stat-chip">
             <i class="fa-solid fa-building-columns"></i>
-            {{ getUniversitiesCount(dest.universities) }} Universities
+            {{ getUniversitiesCount(dest.universities) }} Universités
           </span>
           <span class="stat-chip">
             <i class="fa-solid fa-tag"></i>
-            {{ getOffersCount(dest.offers) }} Offers
+            {{ getOffersCount(dest.offers) }} Offres
           </span>
         </div>
 
@@ -116,20 +116,20 @@
       <div class="form-group">
         <label class="form-label">
           <i class="fa-solid fa-location-dot"></i>
-          Country Name *
+          Nom du pays *
         </label>
         <input type="text" name="countryName" [(ngModel)]="form.countryName"
-          placeholder="e.g. France" required class="form-input" />
+          placeholder="ex: France" required class="form-input" />
       </div>
 
       <!-- Description -->
       <div class="form-group">
         <label class="form-label">
           <i class="fa-solid fa-align-left"></i>
-          Short Description
+          Description courte
         </label>
         <input type="text" name="description" [(ngModel)]="form.description"
-          placeholder="A brief one-line description..."
+          placeholder="Une brève description d'une ligne..."
           class="form-input" />
       </div>
 
@@ -137,10 +137,10 @@
       <div class="form-group">
         <label class="form-label">
           <i class="fa-solid fa-paragraph"></i>
-          Full Paragraph
+          Paragraphe complet
         </label>
         <textarea name="paragraph" [(ngModel)]="form.paragraph" rows="5"
-          placeholder="Detailed description about studying in this country..."
+          placeholder="Description détaillée sur les études dans ce pays..."
           class="form-input form-textarea"></textarea>
       </div>
 
@@ -149,21 +149,21 @@
         <div class="form-group">
           <label class="form-label">
             <i class="fa-solid fa-tags"></i>
-            Offers
+            Offres
           </label>
-          <p class="form-hint">One offer per line</p>
+          <p class="form-hint">Une offre par ligne</p>
           <textarea name="offers" [(ngModel)]="form.offers" rows="6"
-            placeholder="Scholarship programs&#10;Language courses&#10;Work permits"
+            placeholder="Programmes de bourses&#10;Cours de langue&#10;Permis de travail"
             class="form-input form-textarea"></textarea>
         </div>
         <div class="form-group">
           <label class="form-label">
             <i class="fa-solid fa-building-columns"></i>
-            Universities
+            Universités
           </label>
-          <p class="form-hint">One university per line</p>
+          <p class="form-hint">Une université par ligne</p>
           <textarea name="universities" [(ngModel)]="form.universities" rows="6"
-            placeholder="University of Paris&#10;Sorbonne University&#10;Sciences Po"
+            placeholder="Université de Paris&#10;Sorbonne Université&#10;Sciences Po"
             class="form-input form-textarea"></textarea>
         </div>
       </div>
@@ -172,14 +172,14 @@
       <div class="form-actions">
         <button type="button" (click)="showList()" class="cancel-btn">
           <i class="fa-solid fa-times"></i>
-          Cancel
+          Annuler
         </button>
         <button type="submit" [disabled]="isSaving" class="primary-btn">
           <i *ngIf="!isSaving && viewMode === 'create'" class="fa-solid fa-plus"></i>
           <i *ngIf="!isSaving && viewMode === 'edit'" class="fa-solid fa-save"></i>
           <i *ngIf="isSaving" class="fa-solid fa-spinner fa-spin"></i>
-          <span *ngIf="!isSaving">{{ viewMode === 'create' ? 'Create Destination' : 'Save Changes' }}</span>
-          <span *ngIf="isSaving">Saving...</span>
+          <span *ngIf="!isSaving">{{ viewMode === 'create' ? 'Créer la destination' : 'Enregistrer les modifications' }}</span>
+          <span *ngIf="isSaving">Enregistrement...</span>
         </button>
       </div>
 

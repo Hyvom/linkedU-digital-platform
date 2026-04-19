@@ -37,9 +37,9 @@ export class GuestSignupComponent {
   get passwordStrength(): string {
     const len = this.form.password.length;
     if (len === 0) return '';
-    if (len < 6) return 'Weak';
-    if (len < 9) return 'Medium';
-    return 'Strong';
+    if (len < 6) return 'Faible';
+    if (len < 9) return 'Moyen';
+    return 'Fort';
   }
 
   get passwordsMatch(): boolean {
@@ -59,7 +59,7 @@ export class GuestSignupComponent {
 
     if (!this.form.username || !this.form.firstName || !this.form.lastName ||
         !this.form.email || !this.form.password || !this.form.phoneNumber || !this.form.birthDate) {
-      this.errorMessage = 'Please fill all required fields.';
+      this.errorMessage = 'Veuillez remplir tous les champs obligatoires.';
       return;
     }
 
@@ -67,12 +67,12 @@ export class GuestSignupComponent {
 
     this.authService.registerGuest(this.form).subscribe({
       next: (res) => {
-        this.successMessage = res.message || 'Account created! Please check your email to verify your account.';
+        this.successMessage = res.message || 'Compte créé ! Veuillez vérifier votre e-mail pour valider votre compte.';
         this.isSubmitting = false;
         setTimeout(() => this.router.navigateByUrl('/login'), 3000);
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Registration failed. Please try again.';
+        this.errorMessage = err?.error?.message || "Échec de l'inscription. Veuillez réessayer.";
         this.isSubmitting = false;
       }
     });

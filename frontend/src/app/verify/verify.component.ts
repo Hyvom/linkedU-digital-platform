@@ -30,30 +30,30 @@ export class VerifyComponent implements OnInit {
 
     if (!token) {
       this.state = 'invalid';
-      this.message = 'No verification token found in the URL.';
+      this.message = 'Aucun jeton de vérification trouvé dans l\'URL.';
       return;
     }
 
     this.authService.verifyEmail(token).subscribe({
       next: (res) => {
         this.state = 'success';
-        this.message = res.message || 'Email verified successfully!';
+        this.message = res.message || 'Email vérifié avec succès !';
         this.startCountdown();
       },
       error: (err: { error?: { error?: string } }) => {
         const errorMsg = err?.error?.error || '';
         if (errorMsg.toLowerCase().includes('already verified')) {
           this.state = 'already_verified';
-          this.message = 'Your email is already verified. You can log in.';
+          this.message = 'Votre e-mail est déjà vérifié. Vous pouvez vous connecter.';
         } else if (errorMsg.toLowerCase().includes('expired')) {
           this.state = 'expired';
-          this.message = 'Your verification link has expired. Please register again.';
+          this.message = 'Votre lien de vérification a expiré. Veuillez vous inscrire à nouveau.';
         } else if (errorMsg.toLowerCase().includes('invalid')) {
           this.state = 'invalid';
-          this.message = 'Invalid verification token.';
+          this.message = 'Jeton de vérification invalide.';
         } else {
           this.state = 'error';
-          this.message = errorMsg || 'Something went wrong. Please try again.';
+          this.message = errorMsg || 'Une erreur est survenue. Veuillez réessayer.';
         }
       }
     });

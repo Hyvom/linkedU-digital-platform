@@ -37,11 +37,11 @@ export class NavbarComponent implements OnInit {
   }
   
   publicLinks: NavLink[] = [
-    { label: 'Home',         path: '/' },
+    { label: 'Accueil',      path: '/' },
     { label: 'Destinations', path: '/destinations' },
     { label: 'Services',     path: '/services' },
     { label: 'Blogs',        path: '/blogs' },
-    { label: 'About Us',     path: '/about-us' },
+    { label: 'À propos',     path: '/about-us' },
   ];
 
   ngOnInit(): void {
@@ -58,27 +58,27 @@ export class NavbarComponent implements OnInit {
   private buildRoleLinks(role: string | null): NavLink[] {
     switch (role) {
       case 'ADMIN':
-        return [{ label: 'Admin Panel', path: '/admin' }];
+        return [{ label: 'Panneau d\'administration', path: '/admin' }];
       case 'AGENT':
         return [
-          { label: 'Agent Panel', path: '/agent' }
+          { label: 'Portail Agent', path: '/agent' }
         ];
       case 'STUDENT':
         return [
-          { label: 'Dashboard',  path: '/student' },
-          { label: 'My Profile', path: '/profile/student' },
-          { label: 'Chat',       path: '/chat' },
-          { label: 'Ticket',     path: '/ticket' }
+          { label: 'Tableau de bord',  path: '/student' },
+          { label: 'Mon Profil',       path: '/profile/student' },
+          { label: 'Messages',         path: '/chat' },
+          { label: 'Tickets',          path: '/ticket' }
         ];
       case 'GUEST':
         return [
-          { label: 'My Profile', path: '/profile/guest' },
-          { label: 'Chat',       path: '/chat' }
+          { label: 'Mon Profil', path: '/profile/guest' },
+          { label: 'Messages',   path: '/chat' }
         ];
       case 'USER':
         return [
-          { label: 'My Profile', path: '/profile' },
-          { label: 'Chat',       path: '/chat' }
+          { label: 'Mon Profil', path: '/profile' },
+          { label: 'Messages',   path: '/chat' }
         ];
       default:
         return [];

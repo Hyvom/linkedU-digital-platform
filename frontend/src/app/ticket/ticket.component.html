@@ -5,22 +5,22 @@
     <div class="header-left">
       <h2 *ngIf="viewMode === 'list'">
         <i class="fa-solid fa-ticket"></i>
-        {{ userRole === 'AGENT' ? 'Student Tickets' : 'My Tickets' }}
+        {{ userRole === 'AGENT' ? 'Tickets Étudiants' : 'Mes Tickets' }}
       </h2>
       <div *ngIf="viewMode === 'create'" class="breadcrumb">
         <button (click)="showList()" class="back-btn">
           <i class="fa-solid fa-arrow-left"></i>
-          Back
+          Retour
         </button>
         <h2>
           <i class="fa-solid fa-pen"></i>
-          Submit New Ticket
+          Soumettre un nouveau ticket
         </h2>
       </div>
     </div>
     <button *ngIf="viewMode === 'list' && userRole !== 'AGENT'" (click)="showCreate()" class="primary-btn">
       <i class="fa-solid fa-plus"></i>
-      New Ticket
+      Nouveau Ticket
     </button>
   </div>
 
@@ -43,8 +43,8 @@
           <i class="fa-solid fa-ticket"></i>
         </div>
         <div>
-          <h3>Submit a Support Ticket</h3>
-          <p>Your assigned agent will be notified and will respond shortly.</p>
+          <h3>Soumettre un ticket d'assistance</h3>
+          <p>Votre agent assigné sera notifié et vous répondra sous peu.</p>
         </div>
       </div>
 
@@ -53,10 +53,10 @@
         <div class="form-group">
           <label class="form-label">
             <i class="fa-solid fa-heading"></i>
-            Subject / Object *
+            Sujet / Objet *
           </label>
           <input type="text" [(ngModel)]="createForm.object" name="object"
-            placeholder="e.g. Visa Application Issue, Document Question..."
+            placeholder="ex: Problème de visa, Question sur un document..."
             class="form-input" required />
         </div>
 
@@ -66,16 +66,16 @@
             Description *
           </label>
           <textarea [(ngModel)]="createForm.description" name="description" rows="5"
-            placeholder="Describe your issue or question in detail..."
+            placeholder="Décrivez votre problème ou votre question en détail..."
             class="form-input form-textarea" required></textarea>
         </div>
 
         <div class="form-group">
           <label class="form-label">
             <i class="fa-regular fa-clock"></i>
-            Your Availability *
+            Votre disponibilité *
           </label>
-          <p class="form-hint">When are you available for a meeting?</p>
+          <p class="form-hint">Quand êtes-vous disponible pour une réunion ?</p>
           <input type="datetime-local" [(ngModel)]="createForm.availabilityDateTime"
             name="availabilityDateTime" class="form-input" required />
         </div>
@@ -83,12 +83,12 @@
         <div class="form-actions">
           <button type="button" (click)="showList()" class="cancel-btn">
             <i class="fa-solid fa-times"></i>
-            Cancel
+            Annuler
           </button>
           <button type="submit" [disabled]="isSubmitting" class="primary-btn">
             <i *ngIf="!isSubmitting" class="fa-solid fa-paper-plane"></i>
             <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin"></i>
-            {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}
+            {{ isSubmitting ? 'Envoi...' : 'Envoyer le ticket' }}
           </button>
         </div>
 
@@ -104,7 +104,7 @@
       <div class="spinner"></div>
       <p>
         <i class="fa-solid fa-spinner fa-spin"></i>
-        Loading tickets...
+        Chargement des tickets...
       </p>
     </div>
 
@@ -113,12 +113,12 @@
       <div class="empty-icon">
         <i class="fa-solid fa-ticket"></i>
       </div>
-      <h3>No tickets yet</h3>
-      <p *ngIf="userRole !== 'AGENT'">Submit a ticket to get support from your agent.</p>
-      <p *ngIf="userRole === 'AGENT'">No pending tickets from your students.</p>
+      <h3>Aucun ticket pour le moment</h3>
+      <p *ngIf="userRole !== 'AGENT'">Soumettez un ticket pour obtenir de l'aide de votre agent.</p>
+      <p *ngIf="userRole === 'AGENT'">Aucun ticket en attente de vos étudiants.</p>
       <button *ngIf="userRole !== 'AGENT'" (click)="showCreate()" class="primary-btn" style="margin-top:1rem">
         <i class="fa-solid fa-plus"></i>
-        Submit Ticket
+        Soumettre un ticket
       </button>
     </div>
 
@@ -154,7 +154,7 @@
 
           <div class="ticket-availability">
             <i class="fa-regular fa-clock"></i>
-            <strong>Availability:</strong> {{ formatDateTime(ticket.availabilityDateTime) }}
+            <strong>Disponibilité :</strong> {{ formatDateTime(ticket.availabilityDateTime) }}
           </div>
         </div>
 
@@ -165,26 +165,26 @@
               <i class="fa-solid fa-check"></i>
             </div>
             <div>
-              <h4>Ticket Accepted!</h4>
-              <p>Your agent has scheduled a meeting with you.</p>
+              <h4>Ticket Accepté !</h4>
+              <p>Votre agent a programmé une réunion avec vous.</p>
             </div>
           </div>
           <div *ngIf="ticket.googleMeetLink" class="meet-details">
             <div class="meet-link-row">
               <span class="meet-label">
                 <i class="fa-solid fa-video"></i>
-                Google Meet Link:
+                Lien Google Meet :
               </span>
               <a [href]="ticket.googleMeetLink" target="_blank" class="meet-link-btn">
                 <i class="fa-solid fa-arrow-right"></i>
-                Join Meeting
+                Rejoindre la réunion
               </a>
             </div>
             <p class="meet-link-text">{{ ticket.googleMeetLink }}</p>
           </div>
           <div class="response-updated">
             <i class="fa-regular fa-clock"></i>
-            Last updated: {{ formatDateTime(ticket.updatedAt) }}
+            Dernière mise à jour : {{ formatDateTime(ticket.updatedAt) }}
           </div>
         </div>
 
@@ -195,20 +195,20 @@
               <i class="fa-solid fa-times"></i>
             </div>
             <div>
-              <h4>Ticket Rejected</h4>
-              <p>Your agent has reviewed and rejected this ticket.</p>
+              <h4>Ticket Rejeté</h4>
+              <p>Votre agent a examiné et rejeté ce ticket.</p>
             </div>
           </div>
           <div *ngIf="ticket.rejectionReason" class="rejection-reason">
             <span class="reason-label">
               <i class="fa-solid fa-info-circle"></i>
-              Reason:
+              Raison :
             </span>
             <p class="reason-text">{{ ticket.rejectionReason }}</p>
           </div>
           <div class="response-updated">
             <i class="fa-regular fa-clock"></i>
-            Last updated: {{ formatDateTime(ticket.updatedAt) }}
+            Dernière mise à jour : {{ formatDateTime(ticket.updatedAt) }}
           </div>
         </div>
 
@@ -219,12 +219,12 @@
           <div *ngIf="acceptingTicketId === ticket.id" class="action-form accept-form">
             <h4>
               <i class="fa-solid fa-check-circle"></i>
-              Accept & Schedule Meeting
+              Accepter et programmer la réunion
             </h4>
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-link"></i>
-                Google Meet Link *
+                Lien Google Meet *
               </label>
               <input type="url" [(ngModel)]="acceptForm.googleMeetLink"
                 placeholder="https://meet.google.com/xxx-xxxx-xxx"
@@ -233,12 +233,12 @@
             <div class="action-form-btns">
               <button (click)="cancelAction()" class="cancel-btn">
                 <i class="fa-solid fa-times"></i>
-                Cancel
+                Annuler
               </button>
               <button (click)="submitAccept(ticket.id)" [disabled]="isSubmitting" class="approve-btn">
                 <i *ngIf="!isSubmitting" class="fa-solid fa-check"></i>
                 <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin"></i>
-                {{ isSubmitting ? 'Sending...' : 'Confirm & Notify Student' }}
+                {{ isSubmitting ? 'Envoi...' : 'Confirmer et notifier l\'étudiant' }}
               </button>
             </div>
           </div>
@@ -247,26 +247,26 @@
           <div *ngIf="rejectingTicketId === ticket.id" class="action-form reject-form">
             <h4>
               <i class="fa-solid fa-times-circle"></i>
-              Reject Ticket
+              Rejeter le ticket
             </h4>
             <div class="form-group">
               <label class="form-label">
                 <i class="fa-solid fa-comment"></i>
-                Rejection Reason *
+                Raison du rejet *
               </label>
               <textarea [(ngModel)]="rejectForm.reason" rows="3"
-                placeholder="Explain why you're rejecting this ticket..."
+                placeholder="Expliquez pourquoi vous rejetez ce ticket..."
                 class="form-input form-textarea"></textarea>
             </div>
             <div class="action-form-btns">
               <button (click)="cancelAction()" class="cancel-btn">
                 <i class="fa-solid fa-times"></i>
-                Cancel
+                Annuler
               </button>
               <button (click)="submitReject(ticket.id)" [disabled]="isSubmitting" class="reject-btn">
                 <i *ngIf="!isSubmitting" class="fa-solid fa-times"></i>
                 <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin"></i>
-                {{ isSubmitting ? 'Rejecting...' : 'Reject Ticket' }}
+                {{ isSubmitting ? 'Rejet...' : 'Rejeter le ticket' }}
               </button>
             </div>
           </div>
@@ -275,22 +275,22 @@
           <div *ngIf="respondingTicketId === ticket.id" class="action-form">
             <h4>
               <i class="fa-solid fa-reply"></i>
-              Add Response
+              Ajouter une réponse
             </h4>
             <div class="form-group">
               <textarea [(ngModel)]="responseText" rows="3"
-                placeholder="Write your response to the student..."
+                placeholder="Écrivez votre réponse à l'étudiant..."
                 class="form-input form-textarea"></textarea>
             </div>
             <div class="action-form-btns">
               <button (click)="cancelAction()" class="cancel-btn">
                 <i class="fa-solid fa-times"></i>
-                Cancel
+                Annuler
               </button>
               <button (click)="submitResponse(ticket.id)" [disabled]="isSubmitting" class="primary-btn">
                 <i *ngIf="!isSubmitting" class="fa-solid fa-paper-plane"></i>
                 <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin"></i>
-                {{ isSubmitting ? 'Sending...' : 'Send Response' }}
+                {{ isSubmitting ? 'Envoi...' : 'Envoyer la réponse' }}
               </button>
             </div>
           </div>
@@ -299,13 +299,13 @@
           <div *ngIf="acceptingTicketId !== ticket.id && rejectingTicketId !== ticket.id && respondingTicketId !== ticket.id"
             class="action-buttons">
             <button (click)="startAccept(ticket.id)" class="approve-btn">
-              <i class="fa-solid fa-check"></i> Accept
+              <i class="fa-solid fa-check"></i> Accepter
             </button>
             <button (click)="startReject(ticket.id)" class="reject-btn">
-              <i class="fa-solid fa-times"></i> Reject
+              <i class="fa-solid fa-times"></i> Rejeter
             </button>
             <button (click)="startResponse(ticket.id)" class="response-btn">
-              <i class="fa-solid fa-reply"></i> Respond
+              <i class="fa-solid fa-reply"></i> Répondre
             </button>
           </div>
 

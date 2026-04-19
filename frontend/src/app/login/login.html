@@ -13,8 +13,8 @@
 
     <!-- HEADER -->
     <div class="signup-header">
-      <h2>Welcome Back!</h2>
-      <p>Sign in to continue your journey</p>
+      <h2>Bon retour !</h2>
+      <p>Connectez-vous pour continuer votre parcours</p>
     </div>
 
     <!-- FORM -->
@@ -22,19 +22,19 @@
 
       <!-- EMAIL -->
       <div class="form-group">
-        <label class="form-label">Email or Username</label>
+        <label class="form-label">Email ou nom d'utilisateur</label>
         <input class="form-input"
           id="email"
           name="email"
           type="text"
           [(ngModel)]="form.identifier"
-          placeholder="you@example.com"
+          placeholder="vous@exemple.com"
           required />
       </div>
 
       <!-- PASSWORD -->
       <div class="form-group">
-        <label class="form-label">Password</label>
+        <label class="form-label">Mot de passe</label>
         <input class="form-input"
           id="password"
           name="password"
@@ -51,13 +51,13 @@
 
       <!-- SUBMIT -->
       <button type="submit" class="submit-btn" [disabled]="isSubmitting">
-        {{ isSubmitting ? 'Signing in...' : 'Login' }}
+        {{ isSubmitting ? 'Connexion en cours...' : 'Se connecter' }}
       </button>
 
       <!-- FOOTER -->
       <div class="signup-footer">
         <br />
-        Don't have an account? <a routerLink="/signup" class="link-yellow">Create account</a>
+        Vous n'avez pas de compte ? <a routerLink="/signup" class="link-yellow">Créer un compte</a>
       </div>
 
     </form>

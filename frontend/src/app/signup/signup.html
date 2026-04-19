@@ -15,9 +15,9 @@
     <!-- Header -->
     <div class="text-center mb-6">
       <h2 class="bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800 mt-4 font-extrabold text-transparent text-3xl">
-        Join LinkedU
+        Rejoignez LinkedU
       </h2>
-      <p class="mt-2 text-gray-600 text-sm">Start your study abroad journey</p>
+      <p class="mt-2 text-gray-600 text-sm">Commencez votre voyage d'études à l'étranger</p>
     </div>
 
     <!-- Tab Switcher -->
@@ -29,7 +29,7 @@
           : 'text-gray-500'"
         class="flex-1 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
         <i class="fa-solid fa-globe mr-2"></i>
-        Guest Registration
+        Inscription Invité
       </button>
       <button type="button"
         (click)="switchType('contract')"
@@ -38,17 +38,17 @@
           : 'text-gray-500'"
         class="flex-1 py-2 rounded-lg text-sm transition-all duration-200 cursor-pointer">
         <i class="fa-solid fa-file-contract mr-2"></i>
-        Contract Registration
+        Inscription par Contrat
       </button>
     </div>
 
     <!-- Description -->
     <p class="text-center text-gray-500 text-xs mb-5">
       <span *ngIf="registrationType === 'guest'">
-        Register as a guest to explore our platform. You'll need to verify your email.
+        Inscrivez-vous en tant qu'invité pour explorer notre plateforme. Vous devrez vérifier votre e-mail.
       </span>
       <span *ngIf="registrationType === 'contract'">
-        Have a product key? Register as a student with full access.
+        Vous avez une clé produit ? Inscrivez-vous en tant qu'étudiant avec un accès complet.
       </span>
     </p>
 
@@ -58,7 +58,7 @@
       <!-- Username -->
       <div class="relative">
         <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="username" [(ngModel)]="guestForm.username" placeholder="Username *" required
+        <input name="username" [(ngModel)]="guestForm.username" placeholder="Nom d'utilisateur *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
@@ -66,12 +66,12 @@
       <div class="gap-3 grid grid-cols-2">
         <div class="relative">
           <i class="fa-solid fa-user-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="firstName" [(ngModel)]="guestForm.firstName" placeholder="First name *" required
+          <input name="firstName" [(ngModel)]="guestForm.firstName" placeholder="Prénom *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
         <div class="relative">
           <i class="fa-solid fa-user-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="lastName" [(ngModel)]="guestForm.lastName" placeholder="Last name *" required
+          <input name="lastName" [(ngModel)]="guestForm.lastName" placeholder="Nom *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
       </div>
@@ -79,7 +79,7 @@
       <!-- Email -->
       <div class="relative">
         <i class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="email" type="email" [(ngModel)]="guestForm.email" placeholder="Email address *" required
+        <input name="email" type="email" [(ngModel)]="guestForm.email" placeholder="Adresse e-mail *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
@@ -87,7 +87,7 @@
       <div class="gap-3 grid grid-cols-2">
         <div class="relative">
           <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="phoneNumber" [(ngModel)]="guestForm.phoneNumber" placeholder="Phone number *" required
+          <input name="phoneNumber" [(ngModel)]="guestForm.phoneNumber" placeholder="Numéro de téléphone *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
         <div class="relative">
@@ -100,21 +100,21 @@
       <!-- Address -->
       <div class="relative">
         <i class="fa-solid fa-location-dot absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="address" [(ngModel)]="guestForm.address" placeholder="Address (optional)"
+        <input name="address" [(ngModel)]="guestForm.address" placeholder="Adresse (optionnelle)"
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
       <!-- Password -->
       <div class="relative">
         <i class="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="password" type="password" [(ngModel)]="guestForm.password" placeholder="Password *" required
+        <input name="password" type="password" [(ngModel)]="guestForm.password" placeholder="Mot de passe *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
       <!-- Password Strength -->
       <p *ngIf="guestForm.password.length > 0" class="text-xs text-gray-500 px-1">
         <i class="fa-solid fa-shield-haltered mr-1"></i>
-        Password strength:
+        Force du mot de passe :
         <span class="font-semibold" [ngClass]="passwordStrengthClass">{{ passwordStrength }}</span>
       </p>
 
@@ -136,7 +136,7 @@
         <span class="relative">
           <i *ngIf="!isSubmitting" class="fa-solid fa-user-plus mr-2"></i>
           <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin mr-2"></i>
-          {{ isSubmitting ? 'Creating account...' : 'Create Guest Account' }}
+          {{ isSubmitting ? 'Création du compte...' : 'Créer un compte invité' }}
         </span>
       </button>
 
@@ -148,7 +148,7 @@
       <!-- Username -->
       <div class="relative">
         <i class="fa-solid fa-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="c_username" [(ngModel)]="contractForm.username" placeholder="Username *" required
+        <input name="c_username" [(ngModel)]="contractForm.username" placeholder="Nom d'utilisateur *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
@@ -156,12 +156,12 @@
       <div class="gap-3 grid grid-cols-2">
         <div class="relative">
           <i class="fa-solid fa-user-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="c_firstName" [(ngModel)]="contractForm.firstName" placeholder="First name *" required
+          <input name="c_firstName" [(ngModel)]="contractForm.firstName" placeholder="Prénom *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
         <div class="relative">
           <i class="fa-solid fa-user-pen absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="c_lastName" [(ngModel)]="contractForm.lastName" placeholder="Last name *" required
+          <input name="c_lastName" [(ngModel)]="contractForm.lastName" placeholder="Nom *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
       </div>
@@ -169,7 +169,7 @@
       <!-- Email -->
       <div class="relative">
         <i class="fa-solid fa-envelope absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="c_email" type="email" [(ngModel)]="contractForm.email" placeholder="Email address *" required
+        <input name="c_email" type="email" [(ngModel)]="contractForm.email" placeholder="Adresse e-mail *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
@@ -177,7 +177,7 @@
       <div class="gap-3 grid grid-cols-2">
         <div class="relative">
           <i class="fa-solid fa-phone absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-          <input name="c_phoneNumber" [(ngModel)]="contractForm.phoneNumber" placeholder="Phone number *" required
+          <input name="c_phoneNumber" [(ngModel)]="contractForm.phoneNumber" placeholder="Numéro de téléphone *" required
             class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
         </div>
         <div class="relative">
@@ -190,33 +190,33 @@
       <!-- Address -->
       <div class="relative">
         <i class="fa-solid fa-location-dot absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="c_address" [(ngModel)]="contractForm.address" placeholder="Address (optional)"
+        <input name="c_address" [(ngModel)]="contractForm.address" placeholder="Adresse (optionnelle)"
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
       <!-- Password -->
       <div class="relative">
         <i class="fa-solid fa-lock absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input name="c_password" type="password" [(ngModel)]="contractForm.password" placeholder="Password *" required
+        <input name="c_password" type="password" [(ngModel)]="contractForm.password" placeholder="Mot de passe *" required
           class="pl-10 py-3 px-4 border-2 border-gray-200 focus:border-blue-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400" />
       </div>
 
       <!-- Password Strength -->
       <p *ngIf="contractForm.password.length > 0" class="text-xs text-gray-500 px-1">
         <i class="fa-solid fa-shield-haltered mr-1"></i>
-        Password strength:
+        Force du mot de passe :
         <span class="font-semibold" [ngClass]="passwordStrengthClass">{{ passwordStrength }}</span>
       </p>
 
       <!-- Product Key -->
       <div class="relative">
         <i class="fa-solid fa-key absolute left-3 top-1/2 -translate-y-1/2 text-yellow-500"></i>
-        <input name="c_productKey" [(ngModel)]="contractForm.productKey" placeholder="Product Key *" required
+        <input name="c_productKey" [(ngModel)]="contractForm.productKey" placeholder="Clé produit *" required
           class="pl-10 py-3 px-4 border-2 border-yellow-300 focus:border-yellow-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full transition-all duration-300 placeholder-gray-400 font-mono" />
       </div>
       <p class="text-xs text-gray-400 px-1">
         <i class="fa-solid fa-info-circle mr-1"></i>
-        Your product key was provided in your contract with LinkedU.
+        Votre clé produit vous a été fournie dans votre contrat avec LinkedU.
       </p>
 
       <!-- Messages -->
@@ -237,7 +237,7 @@
         <span class="relative">
           <i *ngIf="!isSubmitting" class="fa-solid fa-key mr-2"></i>
           <i *ngIf="isSubmitting" class="fa-solid fa-spinner fa-spin mr-2"></i>
-          {{ isSubmitting ? 'Registering...' : 'Register with Product Key' }}
+          {{ isSubmitting ? 'Inscription...' : 'S\'inscrire avec une clé produit' }}
         </span>
       </button>
 
@@ -245,10 +245,10 @@
 
     <!-- Login link -->
     <p class="text-center text-gray-500 text-sm mt-6">
-      Already have an account?
+      Vous avez déjà un compte ?
       <a routerLink="/login" class="font-semibold text-blue-600 hover:underline">
         <i class="fa-solid fa-sign-in-alt mr-1"></i>
-        Sign in
+        Se connecter
       </a>
     </p>
 

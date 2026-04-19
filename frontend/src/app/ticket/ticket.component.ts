@@ -81,7 +81,7 @@ export class TicketComponent implements OnInit {
 
     request.subscribe({
       next: (data) => { this.tickets = data; this.isLoading = false; },
-      error: () => { this.isLoading = false; this.errorMessage = 'Failed to load tickets.'; }
+      error: () => { this.isLoading = false; this.errorMessage = 'Échec du chargement des tickets.'; }
     });
   }
 
@@ -101,7 +101,7 @@ export class TicketComponent implements OnInit {
 
   submitTicket(): void {
     if (!this.createForm.object || !this.createForm.description || !this.createForm.availabilityDateTime) {
-      this.errorMessage = 'Please fill all fields.';
+      this.errorMessage = 'Veuillez remplir tous les champs.';
       return;
     }
     this.isSubmitting = true;
@@ -109,13 +109,13 @@ export class TicketComponent implements OnInit {
 
     this.ticketService.createTicket(this.createForm).subscribe({
       next: (res) => {
-        this.successMessage = res.message || 'Ticket submitted! Your agent will be notified.';
+        this.successMessage = res.message || 'Ticket envoyé ! Votre agent sera notifié.';
         this.isSubmitting = false;
         this.viewMode = 'list';
         this.loadTickets();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Failed to submit ticket.';
+        this.errorMessage = err?.error?.message || 'Échec de l\'envoi du ticket.';
         this.isSubmitting = false;
       }
     });
@@ -131,7 +131,7 @@ export class TicketComponent implements OnInit {
 
   submitAccept(ticketId: number): void {
     if (!this.acceptForm.googleMeetLink) {
-      this.errorMessage = 'Please provide a Google Meet link.';
+      this.errorMessage = 'Veuillez fournir un lien Google Meet.';
       return;
     }
     this.isSubmitting = true;
@@ -139,13 +139,13 @@ export class TicketComponent implements OnInit {
 
     this.ticketService.acceptTicket(ticketId, this.acceptForm).subscribe({
       next: (res) => {
-        this.successMessage = res.message || 'Ticket accepted! Student has been notified.';
+        this.successMessage = res.message || 'Ticket accepté ! L\'étudiant a été notifié.';
         this.isSubmitting = false;
         this.acceptingTicketId = null;
         this.loadTickets();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Failed to accept ticket.';
+        this.errorMessage = err?.error?.message || 'Échec de l\'acceptation du ticket.';
         this.isSubmitting = false;
       }
     });
@@ -161,7 +161,7 @@ export class TicketComponent implements OnInit {
 
   submitReject(ticketId: number): void {
     if (!this.rejectForm.reason) {
-      this.errorMessage = 'Please provide a rejection reason.';
+      this.errorMessage = 'Veuillez fournir une raison de rejet.';
       return;
     }
     this.isSubmitting = true;
@@ -169,13 +169,13 @@ export class TicketComponent implements OnInit {
 
     this.ticketService.rejectTicket(ticketId, this.rejectForm).subscribe({
       next: () => {
-        this.successMessage = 'Ticket rejected.';
+        this.successMessage = 'Ticket rejeté.';
         this.isSubmitting = false;
         this.rejectingTicketId = null;
         this.loadTickets();
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Failed to reject ticket.';
+        this.errorMessage = err?.error?.message || 'Échec du rejet du ticket.';
         this.isSubmitting = false;
       }
     });
@@ -191,20 +191,20 @@ export class TicketComponent implements OnInit {
 
   submitResponse(ticketId: number): void {
     if (!this.responseText.trim()) {
-      this.errorMessage = 'Please write a response.';
+      this.errorMessage = 'Veuillez écrire une réponse.';
       return;
     }
     this.isSubmitting = true;
 
     this.ticketService.addResponse(ticketId, this.responseText).subscribe({
       next: () => {
-        this.successMessage = 'Response sent!';
+        this.successMessage = 'Réponse envoyée !';
         this.isSubmitting = false;
         this.respondingTicketId = null;
         this.responseText = '';
       },
       error: () => {
-        this.errorMessage = 'Failed to send response.';
+        this.errorMessage = 'Échec de l\'envoi de la réponse.';
         this.isSubmitting = false;
       }
     });
@@ -225,9 +225,9 @@ export class TicketComponent implements OnInit {
   }
 
   getStatusLabel(status: TicketStatus): string {
-    if (status === 'ACCEPTED') return '✅ Accepted';
-    if (status === 'REJECTED') return '❌ Rejected';
-    return '⏳ Pending';
+    if (status === 'ACCEPTED') return '✅ Accepté';
+    if (status === 'REJECTED') return '❌ Rejeté';
+    return '⏳ En attente';
   }
 
   formatDateTime(dt: string): string {

@@ -38,9 +38,9 @@ export class ContractSignupComponent {
   get passwordStrength(): string {
     const len = this.form.password.length;
     if (len === 0) return '';
-    if (len < 6) return 'Weak';
-    if (len < 9) return 'Medium';
-    return 'Strong';
+    if (len < 6) return 'Faible';
+    if (len < 9) return 'Moyen';
+    return 'Fort';
   }
 
   get passwordStrengthClass(): string {
@@ -58,13 +58,13 @@ export class ContractSignupComponent {
     this.errorMessage = '';
     this.successMessage = '';
     if (this.form.password !== this.form.confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
+      this.errorMessage = 'Les mots de passe ne correspondent pas.';
     return;
 }
     if (!this.form.username || !this.form.firstName || !this.form.lastName ||
         !this.form.email || !this.form.password || !this.form.phoneNumber ||
         !this.form.birthDate || !this.form.productKey) {
-      this.errorMessage = 'Please fill all required fields including product key.';
+      this.errorMessage = 'Veuillez remplir tous les champs obligatoires, y compris la clé produit.';
       return;
     }
 
@@ -72,12 +72,12 @@ export class ContractSignupComponent {
 
     this.authService.registerContract(this.form).subscribe({
       next: (res) => {
-        this.successMessage = res.message || 'Account created! Please check your email to verify your account.';
+        this.successMessage = res.message || 'Compte créé ! Veuillez vérifier vos e-mails pour valider votre compte.';
         this.isSubmitting = false;
         setTimeout(() => this.router.navigateByUrl('/login'), 3000);
       },
       error: (err: { error?: { message?: string } }) => {
-        this.errorMessage = err?.error?.message || 'Registration failed. Invalid product key or existing account.';
+        this.errorMessage = err?.error?.message || 'Échec de l\'inscription. Clé produit invalide ou compte déjà existant.';
         this.isSubmitting = false;
       }
     });

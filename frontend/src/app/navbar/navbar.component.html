@@ -3,7 +3,7 @@
 
     <!-- Logo -->
     <a class="navbar__logo" routerLink="/" (click)="closeMenu()">
-      <img src="assets/Pictures/navbarlogo.png" alt="LinkedU Logo" />
+      <img src="assets/Pictures/navbarlogo.png" alt="Logo LinkedU" />
     </a>
 
     <!-- Desktop Links -->
@@ -12,11 +12,11 @@
         <li>
           <a [routerLink]="link.path" routerLinkActive="active"
              [routerLinkActiveOptions]="{ exact: link.path === '/' }">
-            <i *ngIf="link.label === 'Home'" class="fa-solid fa-home"></i>
+            <i *ngIf="link.label === 'Home' || link.label === 'Accueil'" class="fa-solid fa-home"></i>
             <i *ngIf="link.label === 'Destinations'" class="fa-solid fa-globe"></i>
             <i *ngIf="link.label === 'Services'" class="fa-solid fa-briefcase"></i>
             <i *ngIf="link.label === 'Blogs'" class="fa-solid fa-blog"></i>
-            <i *ngIf="link.label === 'About Us'" class="fa-solid fa-info-circle"></i>
+            <i *ngIf="link.label === 'About Us' || link.label === 'À propos'" class="fa-solid fa-info-circle"></i>
             {{ link.label }}
           </a>
         </li>
@@ -28,17 +28,17 @@
           <li class="dropdown">
             <a class="dropdown-trigger">
               <i class="fa-solid fa-grip"></i>
-              Student Panel
+              Espace Étudiant
               <i class="fa-solid fa-chevron-down dropdown-icon"></i>
             </a>
             <ul class="dropdown-menu">
               @for (link of roleLinks; track link.path) {
                 <li>
                   <a [routerLink]="link.path" routerLinkActive="active" (click)="$event.stopPropagation()">
-                    <i *ngIf="link.label === 'Dashboard'" class="fa-solid fa-chart-line"></i>
-                    <i *ngIf="link.label === 'My Profile'" class="fa-solid fa-user"></i>
-                    <i *ngIf="link.label === 'Chat'" class="fa-solid fa-comment-dots"></i>
-                    <i *ngIf="link.label === 'Ticket'" class="fa-solid fa-ticket"></i>
+                    <i *ngIf="link.label === 'Dashboard' || link.label === 'Tableau de bord'" class="fa-solid fa-chart-line"></i>
+                    <i *ngIf="link.label === 'My Profile' || link.label === 'Mon Profil'" class="fa-solid fa-user"></i>
+                    <i *ngIf="link.label === 'Chat' || link.label === 'Messages'" class="fa-solid fa-comment-dots"></i>
+                    <i *ngIf="link.label === 'Ticket' || link.label === 'Tickets'" class="fa-solid fa-ticket"></i>
                     {{ link.label }}
                   </a>
                 </li>
@@ -50,12 +50,12 @@
           @for (link of roleLinks; track link.path) {
             <li>
               <a [routerLink]="link.path" routerLinkActive="active">
-                <i *ngIf="link.label === 'Admin Panel'" class="fa-solid fa-shield-haltered"></i>
-                <i *ngIf="link.label === 'Agent Panel'" class="fa-solid fa-user-tie"></i>
-                <i *ngIf="link.label === 'Dashboard'" class="fa-solid fa-chart-line"></i>
-                <i *ngIf="link.label === 'My Profile'" class="fa-solid fa-user"></i>
-                <i *ngIf="link.label === 'Chat'" class="fa-solid fa-comment-dots"></i>
-                <i *ngIf="link.label === 'Ticket'" class="fa-solid fa-ticket"></i>
+                <i *ngIf="link.label === 'Admin Panel' || link.label === 'Panneau d\'administration'" class="fa-solid fa-shield-haltered"></i>
+                <i *ngIf="link.label === 'Agent Panel' || link.label === 'Portail Agent'" class="fa-solid fa-user-tie"></i>
+                <i *ngIf="link.label === 'Dashboard' || link.label === 'Tableau de bord'" class="fa-solid fa-chart-line"></i>
+                <i *ngIf="link.label === 'My Profile' || link.label === 'Mon Profil'" class="fa-solid fa-user"></i>
+                <i *ngIf="link.label === 'Chat' || link.label === 'Messages'" class="fa-solid fa-comment-dots"></i>
+                <i *ngIf="link.label === 'Ticket' || link.label === 'Tickets'" class="fa-solid fa-ticket"></i>
                 {{ link.label }}
               </a>
             </li>
@@ -69,22 +69,22 @@
       @if (!loggedIn) {
         <a routerLink="/login" class="btn btn--outline">
           <i class="fa-solid fa-sign-in-alt"></i>
-          Login
+          Connexion
         </a>
         <a routerLink="/signup" class="btn btn--primary">
           <i class="fa-solid fa-user-plus"></i>
-          Register
+          S'inscrire
         </a>
       } @else {
         <button class="btn btn--logout" (click)="logout()">
           <i class="fa-solid fa-sign-out-alt"></i>
-          Logout
+          Déconnexion
         </button>
       }
     </div>
 
     <!-- Hamburger (mobile) -->
-    <button class="navbar__burger" (click)="toggleMenu()" [class.open]="menuOpen()" aria-label="Toggle menu">
+    <button class="navbar__burger" (click)="toggleMenu()" [class.open]="menuOpen()" aria-label="Basculer le menu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -95,11 +95,11 @@
       @for (link of publicLinks; track link.path) {
         <li>
           <a [routerLink]="link.path" routerLinkActive="active" (click)="closeMenu()">
-            <i *ngIf="link.label === 'Home'" class="fa-solid fa-home"></i>
+            <i *ngIf="link.label === 'Home' || link.label === 'Accueil'" class="fa-solid fa-home"></i>
             <i *ngIf="link.label === 'Destinations'" class="fa-solid fa-globe"></i>
             <i *ngIf="link.label === 'Services'" class="fa-solid fa-briefcase"></i>
             <i *ngIf="link.label === 'Blogs'" class="fa-solid fa-blog"></i>
-            <i *ngIf="link.label === 'About Us'" class="fa-solid fa-info-circle"></i>
+            <i *ngIf="link.label === 'About Us' || link.label === 'À propos'" class="fa-solid fa-info-circle"></i>
             {{ link.label }}
           </a>
         </li>
@@ -108,12 +108,12 @@
         @for (link of roleLinks; track link.path) {
           <li>
             <a [routerLink]="link.path" routerLinkActive="active" (click)="closeMenu()">
-              <i *ngIf="link.label === 'Admin Panel'" class="fa-solid fa-shield-haltered"></i>
-              <i *ngIf="link.label === 'Agent Panel'" class="fa-solid fa-user-tie"></i>
-              <i *ngIf="link.label === 'Dashboard'" class="fa-solid fa-chart-line"></i>
-              <i *ngIf="link.label === 'My Profile'" class="fa-solid fa-user"></i>
-              <i *ngIf="link.label === 'Chat'" class="fa-solid fa-comment-dots"></i>
-              <i *ngIf="link.label === 'Ticket'" class="fa-solid fa-ticket"></i>
+              <i *ngIf="link.label === 'Admin Panel' || link.label === 'Panneau d\'administration'" class="fa-solid fa-shield-haltered"></i>
+              <i *ngIf="link.label === 'Agent Panel' || link.label === 'Portail Agent'" class="fa-solid fa-user-tie"></i>
+              <i *ngIf="link.label === 'Dashboard' || link.label === 'Tableau de bord'" class="fa-solid fa-chart-line"></i>
+              <i *ngIf="link.label === 'My Profile' || link.label === 'Mon Profil'" class="fa-solid fa-user"></i>
+              <i *ngIf="link.label === 'Chat' || link.label === 'Messages'" class="fa-solid fa-comment-dots"></i>
+              <i *ngIf="link.label === 'Ticket' || link.label === 'Tickets'" class="fa-solid fa-ticket"></i>
               {{ link.label }}
             </a>
           </li>
@@ -124,16 +124,16 @@
       @if (!loggedIn) {
         <a routerLink="/login" class="btn btn--outline" (click)="closeMenu()">
           <i class="fa-solid fa-sign-in-alt"></i>
-          Login
+          Connexion
         </a>
         <a routerLink="/signup" class="btn btn--primary" (click)="closeMenu()">
           <i class="fa-solid fa-user-plus"></i>
-          Register
+          S'inscrire
         </a>
       } @else {
         <button class="btn btn--logout" (click)="logout()">
           <i class="fa-solid fa-sign-out-alt"></i>
-          Logout
+          Déconnexion
         </button>
       }
     </div>

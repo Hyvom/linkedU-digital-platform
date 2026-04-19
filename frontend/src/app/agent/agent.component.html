@@ -7,7 +7,7 @@
         <i class="fa-solid fa-user-tie"></i>
       </div>
       <div>
-        <h3>Agent Portal</h3>
+        <h3>Portail Agent</h3>
         <p>LinkedU</p>
       </div>
     </div>
@@ -43,7 +43,7 @@
           </p>
           <p class="agent-profile-status">
             <i class="fa-solid fa-circle"></i>
-            {{ agentProfile?.onlineStatus || 'OFFLINE' }}
+            {{ agentProfile?.onlineStatus === 'ONLINE' ? 'EN LIGNE' : (agentProfile?.onlineStatus === 'AWAY' ? 'ABSENT' : 'HORS LIGNE') }}
             <span *ngIf="agentProfile?.availabilityTime" class="agent-availability">
               · {{ agentProfile?.availabilityTime }}
             </span>
@@ -59,16 +59,16 @@
         </div>
 
         <!-- Edit link -->
-        <a routerLink="/profile/agent" class="agent-edit-profile-btn" title="Edit profile">
+        <a routerLink="/profile/agent" class="agent-edit-profile-btn" title="Modifier le profil">
           <i class="fa-solid fa-pen"></i>
         </a>
       </div>
 
       <!-- No profile yet -->
       <div *ngIf="!isLoadingAgentProfile && !agentProfile" class="agent-no-profile">
-        <p>No profile yet.</p>
+        <p>Aucun profil pour le moment.</p>
         <a routerLink="/profile/agent" class="setup-profile-btn">
-          Set up profile <i class="fa-solid fa-arrow-right"></i>
+          Configurer le profil <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
     </div>
@@ -77,7 +77,7 @@
       <button (click)="currentView = 'students'; backToStudents()"
         [class.active]="currentView === 'students'" class="nav-btn">
         <i class="fa-solid fa-users"></i>
-        My Students
+        Mes étudiants
         <span class="nav-count" *ngIf="students.length > 0">{{ students.length }}</span>
       </button>
       <a routerLink="/chat" class="nav-btn chat-nav-btn">
@@ -95,7 +95,7 @@
 
     <button (click)="logout()" class="logout-btn">
       <i class="fa-solid fa-sign-out-alt"></i>
-      Logout
+      Déconnexion
     </button>
   </aside>
 
@@ -108,16 +108,16 @@
       <div class="page-header">
         <h2>
           <i class="fa-solid fa-users"></i>
-          My Students
+          Mes étudiants
         </h2>
-        <p class="page-sub">Students assigned to you for monitoring</p>
+        <p class="page-sub">Étudiants assignés pour le suivi</p>
       </div>
 
       <div *ngIf="isLoadingStudents" class="loading-state">
         <div class="spinner"></div>
         <p>
           <i class="fa-solid fa-spinner fa-spin"></i>
-          Loading students...
+          Chargement des étudiants...
         </p>
       </div>
 
@@ -130,8 +130,8 @@
         <div class="empty-icon">
           <i class="fa-solid fa-users"></i>
         </div>
-        <h3>No students assigned yet</h3>
-        <p>Contact admin to assign students to your account.</p>
+        <h3>Aucun étudiant assigné pour le moment</h3>
+        <p>Contactez l'administrateur pour assigner des étudiants à votre compte.</p>
       </div>
 
       <div *ngIf="!isLoadingStudents && students.length > 0" class="students-grid">
@@ -163,7 +163,7 @@
       <div class="detail-header">
         <button (click)="backToStudents()" class="back-btn">
           <i class="fa-solid fa-arrow-left"></i>
-          Back to Students
+          Retour aux étudiants
         </button>
         <div class="detail-student-info">
           <div class="detail-avatar">{{ getInitials(selectedStudent) }}</div>
@@ -181,7 +181,7 @@
       <div class="detail-tabs">
         <button (click)="setTab('profile')"
           [class.active]="activeTab === 'profile'" class="tab-btn">
-          <i class="fa-solid fa-user"></i> Profile
+          <i class="fa-solid fa-user"></i> Profil
         </button>
         <button (click)="setTab('documents')"
           [class.active]="activeTab === 'documents'" class="tab-btn">
@@ -189,7 +189,7 @@
         </button>
         <button (click)="setTab('progress')"
           [class.active]="activeTab === 'progress'" class="tab-btn">
-          <i class="fa-solid fa-chart-line"></i> Progress
+          <i class="fa-solid fa-chart-line"></i> Progression
         </button>
       </div>
       <!-- ── PROFILE TAB ── -->
@@ -198,7 +198,7 @@
     <div class="spinner"></div>
     <p>
       <i class="fa-solid fa-spinner fa-spin"></i>
-      Loading profile...
+      Chargement du profil...
     </p>
   </div>
 
@@ -206,8 +206,8 @@
     <div class="empty-icon">
       <i class="fa-solid fa-user"></i>
     </div>
-    <h3>No profile created yet</h3>
-    <p>This student hasn't set up their profile.</p>
+    <h3>Aucun profil créé pour le moment</h3>
+    <p>Cet étudiant n'a pas encore configuré son profil.</p>
   </div>
 
   <div *ngIf="!isLoadingProfile && studentProfile" class="profile-view">
@@ -249,29 +249,29 @@
       <div class="info-card">
         <h4 class="card-title">
           <i class="fa-solid fa-graduation-cap"></i>
-          Academic
+          Académique
         </h4>
         <div class="card-rows">
           <div class="card-row">
-            <span class="row-label">Current Level</span>
+            <span class="row-label">Niveau actuel</span>
             <span class="row-value">{{ studentProfile.currentStudyLevel || '—' }}</span>
           </div>
           <div class="card-row">
-            <span class="row-label">Target Level</span>
+            <span class="row-label">Niveau souhaité</span>
             <span class="row-value">{{ studentProfile.wishedStudyLevel || '—' }}</span>
           </div>
           <div class="card-row">
-            <span class="row-label">Speciality</span>
+            <span class="row-label">Spécialité</span>
             <span class="row-value">{{ studentProfile.speciality || '—' }}</span>
           </div>
           <div class="card-row">
-            <span class="row-label">University Year</span>
+            <span class="row-label">Année universitaire</span>
             <span class="row-value">
-              {{ studentProfile.universityYear ? 'Year ' + studentProfile.universityYear : '—' }}
+              {{ studentProfile.universityYear ? 'Année ' + studentProfile.universityYear : '—' }}
             </span>
           </div>
           <div class="card-row">
-            <span class="row-label">College Type</span>
+            <span class="row-label">Type d'établissement</span>
             <span class="row-value">{{ studentProfile.collegeType || '—' }}</span>
           </div>
           <div class="card-row">
@@ -287,32 +287,32 @@
       <div class="info-card">
         <h4 class="card-title">
           <i class="fa-solid fa-address-card"></i>
-          Contact & Status
+          Contact & Statut
         </h4>
         <div class="card-rows">
           <div class="card-row">
-            <span class="row-label">Status</span>
+            <span class="row-label">Statut</span>
             <span class="row-value">
               <span class="status-dot-inline" [ngClass]="getStudentStatusClass()"></span>
               {{ studentProfile.onlineStatus || '—' }}
             </span>
           </div>
           <div class="card-row">
-            <span class="row-label">Availability</span>
+            <span class="row-label">Disponibilité</span>
             <span class="row-value">
               <i class="fa-regular fa-clock"></i>
               {{ studentProfile.availabilityTime || '—' }}
             </span>
           </div>
           <div class="card-row">
-            <span class="row-label">Address</span>
+            <span class="row-label">Adresse</span>
             <span class="row-value">
               <i class="fa-solid fa-location-dot"></i>
               {{ studentProfile.address || '—' }}
             </span>
           </div>
           <div class="card-row">
-            <span class="row-label">Phone</span>
+            <span class="row-label">Téléphone</span>
             <span class="row-value">
               <i class="fa-solid fa-phone"></i>
               {{ studentProfile.phoneNumber || '—' }}
@@ -322,7 +322,7 @@
 
         <h4 class="card-title" style="margin-top:1.25rem">
           <i class="fa-solid fa-language"></i>
-          Languages
+          Langues
         </h4>
         <div class="lang-chips" *ngIf="studentProfile.languages">
           <div *ngFor="let lang of parseLanguages(studentProfile.languages)" class="lang-chip">
@@ -332,14 +332,14 @@
         </div>
         <p *ngIf="!studentProfile.languages" class="text-muted">
           <i class="fa-solid fa-info-circle"></i>
-          No languages added.
+          Aucune langue ajoutée.
         </p>
 
         <h4 class="card-title" style="margin-top:1.25rem">
           <i class="fa-solid fa-pen"></i>
           Bio
         </h4>
-        <p class="bio-text">{{ studentProfile.bio || 'No bio added.' }}</p>
+        <p class="bio-text">{{ studentProfile.bio || 'Aucune bio ajoutée.' }}</p>
       </div>
 
     </div>
@@ -363,7 +363,7 @@
           <div class="spinner"></div>
           <p>
             <i class="fa-solid fa-spinner fa-spin"></i>
-            Loading documents...
+            Chargement des documents...
           </p>
         </div>
 
@@ -371,8 +371,8 @@
           <div class="empty-icon">
             <i class="fa-solid fa-file-alt"></i>
           </div>
-          <h3>No documents uploaded</h3>
-          <p>This student hasn't uploaded any documents yet.</p>
+          <h3>Aucun document téléchargé</h3>
+          <p>Cet étudiant n'a pas encore téléchargé de documents.</p>
         </div>
 
         <div *ngIf="!isLoadingDocs && documents.length > 0" class="documents-list">
@@ -406,11 +406,11 @@
             <div *ngIf="doc.documentType === 'CV' && (doc.summary || doc.skills)"
               class="doc-extra">
               <div *ngIf="doc.summary" class="extra-item">
-                <span class="extra-label">Summary</span>
+                <span class="extra-label">Résumé</span>
                 <p class="extra-value">{{ doc.summary }}</p>
               </div>
               <div *ngIf="doc.skills" class="extra-item">
-                <span class="extra-label">Skills</span>
+                <span class="extra-label">Compétences</span>
                 <p class="extra-value">{{ doc.skills }}</p>
               </div>
             </div>
@@ -418,15 +418,15 @@
             <div *ngIf="doc.documentType === 'PASSPORT'" class="doc-extra">
               <div class="extra-row">
                 <div class="extra-item">
-                  <span class="extra-label">Issue Date</span>
+                  <span class="extra-label">Date d'émission</span>
                   <p class="extra-value">{{ doc.issueDate || '—' }}</p>
                 </div>
                 <div class="extra-item">
-                  <span class="extra-label">Expiry Date</span>
+                  <span class="extra-label">Date d'expiration</span>
                   <p class="extra-value">{{ doc.expiryDate || '—' }}</p>
                 </div>
                 <div class="extra-item">
-                  <span class="extra-label">Issuing Country</span>
+                  <span class="extra-label">Pays d'émission</span>
                   <p class="extra-value">{{ doc.issuingCountry || '—' }}</p>
                 </div>
               </div>
@@ -435,11 +435,11 @@
             <div *ngIf="doc.documentType === 'ID_CARD'" class="doc-extra">
               <div class="extra-row">
                 <div class="extra-item">
-                  <span class="extra-label">ID Number</span>
+                  <span class="extra-label">Numéro d'identité</span>
                   <p class="extra-value">{{ doc.numId || '—' }}</p>
                 </div>
                 <div class="extra-item">
-                  <span class="extra-label">Birthday</span>
+                  <span class="extra-label">Date de naissance</span>
                   <p class="extra-value">{{ doc.birthday || '—' }}</p>
                 </div>
               </div>
@@ -448,16 +448,16 @@
             <div class="doc-actions">
               <a [href]="getDocumentDownloadUrl(doc.filePath)"
                 target="_blank" download class="download-btn">
-                <i class="fa-solid fa-download"></i> Download
+                <i class="fa-solid fa-download"></i> Télécharger
               </a>
               <div *ngIf="doc.status === 'PENDING'" class="verify-actions">
                 <button (click)="verifyDocument(doc.id, 'APPROVED')"
                   [disabled]="isVerifying" class="approve-btn">
-                  <i class="fa-solid fa-check"></i> Approve
+                  <i class="fa-solid fa-check"></i> Approuver
                 </button>
                 <button (click)="verifyDocument(doc.id, 'REJECTED')"
                   [disabled]="isVerifying" class="reject-btn">
-                  <i class="fa-solid fa-times"></i> Reject
+                  <i class="fa-solid fa-times"></i> Rejeter
                 </button>
               </div>
             </div>
@@ -482,7 +482,7 @@
           <div class="spinner"></div>
           <p>
             <i class="fa-solid fa-spinner fa-spin"></i>
-            Loading progress...
+            Chargement de la progression...
           </p>
         </div>
 
@@ -497,7 +497,7 @@
             </div>
             <p class="progress-text">
               <i class="fa-solid fa-check-circle"></i>
-              {{ getCompletedCount() }} / {{ allStages.length }} stages completed
+              {{ getCompletedCount() }} / {{ allStages.length }} étapes terminées
             </p>
           </div>
 
@@ -526,9 +526,9 @@
                       (ngModelChange)="updateStageStatus(stage, $event)"
                       [disabled]="isUpdatingProgress"
                       class="stage-select">
-                      <option value="NOT_STARTED">Not Started</option>
-                      <option value="IN_PROGRESS">In Progress</option>
-                      <option value="COMPLETED">Completed</option>
+                      <option value="NOT_STARTED">Non commencé</option>
+                      <option value="IN_PROGRESS">En cours</option>
+                      <option value="COMPLETED">Terminé</option>
                     </select>
                   </div>
                 </div>

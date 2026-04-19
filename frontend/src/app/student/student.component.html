@@ -11,11 +11,11 @@
       </div>
       <div class="sidebar-info" *ngIf="!isLoadingProfile">
         <p class="sidebar-name">{{ profile?.user?.firstName }} {{ profile?.user?.lastName }}</p>
-        <span class="sidebar-role">{{ userRole }}</span>
+        <span class="sidebar-role">{{ userRole === 'STUDENT' ? 'Étudiant' : userRole }}</span>
       </div>
       <div class="sidebar-info" *ngIf="isLoadingProfile">
-        <div class="skeleton skeleton-name"></div>
-        <div class="skeleton skeleton-role"></div>
+        <div class="skeleton skeleton-name">Chargement...</div>
+        <div class="skeleton skeleton-role">Rôle...</div>
       </div>
     </div>
 
@@ -24,7 +24,7 @@
       <button (click)="setSection('profile')"
         [class.active]="activeSection === 'profile'" class="nav-btn">
         <i class="fa-solid fa-user"></i>
-        Profile
+        Profil
       </button>
       <button (click)="setSection('documents')"
         [class.active]="activeSection === 'documents'" class="nav-btn">
@@ -34,25 +34,25 @@
       <button (click)="setSection('progress')"
         [class.active]="activeSection === 'progress'" class="nav-btn">
         <i class="fa-solid fa-chart-line"></i>
-        My Progress
+        Ma progression
       </button>
       <button (click)="setSection('quizzes')"
         [class.active]="activeSection === 'quizzes'" class="nav-btn">
         <i class="fa-solid fa-list-check"></i>
-        My Quizzes
+        Mes quiz
       </button>
       <button (click)="setSection('recommendations')"
         [class.active]="activeSection === 'recommendations'" class="nav-btn">
         <i class="fa-solid fa-wand-magic-sparkles"></i>
-        AI Recommendations
+        Recommandations IA
       </button>
       <a routerLink="/profile" class="nav-btn nav-link-btn">
         <i class="fa-solid fa-id-card"></i>
-        Full Profile
+        Profil complet
       </a>
       <a routerLink="/chat" class="nav-btn chat-nav-btn">
         <i class="fa-solid fa-comment-dots"></i>
-        Chat With Agent
+        Discuter avec l'agent
         <span class="chat-badge" *ngIf="unreadMessagesCount > 0">
           {{ unreadMessagesCount > 99 ? '99+' : unreadMessagesCount }}
         </span>
@@ -65,7 +65,7 @@
 
     <button (click)="logout()" class="logout-btn">
       <i class="fa-solid fa-sign-out-alt"></i>
-      Logout
+      Déconnexion
     </button>
   </aside>
 
@@ -79,7 +79,7 @@
         <div class="spinner"></div>
         <p>
           <i class="fa-solid fa-spinner fa-spin"></i>
-          Loading profile...
+          Chargement du profil...
         </p>
       </div>
 
@@ -87,11 +87,11 @@
         <div class="empty-icon">
           <i class="fa-solid fa-user"></i>
         </div>
-        <h3>No profile found</h3>
-        <p>Go to your profile page to set up your student profile.</p>
+        <h3>Aucun profil trouvé</h3>
+        <p>Rendez-vous sur votre page de profil pour configurer votre profil étudiant.</p>
         <a routerLink="/profile" class="primary-btn">
           <i class="fa-solid fa-arrow-right"></i>
-          Go to Profile
+          Aller au Profil
         </a>
       </div>
 
@@ -116,7 +116,7 @@
             <div class="hero-tags">
               <span class="tag tag-role">
                 <i class="fa-solid fa-tag"></i>
-                {{ userRole }}
+                {{ userRole === 'STUDENT' ? 'Étudiant' : userRole }}
               </span>
               <span *ngIf="profile.currentStudyLevel" class="tag tag-level">
                 <i class="fa-solid fa-graduation-cap"></i>
@@ -130,7 +130,7 @@
           </div>
           <a routerLink="/profile" class="edit-profile-btn">
             <i class="fa-solid fa-pen"></i>
-            Edit Profile
+            Modifier le profil
           </a>
         </div>
 
@@ -141,28 +141,28 @@
           <div class="info-card">
             <h4 class="card-title">
               <i class="fa-solid fa-graduation-cap"></i>
-              Academic Info
+              Infos Académiques
             </h4>
             <div class="card-grid">
               <div class="card-item">
-                <span class="item-label">Current Level</span>
+                <span class="item-label">Niveau actuel</span>
                 <span class="item-value">{{ profile.currentStudyLevel || '—' }}</span>
               </div>
               <div class="card-item">
-                <span class="item-label">Target Level</span>
+                <span class="item-label">Niveau souhaité</span>
                 <span class="item-value">{{ profile.wishedStudyLevel || '—' }}</span>
               </div>
               <div class="card-item">
-                <span class="item-label">University Year</span>
-                <span class="item-value">{{ profile.universityYear ? 'Year ' + profile.universityYear : '—' }}</span>
+                <span class="item-label">Année universitaire</span>
+                <span class="item-value">{{ profile.universityYear ? 'Année ' + profile.universityYear : '—' }}</span>
               </div>
               <div class="card-item">
-                <span class="item-label">College Type</span>
+                <span class="item-label">Type d'établissement</span>
                 <span class="item-value">{{ profile.collegeType || '—' }}</span>
               </div>
               <div class="card-item">
                 <span class="item-label">Budget</span>
-                <span class="item-value">{{ profile.budget ? '$' + profile.budget : '—' }}</span>
+                <span class="item-value">{{ profile.budget ? profile.budget + ' $' : '—' }}</span>
               </div>
             </div>
           </div>
@@ -171,16 +171,16 @@
           <div class="info-card">
             <h4 class="card-title">
               <i class="fa-solid fa-address-card"></i>
-              About Me
+              À propos de moi
             </h4>
-            <p class="bio-text">{{ profile.bio || 'No bio added yet.' }}</p>
+            <p class="bio-text">{{ profile.bio || 'Aucune bio ajoutée pour le moment.' }}</p>
           </div>
 
           <!-- Languages Card -->
           <div class="info-card">
             <h4 class="card-title">
               <i class="fa-solid fa-language"></i>
-              Languages
+              Langues
             </h4>
             <div class="lang-chips" *ngIf="profile.languages">
               <ng-container *ngFor="let lang of parseLanguages(profile.languages)">
@@ -192,7 +192,7 @@
             </div>
             <p *ngIf="!profile.languages" class="text-muted">
               <i class="fa-solid fa-info-circle"></i>
-              No languages added.
+              Aucune langue ajoutée.
             </p>
           </div>
 
@@ -205,9 +205,9 @@
       <div class="section-header">
         <h2>
           <i class="fa-solid fa-list-check"></i>
-          Assigned Quizzes
+          Quiz assignés
         </h2>
-        <p class="section-sub">View your assigned quizzes and review questions.</p>
+        <p class="section-sub">Consultez vos quiz assignés et révisez les questions.</p>
       </div>
 
       <div *ngIf="quizError" class="alert alert-error">

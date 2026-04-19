@@ -2,21 +2,21 @@
   <!-- Header -->
   <div class="users-header">
     <h2>
-      <i class="fas fa-users"></i> User Management
+      <i class="fas fa-users"></i> Gestion des utilisateurs
     </h2>
-    <p>View all users, assign roles, and link agents to students.</p>
+    <p>Voir tous les utilisateurs, attribuer des rôles et lier les agents aux étudiants.</p>
   </div>
 
   <!-- Feedback -->
   <p class="msg-success" *ngIf="successMsg">{{ successMsg }}</p>
   <p class="msg-error" *ngIf="errorMsg">{{ errorMsg }}</p>
-  <p *ngIf="loading" class="loading-msg">Loading users...</p>
+  <p *ngIf="loading" class="loading-msg">Chargement des utilisateurs...</p>
 
   <!-- All Users Table -->
   <div class="users-card" *ngIf="!loading">
     <div class="card-header">
-      <h3>All Users ({{ users.length }})</h3>
-      <button class="btn-refresh" (click)="loadUsers()">
+      <h3>Tous les utilisateurs ({{ users.length }})</h3>
+      <button class="btn-refresh" (click)="loadUsers()" title="Actualiser">
         <i class="fas fa-sync-alt"></i>
       </button>
     </div>
@@ -25,11 +25,11 @@
       <table *ngIf="users.length > 0">
         <thead>
           <tr>
-            <th><i class="fas fa-user"></i> Name</th>
+            <th><i class="fas fa-user"></i> Nom</th>
             <th><i class="fas fa-envelope"></i> Email</th>
-            <th><i class="fas fa-user-tag"></i> Current Role</th>
-            <th><i class="fas fa-toggle-on"></i> Status</th>
-            <th><i class="fas fa-cogs"></i> Assign Role</th>
+            <th><i class="fas fa-user-tag"></i> Rôle actuel</th>
+            <th><i class="fas fa-toggle-on"></i> Statut</th>
+            <th><i class="fas fa-cogs"></i> Attribuer un rôle</th>
             <th><i class="fas fa-check"></i> </th>
           </tr>
         </thead>
@@ -46,7 +46,7 @@
             <td>
               <span class="badge" [ngClass]="user.enabled ? 'badge-enabled' : 'badge-disabled'">
                 <i [ngClass]="user.enabled ? 'fas fa-circle-check' : 'fas fa-circle-xmark'"></i>
-                {{ user.enabled ? 'Active' : 'Inactive' }}
+                {{ user.enabled ? 'Actif' : 'Inactif' }}
               </span>
             </td>
             <td>
@@ -59,14 +59,14 @@
                 class="btn-assign"
                 (click)="assignRole(user)"
                 [disabled]="assigningRole === user.id || selectedRoleMap[user.id] === user.role">
-                {{ assigningRole === user.id ? '...' : 'Apply' }}
+                {{ assigningRole === user.id ? '...' : 'Appliquer' }}
               </button>
             </td>
           </tr>
         </tbody>
       </table>
 
-      <p *ngIf="users.length === 0" class="empty-msg">No users found.</p>
+      <p *ngIf="users.length === 0" class="empty-msg">Aucun utilisateur trouvé.</p>
     </div>
   </div>
 
@@ -74,21 +74,21 @@
   <div class="users-card" *ngIf="!loading && students.length > 0">
     <div class="card-header">
       <h3>
-        <i class="fas fa-user-tie"></i> Assign Agent to Students
+        <i class="fas fa-user-tie"></i> Attribuer un agent aux étudiants
       </h3>
     </div>
 
     <div class="table-container">
       <p *ngIf="agents.length === 0" class="empty-msg">
-        No agents available. Assign the AGENT role to a user first.
+        Aucun agent disponible. Attribuez d'abord le rôle d'AGENT à un utilisateur.
       </p>
 
       <table *ngIf="agents.length > 0">
         <thead>
           <tr>
-            <th><i class="fas fa-user-graduate"></i> Student</th>
+            <th><i class="fas fa-user-graduate"></i> Étudiant</th>
             <th><i class="fas fa-envelope"></i> Email</th>
-            <th><i class="fas fa-user-tie"></i> Assign Agent</th>
+            <th><i class="fas fa-user-tie"></i> Attribuer un agent</th>
             <th><i class="fas fa-check"></i> </th>
           </tr>
         </thead>
@@ -98,7 +98,7 @@
             <td class="email-cell">{{ student.email }}</td>
             <td>
               <select [(ngModel)]="selectedAgentMap[student.id]">
-                <option [ngValue]="undefined" disabled>-- Select Agent --</option>
+                <option [ngValue]="undefined" disabled>-- Sélectionner un agent --</option>
                 <option *ngFor="let agent of agents" [ngValue]="agent.id">
                   {{ agent.firstName }} {{ agent.lastName }}
                 </option>
@@ -109,7 +109,7 @@
                 class="btn-assign-agent"
                 (click)="assignAgent(student)"
                 [disabled]="assigningAgent === student.id || !selectedAgentMap[student.id]">
-                {{ assigningAgent === student.id ? '...' : 'Assign' }}
+                {{ assigningAgent === student.id ? '...' : 'Attribuer' }}
               </button>
             </td>
           </tr>
@@ -136,13 +136,13 @@
         <div class="role-confirm-icon-wrap">
           <i class="fas fa-shield-halved" aria-hidden="true"></i>
         </div>
-        <h3 id="role-confirm-title">Confirm role change</h3>
-        <p class="role-confirm-subtitle">Enter the admin confirmation code to apply this change.</p>
+        <h3 id="role-confirm-title">Confirmer le changement de rôle</h3>
+        <p class="role-confirm-subtitle">Entrez le code de confirmation administrateur pour appliquer ce changement.</p>
       </div>
 
       <div class="role-confirm-body">
         <div class="role-confirm-user-card">
-          <p class="role-confirm-label">User</p>
+          <p class="role-confirm-label">Utilisateur</p>
           <p class="role-confirm-name">
             {{ roleConfirmUser.firstName }} {{ roleConfirmUser.lastName }}
           </p>
@@ -162,7 +162,7 @@
         </div>
 
         <form (ngSubmit)="submitRoleConfirm()" class="role-confirm-form">
-          <label class="role-confirm-field-label" for="role-confirm-code">Confirmation code</label>
+          <label class="role-confirm-field-label" for="role-confirm-code">Code de confirmation</label>
           <input
             id="role-confirm-code"
             name="roleConfirmCode"
@@ -180,7 +180,7 @@
           </p>
           <div class="role-confirm-actions">
             <button type="button" class="btn-role-cancel" (click)="cancelRoleConfirm()">
-              Cancel
+              Annuler
             </button>
             <button
               type="submit"
@@ -188,7 +188,7 @@
               [disabled]="assigningRole !== null"
             >
               <i class="fas fa-check" aria-hidden="true"></i>
-              Apply role
+              Appliquer le rôle
             </button>
           </div>
         </form>

@@ -56,7 +56,7 @@ export class UsersComponent implements OnInit {
         this.loading = false;
       },
       error: () => {
-        this.errorMsg = 'Failed to load users.';
+        this.errorMsg = 'Échec du chargement des utilisateurs.';
         this.loading = false;
       }
     });
@@ -90,7 +90,7 @@ export class UsersComponent implements OnInit {
     if (!this.roleConfirmUser || !this.roleConfirmNewRole) return;
 
     if (this.roleConfirmCodeInput.trim() !== this.roleChangeConfirmCode) {
-      this.roleConfirmModalError = 'Wrong confirmation code. The role was not changed.';
+      this.roleConfirmModalError = 'Code de confirmation erroné. Le rôle n\'a pas été modifié.';
       return;
     }
 
@@ -104,12 +104,12 @@ export class UsersComponent implements OnInit {
 
     this.adminService.assignRole(user.id, newRole).subscribe({
       next: () => {
-        this.successMsg = `Role updated to ${newRole} for ${user.firstName} ${user.lastName}.`;
+        this.successMsg = `Rôle mis à jour en ${newRole} pour ${user.firstName} ${user.lastName}.`;
         this.assigningRole = null;
         this.loadUsers();
       },
       error: () => {
-        this.errorMsg = 'Failed to assign role.';
+        this.errorMsg = 'Échec de l\'attribution du rôle.';
         this.assigningRole = null;
       }
     });
@@ -132,11 +132,11 @@ export class UsersComponent implements OnInit {
 
     this.adminService.assignAgentToStudent(student.id, agentId).subscribe({
       next: () => {
-        this.successMsg = `Agent assigned to ${student.firstName} ${student.lastName}.`;
+        this.successMsg = `Agent attribué à ${student.firstName} ${student.lastName}.`;
         this.assigningAgent = null;
       },
       error: () => {
-        this.errorMsg = 'Failed to assign agent.';
+        this.errorMsg = 'Échec de l\'attribution de l\'agent.';
         this.assigningAgent = null;
       }
     });

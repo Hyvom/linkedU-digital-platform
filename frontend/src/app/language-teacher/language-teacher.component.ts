@@ -15,16 +15,16 @@ import { CreateQuizPayload, QuestionFormPayload, Quiz, QuizQuestion } from '../s
 })
 export class LanguageTeacherComponent implements OnInit {
   readonly languageOptions = [
-    'French',
-    'English',
-    'Spanish',
-    'German',
-    'Italian',
-    'Arabic',
-    'Portuguese',
-    'Chinese',
-    'Turkish',
-    'Russian'
+    'Français',
+    'Anglais',
+    'Espagnol',
+    'Allemand',
+    'Italien',
+    'Arabe',
+    'Portugais',
+    'Chinois',
+    'Turc',
+    'Russe'
   ];
 
   currentStep: 1 | 2 | 3 = 1;
@@ -86,14 +86,14 @@ export class LanguageTeacherComponent implements OnInit {
       },
       error: () => {
         this.loading = false;
-        this.errorMsg = 'Failed to load your quizzes.';
+        this.errorMsg = 'Échec du chargement de vos quiz.';
       }
     });
   }
 
   createQuiz(): void {
     if (!this.quizForm.title.trim() || !this.quizForm.language.trim() || !this.quizForm.startTime || !this.quizForm.endTime) {
-      this.errorMsg = 'Quiz title, language, start time, and end time are required.';
+      this.errorMsg = 'Le titre du quiz, la langue, l\'heure de début et l\'heure de fin sont obligatoires.';
       return;
     }
 
@@ -101,7 +101,7 @@ export class LanguageTeacherComponent implements OnInit {
     const end = new Date(this.quizForm.endTime);
 
     if (end <= start) {
-      this.errorMsg = 'End time must be after start time.';
+      this.errorMsg = 'L\'heure de fin doit être postérieure à l\'heure de début.';
       return;
     }
 
@@ -118,12 +118,12 @@ export class LanguageTeacherComponent implements OnInit {
         this.currentStep = 2;
         this.createdQuestionsCount = 0;
         this.questionCursor = 1;
-        this.successMsg = 'Quiz created. Add your questions and pick the correct answer for each one.';
+        this.successMsg = 'Quiz créé. Ajoutez vos questions et choisissez la bonne réponse pour chacune.';
         this.quizzes = [quiz, ...this.quizzes];
       },
       error: () => {
         this.savingQuiz = false;
-        this.errorMsg = 'Failed to create quiz.';
+        this.errorMsg = 'Échec de la création du quiz.';
       }
     });
   }
@@ -161,12 +161,12 @@ export class LanguageTeacherComponent implements OnInit {
 
   private submitQuestion(afterSave: 'next' | 'finish'): void {
     if (!this.questionForm.quizId) {
-      this.errorMsg = 'Select a quiz first.';
+      this.errorMsg = 'Veuillez d\'abord sélectionner un quiz.';
       return;
     }
 
     if (!this.isQuestionFormValid()) {
-      this.errorMsg = 'Please fill question text, all 4 options, and choose the correct answer.';
+      this.errorMsg = 'Veuillez remplir le texte de la question, les 4 options et choisir la bonne réponse.';
       return;
     }
 
@@ -179,7 +179,7 @@ export class LanguageTeacherComponent implements OnInit {
         this.savingQuestion = false;
         this.createdQuestionsCount++;
         this.questionCursor++;
-        this.successMsg = `Question ${this.createdQuestionsCount} saved.`;
+        this.successMsg = `Question ${this.createdQuestionsCount} enregistrée.`;
         this.questionForm = {
           quizId: this.questionForm.quizId,
           questionText: '',
@@ -192,12 +192,12 @@ export class LanguageTeacherComponent implements OnInit {
         this.loadQuizQuestions(this.questionForm.quizId);
         if (afterSave === 'finish') {
           this.currentStep = 3;
-          this.successMsg = `Quiz completed with ${this.createdQuestionsCount} question(s).`;
+          this.successMsg = `Quiz terminé avec ${this.createdQuestionsCount} question(s).`;
         }
       },
       error: () => {
         this.savingQuestion = false;
-        this.errorMsg = 'Failed to create question.';
+        this.errorMsg = 'Échec de la création de la question.';
       }
     });
   }

@@ -82,7 +82,7 @@ export class StudentQuizComponent implements OnInit, OnDestroy {
     // Your logic to send answers to the backend
     console.log("Quiz submitted successfully.");
     if (this.quizStatus === 'Expired') {
-      alert("Time is up! Your quiz has been submitted automatically.");
+      alert("Le temps est écoulé ! Votre quiz a été soumis automatiquement.");
     }
   }
 
