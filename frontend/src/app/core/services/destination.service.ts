@@ -3,65 +3,40 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Destination } from '../../shared/models/models';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class DestinationService {
-  private readonly apiBaseUrl = 'http://localhost:8080';
+  private readonly api = 'http://localhost:8080/api/destinations';
+  private readonly adminApi = 'http://localhost:8080/api/admin/destinations';
 
   constructor(private readonly http: HttpClient) {}
 
+  // ── Public ──
   getAll(): Observable<Destination[]> {
-    return this.http.get<Destination[]>(
-      `${this.apiBaseUrl}/api/admin/destinations`
-    );
+    return this.http.get<Destination[]>(this.api);
   }
 
   getById(id: number): Observable<Destination> {
-    return this.http.get<Destination>(
-      `${this.apiBaseUrl}/api/admin/destinations/${id}`
-    );
+    return this.http.get<Destination>(`${this.api}/${id}`);
   }
 
-  create(destination: Partial<Destination>, file?: File | null): Observable<{ id: number; message: string }> {
-    if (!file) {
-      return this.http.post<{ id: number; message: string }>(
-        `${this.apiBaseUrl}/api/admin/destinations`,
-        destination
-      );
-    }
-
-    const formData = new FormData();
-    formData.append('destination', JSON.stringify(destination));
-    formData.append('file', file);
-
-    return this.http.post<{ id: number; message: string }>(
-      `${this.apiBaseUrl}/api/admin/destinations`,
-      formData
-    );
+  getBySlug(slug: string): Observable<Destination> {
+    return this.http.get<Destination>(`${this.api}/slug/${slug}`);
   }
 
-  update(id: number, destination: Partial<Destination>, file?: File | null): Observable<{ id: number; message: string }> {
-    if (!file) {
-      return this.http.put<{ id: number; message: string }>(
-        `${this.apiBaseUrl}/api/admin/destinations/${id}`,
-        destination
-      );
-    }
+  // ── Admin ──
+  adminGetAll(): Observable<Destination[]> {
+    return this.http.get<Destination[]>(this.adminApi);
+  }
 
-    const formData = new FormData();
-    formData.append('destination', JSON.stringify(destination));
-    formData.append('file', file);
+  create(formData: FormData): Observable<{ id: number; message: string }> {
+    return this.http.post<{ id: number; message: string }>(this.adminApi, formData);
+  }
 
-    return this.http.put<{ id: number; message: string }>(
-      `${this.apiBaseUrl}/api/admin/destinations/${id}`,
-      formData
-    );
+  update(id: number, formData: FormData): Observable<{ id: number; message: string }> {
+    return this.http.put<{ id: number; message: string }>(`${this.adminApi}/${id}`, formData);
   }
 
   delete(id: number): Observable<{ message: string }> {
-    return this.http.delete<{ message: string }>(
-      `${this.apiBaseUrl}/api/admin/destinations/${id}`
-    );
+    return this.http.delete<{ message: string }>(`${this.adminApi}/${id}`);
   }
 }

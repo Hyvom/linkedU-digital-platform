@@ -279,11 +279,19 @@ export interface AdminDashboardStatistics {
 export interface Destination {
   id?: number;
   countryName: string;
-  description: string;
-  paragraph: string;
-  offers: string;
-  universities: string;
+  description?: string;
+  paragraph?: string;
   imageUrl?: string;
+  publicUniversities?: string;
+  privateColleges?: string;
+  teachingLanguages?: string;
+  specialities?: string;
+  educationSystem?: string;
+  numberOfUniversities?: number;
+  numberOfStudents?: number;
+  averageTuitionFee?: number;
+  averageLivingCost?: number;
+  offers?: string;
 }
 
 // ===========================

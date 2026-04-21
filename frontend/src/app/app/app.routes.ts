@@ -17,6 +17,7 @@ import { ContractSignupComponent } from '../signup/contract-signup/contract-sign
 // Destinations
 import { DestinationsComponent } from '../destinations/destinations.component';
 import { DestinationCountryComponent } from '../destinations/pays/destination-country.component';
+import { CountryPageComponent } from '../destinations/country-page.component/country-page.component';
 
 // Protected pages
 import { DestinationsAdminComponent } from '../admin/destinations/destinations-admin.component/destinations-admin.component';
@@ -49,8 +50,9 @@ export const routes: Routes = [
 
   // ── Destinations (public) ────────────────────────────
   { path: 'destinations', component: DestinationsComponent },
-  { path: 'destinations/pays', component: DestinationsComponent },
-  { path: 'destinations/pays/:country', component: DestinationCountryComponent },
+  { path: 'destinations/pays/:slug', component: CountryPageComponent },
+  //{ path: 'destinations/pays', component: DestinationsComponent },
+  //{ path: 'destinations/pays/:country', component: DestinationCountryComponent },
 
   // ── profiles ───────────────────────────────────────
   { path: 'profile/student', component: ProfileComponent, canActivate: [authGuard] },

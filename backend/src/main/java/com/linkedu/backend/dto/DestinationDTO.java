@@ -8,7 +8,15 @@ public class DestinationDTO {
     private String countryName;
     private String description;
     private String paragraph;
-    private String offers;
-    private String universities;
     private String imageUrl;
+    private String publicUniversities;
+    private String privateColleges;
+    private String teachingLanguages;
+    private String specialities;
+    private String educationSystem;
+    private Integer numberOfUniversities;
+    private Integer numberOfStudents;
+    private Integer averageTuitionFee;
+    private Integer averageLivingCost;
+    private String offers;
 }

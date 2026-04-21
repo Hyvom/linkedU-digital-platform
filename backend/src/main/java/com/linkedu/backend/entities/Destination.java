@@ -19,17 +19,37 @@ public class Destination {
     private String countryName;
 
     @Column(columnDefinition = "TEXT")
-    private String description;
+    private String description;          // Short tagline
 
     @Column(columnDefinition = "TEXT")
-    private String paragraph;
-
-    @Column(length = 1000)
-    private String offers;
-
-    @Column(length = 1000)
-    private String universities;
+    private String paragraph;            // Full intro paragraph
 
     @Column(length = 500)
-    private String imageUrl;
+    private String imageUrl;             // Country flag/image
+
+    // ── New attributes ──
+
+    @Column(columnDefinition = "TEXT")
+    private String publicUniversities;   // One per line
+
+    @Column(columnDefinition = "TEXT")
+    private String privateColleges;      // One per line
+
+    @Column(length = 500)
+    private String teachingLanguages;    // e.g. "French, English"
+
+    @Column(columnDefinition = "TEXT")
+    private String specialities;         // One per line: Computer Science, Medicine...
+
+    @Column(length = 500)
+    private String educationSystem;      // e.g. "LMD (3-5-8)", "Bachelor/Master/PhD"
+
+    // Key numbers
+    private Integer numberOfUniversities;
+    private Integer numberOfStudents;     // International students
+    private Integer averageTuitionFee;    // USD per year
+    private Integer averageLivingCost;    // USD per month
+
+    @Column(columnDefinition = "TEXT")
+    private String offers;               // Scholarships, programs
 }
