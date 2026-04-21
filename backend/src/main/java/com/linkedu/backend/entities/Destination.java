@@ -29,4 +29,7 @@ public class Destination {
 
     @Column(length = 1000)
     private String universities;
+
+    @Column(length = 500)
+    private String imageUrl;
 }

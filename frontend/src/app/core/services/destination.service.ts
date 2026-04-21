@@ -23,17 +23,39 @@ export class DestinationService {
     );
   }
 
-  create(destination: Partial<Destination>): Observable<{ id: number; message: string }> {
+  create(destination: Partial<Destination>, file?: File | null): Observable<{ id: number; message: string }> {
+    if (!file) {
+      return this.http.post<{ id: number; message: string }>(
+        `${this.apiBaseUrl}/api/admin/destinations`,
+        destination
+      );
+    }
+
+    const formData = new FormData();
+    formData.append('destination', JSON.stringify(destination));
+    formData.append('file', file);
+
     return this.http.post<{ id: number; message: string }>(
       `${this.apiBaseUrl}/api/admin/destinations`,
-      destination
+      formData
     );
   }
 
-  update(id: number, destination: Partial<Destination>): Observable<{ id: number; message: string }> {
+  update(id: number, destination: Partial<Destination>, file?: File | null): Observable<{ id: number; message: string }> {
+    if (!file) {
+      return this.http.put<{ id: number; message: string }>(
+        `${this.apiBaseUrl}/api/admin/destinations/${id}`,
+        destination
+      );
+    }
+
+    const formData = new FormData();
+    formData.append('destination', JSON.stringify(destination));
+    formData.append('file', file);
+
     return this.http.put<{ id: number; message: string }>(
       `${this.apiBaseUrl}/api/admin/destinations/${id}`,
-      destination
+      formData
     );
   }
 

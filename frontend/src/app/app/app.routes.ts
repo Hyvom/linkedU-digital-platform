@@ -14,24 +14,9 @@ import { ProfileComponent } from '../profile/profile.component';
 import { GuestSignupComponent } from '../signup/guest-signup/guest-signup.component';
 import { ContractSignupComponent } from '../signup/contract-signup/contract-signup.component';
 
-//Reset Password
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
-import { ResetPasswordComponent } from '../reset-password/reset-password.component';
-
 // Destinations
 import { DestinationsComponent } from '../destinations/destinations.component';
-import { AllemagneComponent } from '../destinations/pays/allemagne.component';
-import { BelgiqueComponent } from '../destinations/pays/belgique.component';
-import { ChineComponent } from '../destinations/pays/chine.component';
-import { DubaiComponent } from '../destinations/pays/dubai.component';
-import { EspagneComponent } from '../destinations/pays/espagne.component';
-import { FranceComponent } from '../destinations/pays/france.component';
-import { GeorgieComponent } from '../destinations/pays/georgie.component';
-import { ItalieComponent } from '../destinations/pays/italie.component';
-import { MalteComponent } from '../destinations/pays/malte.component';
-import { RomanieComponent } from '../destinations/pays/romanie.component';
-import { SuisseComponent } from '../destinations/pays/suisse.component';
-import { TurkiyeComponent } from '../destinations/pays/turkiye.component';
+import { DestinationCountryComponent } from '../destinations/pays/destination-country.component';
 
 // Protected pages
 import { DestinationsAdminComponent } from '../admin/destinations/destinations-admin.component/destinations-admin.component';
@@ -53,8 +38,6 @@ export const routes: Routes = [
   // ── Public ──────────────────────────────────────────
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'signup', redirectTo: 'signup/guest', pathMatch: 'full' },
@@ -66,25 +49,15 @@ export const routes: Routes = [
 
   // ── Destinations (public) ────────────────────────────
   { path: 'destinations', component: DestinationsComponent },
-  { path: 'destinations/pays/france', component: FranceComponent },
-  { path: 'destinations/pays/romanie', component: RomanieComponent },
-  { path: 'destinations/pays/dubai', component: DubaiComponent },
-  { path: 'destinations/pays/italie', component: ItalieComponent },
-  { path: 'destinations/pays/turkiye', component: TurkiyeComponent },
-  { path: 'destinations/pays/espagne', component: EspagneComponent },
-  { path: 'destinations/pays/belgique', component: BelgiqueComponent },
-  { path: 'destinations/pays/allemagne', component: AllemagneComponent },
-  { path: 'destinations/pays/chine', component: ChineComponent },
-  { path: 'destinations/pays/suisse', component: SuisseComponent },
-  { path: 'destinations/pays/georgie', component: GeorgieComponent },
-  { path: 'destinations/pays/malte', component: MalteComponent },
+  { path: 'destinations/pays', component: DestinationsComponent },
+  { path: 'destinations/pays/:country', component: DestinationCountryComponent },
 
   // ── profiles ───────────────────────────────────────
   { path: 'profile/student', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'profile/guest',   component: GuestProfileComponent,  canActivate: [authGuard] },
   { path: 'profile/agent',   component: AgentProfileComponent,  canActivate: [authGuard] },
   { path: 'profile',         canActivate: [profileRedirectGuard], component: StudentProfileComponent },
-
+  
   // ── Admin only ───────────────────────────────────────
   {
     path: 'admin',
@@ -130,7 +103,7 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: ['STUDENT', 'USER', 'GUEST'] }
   },
-
+  
   //Agent Dashboard
   {
     path: 'agent',

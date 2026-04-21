@@ -283,6 +283,7 @@ export interface Destination {
   paragraph: string;
   offers: string;
   universities: string;
+  imageUrl?: string;
 }
 
 // ===========================

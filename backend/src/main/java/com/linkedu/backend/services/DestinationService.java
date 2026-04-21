@@ -4,11 +4,13 @@ import com.linkedu.backend.entities.Destination;
 import com.linkedu.backend.repositories.DestinationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DestinationService {
     private final DestinationRepository destinationRepository;
 
@@ -32,6 +34,7 @@ public class DestinationService {
         existing.setParagraph(destination.getParagraph());
         existing.setOffers(destination.getOffers());
         existing.setUniversities(destination.getUniversities());
+        if (destination.getImageUrl() != null) existing.setImageUrl(destination.getImageUrl());
         return destinationRepository.save(existing);
     }
 
