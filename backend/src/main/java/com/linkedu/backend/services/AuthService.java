@@ -4,6 +4,7 @@ import com.linkedu.backend.dto.ContractRegistrationDTO;
 import com.linkedu.backend.dto.GuestRegistrationDTO;
 import com.linkedu.backend.dto.LoginRequestDTO;
 import com.linkedu.backend.entities.EmailVerificationToken;
+import com.linkedu.backend.entities.PasswordResetToken;
 import com.linkedu.backend.entities.ProductKey;
 import com.linkedu.backend.entities.User;
 import com.linkedu.backend.dto.UserDTO;
@@ -11,6 +12,7 @@ import com.linkedu.backend.entities.enums.Role;
 import com.linkedu.backend.repositories.EmailVerificationTokenRepository;
 import com.linkedu.backend.repositories.ProductKeyRepository;
 import com.linkedu.backend.repositories.UserRepository;
+import com.linkedu.backend.repositories.PasswordResetTokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,7 @@ public class AuthService {
     private final EmailService emailService;
     private final JwtUtil jwtUtil;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordResetTokenRepository passwordResetTokenRepository;
     @Value("${FRONTEND_URL}")
     private String frontendUrl;
 
@@ -168,5 +171,68 @@ public class AuthService {
 
         String verificationUrl = frontendUrl + "/verify?token=" + token;
         emailService.sendVerificationEmail(user.getEmail(), user.getFirstName(), verificationUrl);
+    }
+
+    public ResponseEntity<?> forgotPassword(String email) {
+        User user = userRepository.findByEmail(email).orElse(null);
+
+        // Always return success to prevent email enumeration attacks
+        if (user == null) {
+            return ResponseEntity.ok(Map.of("message",
+                    "If this email exists, a reset link has been sent."));
+        }
+
+        // Delete any existing tokens for this user
+        passwordResetTokenRepository.deleteByUserId(user.getId());
+
+        // Create new token
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = new PasswordResetToken(token, user.getId());
+        passwordResetTokenRepository.save(resetToken);
+
+        // Send email
+        String resetUrl = frontendUrl + "/reset-password?token=" + token;
+        emailService.sendPasswordResetEmail(user.getEmail(), user.getFirstName(), resetUrl);
+
+        return ResponseEntity.ok(Map.of("message",
+                "If this email exists, a reset link has been sent."));
+    }
+
+    public ResponseEntity<?> resetPassword(String token, String newPassword) {
+        PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)
+                .orElse(null);
+
+        if (resetToken == null) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Invalid reset token."));
+        }
+
+        if (resetToken.isUsed()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "This reset link has already been used."));
+        }
+
+        if (resetToken.isExpired()) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "This reset link has expired. Please request a new one."));
+        }
+
+        if (newPassword == null || newPassword.length() < 6) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Password must be at least 6 characters."));
+        }
+
+        User user = userRepository.findById(resetToken.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        // Mark token as used
+        resetToken.setUsedAt(LocalDateTime.now());
+        passwordResetTokenRepository.save(resetToken);
+
+        return ResponseEntity.ok(Map.of("message",
+                "Password reset successfully! You can now log in."));
     }
 }

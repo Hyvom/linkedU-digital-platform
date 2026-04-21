@@ -97,6 +97,60 @@ public class EmailService {
             throw new RuntimeException("Failed to send verification email", e);
         }
     }
+    public void sendPasswordResetEmail(String to, String firstName, String resetUrl) {
+        String subject = "Reset your LinkedU password";
+        String htmlContent = """
+        <!DOCTYPE html>
+        <html>
+        <head><meta charset="UTF-8"></head>
+        <body style="margin:0; padding:0; background:#0f172a; font-family:Arial,sans-serif;">
+          <div style="max-width:600px; margin:40px auto; background:#111c33; border-radius:16px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.4);">
+            <div style="height:5px; background:#fbbf24;"></div>
+            <div style="padding:30px; text-align:center;">
+              <h2 style="color:#f8fafc; margin-bottom:10px;">Password Reset Request 🔐</h2>
+              <p style="color:#94a3b8; font-size:14px;">
+                Hi %s, we received a request to reset your LinkedU password.
+              </p>
+              <p style="color:#94a3b8; font-size:14px;">
+                Click the button below to set a new password. This link expires in <strong style="color:#fbbf24;">1 hour</strong>.
+              </p>
+            </div>
+            <div style="text-align:center; padding:20px;">
+              <a href="%s"
+                 style="display:inline-block; background:#fbbf24; color:#0f172a;
+                        padding:14px 32px; font-weight:bold; border-radius:10px;
+                        text-decoration:none; font-size:16px;">
+                Reset My Password
+              </a>
+            </div>
+            <div style="padding:10px 30px; text-align:center;">
+              <p style="color:#94a3b8; font-size:12px;">
+                If you didn't request this, you can safely ignore this email.<br/>
+                Your password will not change.
+              </p>
+              <code style="color:#fbbf24; font-size:11px; word-break:break-all;">%s</code>
+            </div>
+            <div style="padding:20px; text-align:center; color:#64748b; font-size:11px;">
+              This link expires in 1 hour.<br/>© LinkedU - Study Abroad Platform
+            </div>
+          </div>
+        </body>
+        </html>
+        """.formatted(firstName, resetUrl, resetUrl);
+
+        try {
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(htmlContent, true);
+            mailSender.send(mimeMessage);
+            System.out.println("✅ Password reset email sent to: " + to);
+        } catch (MessagingException e) {
+            System.err.println("❌ Password reset email failed: " + e.getMessage());
+            throw new RuntimeException("Failed to send password reset email", e);
+        }
+    }
 
     public void sendEmail(String to, String subject, String htmlContent) {
         try {

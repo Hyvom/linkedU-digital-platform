@@ -78,4 +78,19 @@ export class AuthService {
       localStorage.setItem('userId', String(userId));
     }
   }
+
+  forgotPassword(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiBaseUrl}/api/auth/forgot-password`,
+      { email }
+    );
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiBaseUrl}/api/auth/reset-password`,
+      { token, newPassword }
+    );
+  }
+
 }
