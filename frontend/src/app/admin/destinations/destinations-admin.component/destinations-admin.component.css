@@ -324,6 +324,16 @@
   color: #1E4F70;
 }
 
+.preview-icon {
+  color: #0e7490;
+}
+
+.preview-icon:hover {
+  background: #0e7490;
+  color: white;
+  transform: scale(1.1);
+}
+
 .edit-icon:hover {
   background: #d9c682;
   color: white;
@@ -434,6 +444,10 @@
   resize: vertical;
   font-family: 'Courier New', monospace;
   line-height: 1.5;
+}
+
+.file-input {
+  padding: 0.5rem 0.75rem;
 }
 
 .form-row {

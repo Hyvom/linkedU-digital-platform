@@ -28,6 +28,7 @@ import { MalteComponent } from '../destinations/pays/malte.component';
 import { RomanieComponent } from '../destinations/pays/romanie.component';
 import { SuisseComponent } from '../destinations/pays/suisse.component';
 import { TurkiyeComponent } from '../destinations/pays/turkiye.component';
+import { DestinationCountryComponent } from '../destinations/pays/destination-country.component';
 
 // Protected pages
 import { DestinationsAdminComponent } from '../admin/destinations/destinations-admin.component/destinations-admin.component';
@@ -60,6 +61,8 @@ export const routes: Routes = [
 
   // ── Destinations (public) ────────────────────────────
   { path: 'destinations', component: DestinationsComponent },
+  { path: 'destinations/pays', component: DestinationsComponent },
+  { path: 'destinations/pays/:country', component: DestinationCountryComponent },
   { path: 'destinations/pays/france', component: FranceComponent },
   { path: 'destinations/pays/romanie', component: RomanieComponent },
   { path: 'destinations/pays/dubai', component: DubaiComponent },

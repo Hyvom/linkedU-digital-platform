@@ -10,4 +10,5 @@ public class DestinationDTO {
     private String paragraph;
     private String offers;
     private String universities;
+    private String imageUrl;
 }

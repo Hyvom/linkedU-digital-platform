@@ -27,9 +27,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        // Skip filter for public auth endpoints
+        // Skip filter for public endpoints
         String requestPath = request.getServletPath();
-        if (requestPath.startsWith("/api/auth/")) {
+        if (requestPath.startsWith("/api/auth/")
+                || requestPath.startsWith("/api/destinations/")
+                || "/api/destinations".equals(requestPath)
+                || requestPath.startsWith("/uploads/")) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -40,21 +43,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            username = jwtUtil.extractUsername(token);
+            try {
+                username = jwtUtil.extractUsername(token);
+            } catch (Exception ignored) {
+                // Invalid or expired token: continue as anonymous user.
+                username = null;
+            }
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            if (jwtUtil.validateToken(token, username)) {
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            try {
+                if (jwtUtil.validateToken(token, username)) {
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-                // ← FIXED: Use principal as "userId:123" string
-                Long userId = jwtUtil.extractUserId(token);
-                Object principal = userId != null ? "userId:" + userId : username;
+                    // ← FIXED: Use principal as "userId:123" string
+                    Long userId = jwtUtil.extractUserId(token);
+                    Object principal = userId != null ? "userId:" + userId : username;
 
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(principal, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
+                    UsernamePasswordAuthenticationToken authToken =
+                            new UsernamePasswordAuthenticationToken(principal, null, userDetails.getAuthorities());
+                    authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(authToken);
+                }
+            } catch (Exception ignored) {
+                // Any JWT parsing/validation issue should not break the request pipeline.
             }
         }
         filterChain.doFilter(request, response);

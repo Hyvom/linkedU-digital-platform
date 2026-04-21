@@ -33,8 +33,8 @@
   <section class="card" *ngIf="currentStep === 1">
     <h2>Créer un quiz</h2>
     <div class="grid-3">
-      <input type="text" [(ngModel)]="quizForm.title" placeholder="Titre du quiz" />
-      <select [(ngModel)]="quizForm.language">
+      <input id="quiz-title" name="quizTitle" type="text" [(ngModel)]="quizForm.title" placeholder="Titre du quiz" />
+      <select id="quiz-language" name="quizLanguage" [(ngModel)]="quizForm.language">
         <option value="" disabled>Sélectionner la langue</option>
         <option *ngFor="let language of languageOptions" [value]="language">{{ language }}</option>
       </select>
@@ -42,15 +42,15 @@
     <div class="grid-3" style="margin-top: 1rem; align-items: flex-end;">
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <label style="font-size: 0.85rem; color: #555; font-weight: bold;">Heure de début</label>
-        <input type="datetime-local" [(ngModel)]="quizForm.startTime" />
+        <input id="quiz-start-time" name="quizStartTime" type="datetime-local" [(ngModel)]="quizForm.startTime" />
       </div>
       <div style="display: flex; flex-direction: column; gap: 4px;">
         <label style="font-size: 0.85rem; color: #555; font-weight: bold;">Heure de fin</label>
-        <input type="datetime-local" [(ngModel)]="quizForm.endTime" />
+        <input id="quiz-end-time" name="quizEndTime" type="datetime-local" [(ngModel)]="quizForm.endTime" />
       </div>
       <button (click)="createQuiz()" [disabled]="savingQuiz">{{ savingQuiz ? 'Création...' : 'Créer et continuer' }}</button>
     </div>
-    <textarea [(ngModel)]="quizForm.description" placeholder="Courte description pour les étudiants"></textarea>
+    <textarea id="quiz-description" name="quizDescription" [(ngModel)]="quizForm.description" placeholder="Courte description pour les étudiants"></textarea>
   </section>
 
   <section class="card" *ngIf="currentStep === 2 && selectedQuizId">
@@ -60,12 +60,12 @@
       ({{ createdQuiz?.language || 'N/A' }})
     </p>
     <div class="question-form-stack">
-      <textarea [(ngModel)]="questionForm.questionText" placeholder="Écrire la question"></textarea>
-      <input type="text" [(ngModel)]="questionForm.optionA" placeholder="Option A" />
-      <input type="text" [(ngModel)]="questionForm.optionB" placeholder="Option B" />
-      <input type="text" [(ngModel)]="questionForm.optionC" placeholder="Option C" />
-      <input type="text" [(ngModel)]="questionForm.optionD" placeholder="Option D" />
-      <select [(ngModel)]="questionForm.correctOption">
+      <textarea id="question-text" name="questionText" [(ngModel)]="questionForm.questionText" placeholder="Écrire la question"></textarea>
+      <input id="question-option-a" name="questionOptionA" type="text" [(ngModel)]="questionForm.optionA" placeholder="Option A" />
+      <input id="question-option-b" name="questionOptionB" type="text" [(ngModel)]="questionForm.optionB" placeholder="Option B" />
+      <input id="question-option-c" name="questionOptionC" type="text" [(ngModel)]="questionForm.optionC" placeholder="Option C" />
+      <input id="question-option-d" name="questionOptionD" type="text" [(ngModel)]="questionForm.optionD" placeholder="Option D" />
+      <select id="question-correct-option" name="questionCorrectOption" [(ngModel)]="questionForm.correctOption">
         <option value="A">Correct : A</option>
         <option value="B">Correct : B</option>
         <option value="C">Correct : C</option>

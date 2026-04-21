@@ -81,6 +81,9 @@
             <i class="fa-solid fa-flag-checkered"></i>
           </div>
           <div class="dest-card-actions">
+            <a [routerLink]="getPublicDestinationLink(dest.countryName)" class="icon-btn preview-icon" title="Voir la page publique">
+              <i class="fa-solid fa-up-right-from-square"></i>
+            </a>
             <button (click)="showEdit(dest)" class="icon-btn edit-icon" title="Modifier">
               <i class="fa-solid fa-pen"></i>
             </button>
@@ -114,57 +117,68 @@
 
       <!-- Country Name -->
       <div class="form-group">
-        <label class="form-label">
+        <label class="form-label" for="destination-country-name">
           <i class="fa-solid fa-location-dot"></i>
           Nom du pays *
         </label>
-        <input type="text" name="countryName" [(ngModel)]="form.countryName"
-          placeholder="ex: France" required class="form-input" />
+        <input id="destination-country-name" type="text" name="countryName" [(ngModel)]="form.countryName"
+          placeholder="ex: France" required class="form-input" autocomplete="country-name" />
       </div>
 
       <!-- Description -->
       <div class="form-group">
-        <label class="form-label">
+        <label class="form-label" for="destination-description">
           <i class="fa-solid fa-align-left"></i>
           Description courte
         </label>
-        <input type="text" name="description" [(ngModel)]="form.description"
+        <input id="destination-description" type="text" name="description" [(ngModel)]="form.description"
           placeholder="Une brève description d'une ligne..."
-          class="form-input" />
+          class="form-input" autocomplete="off" />
       </div>
 
       <!-- Paragraph -->
       <div class="form-group">
-        <label class="form-label">
+        <label class="form-label" for="destination-paragraph">
           <i class="fa-solid fa-paragraph"></i>
           Paragraphe complet
         </label>
-        <textarea name="paragraph" [(ngModel)]="form.paragraph" rows="5"
+        <textarea id="destination-paragraph" name="paragraph" [(ngModel)]="form.paragraph" rows="5"
           placeholder="Description détaillée sur les études dans ce pays..."
-          class="form-input form-textarea"></textarea>
+          class="form-input form-textarea" autocomplete="off"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="destination-image">
+          <i class="fa-solid fa-image"></i>
+          Image de destination
+        </label>
+        <input id="destination-image" name="destinationImage" type="file" accept="image/*" (change)="onImageSelected($event)" class="form-input file-input" />
+        <p class="form-hint">
+          Cette image sera affichée sur la liste des destinations et la page du pays.
+        </p>
       </div>
 
       <!-- Offers + Universities side by side -->
       <div class="form-row">
         <div class="form-group">
-          <label class="form-label">
+          <label class="form-label" for="destination-offers">
             <i class="fa-solid fa-tags"></i>
             Offres
           </label>
           <p class="form-hint">Une offre par ligne</p>
-          <textarea name="offers" [(ngModel)]="form.offers" rows="6"
+          <textarea id="destination-offers" name="offers" [(ngModel)]="form.offers" rows="6"
             placeholder="Programmes de bourses&#10;Cours de langue&#10;Permis de travail"
-            class="form-input form-textarea"></textarea>
+            class="form-input form-textarea" autocomplete="off"></textarea>
         </div>
         <div class="form-group">
-          <label class="form-label">
+          <label class="form-label" for="destination-universities">
             <i class="fa-solid fa-building-columns"></i>
             Universités
           </label>
           <p class="form-hint">Une université par ligne</p>
-          <textarea name="universities" [(ngModel)]="form.universities" rows="6"
+          <textarea id="destination-universities" name="universities" [(ngModel)]="form.universities" rows="6"
             placeholder="Université de Paris&#10;Sorbonne Université&#10;Sciences Po"
-            class="form-input form-textarea"></textarea>
+            class="form-input form-textarea" autocomplete="off"></textarea>
         </div>
       </div>
 

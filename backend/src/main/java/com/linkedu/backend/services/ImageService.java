@@ -14,8 +14,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ImageService {
 
-    private static final String UPLOAD_DIR = "/app/uploads/destinations/";
-    private static final String AVATAR_DIR = "/app/uploads/avatars/";
+    private static final String UPLOAD_DIR = "uploads/destinations/";
+    private static final String AVATAR_DIR = "uploads/avatars/";
 
     public String saveImage(MultipartFile file) throws IOException {
         // Create directory if not exists
@@ -26,14 +26,16 @@ public class ImageService {
 
         // Generate unique filename
         String originalFilename = file.getOriginalFilename();
-        String fileExtension = originalFilename != null ?
-                originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
+        String fileExtension = ".jpg";
+        if (originalFilename != null && originalFilename.contains(".")) {
+            fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
         String filename = UUID.randomUUID() + fileExtension;
 
         Path filePath = uploadPath.resolve(filename);
         Files.copy(file.getInputStream(), filePath);
 
-        return "/uploads/destinations/" + filename;
+        return "/" + UPLOAD_DIR + filename;
     }
 
     public String saveAvatar(MultipartFile file) throws IOException {
@@ -43,13 +45,15 @@ public class ImageService {
         }
 
         String originalFilename = file.getOriginalFilename();
-        String fileExtension = originalFilename != null ?
-                originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
+        String fileExtension = ".jpg";
+        if (originalFilename != null && originalFilename.contains(".")) {
+            fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        }
         String filename = UUID.randomUUID() + fileExtension;
 
         Path filePath = uploadPath.resolve(filename);
         Files.copy(file.getInputStream(), filePath);
 
-        return "/uploads/avatars/" + filename;
+        return "/" + AVATAR_DIR + filename;
     }
 }

@@ -1,0 +1,77 @@
+<main>
+  <section class="relative bg-gray-900 py-32 overflow-hidden text-white">
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-950 via-blue-900 to-gray-900"></div>
+    <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" [style.background-image]="'url(' + getImageUrl() + ')'"></div>
+
+    <div class="z-10 relative mx-auto px-6 text-center container">
+      <ng-container *ngIf="destination; else loadingOrNotFoundTitle">
+        <h1 class="mb-4 font-bold text-5xl md:text-7xl">{{ destination.countryName | uppercase }}</h1>
+        <p class="text-blue-200 text-2xl uppercase tracking-widest">Une Destination de Reve</p>
+      </ng-container>
+      <ng-template #loadingOrNotFoundTitle>
+        <h1 class="mb-4 font-bold text-5xl md:text-7xl">DESTINATION</h1>
+      </ng-template>
+    </div>
+  </section>
+
+  <section class="bg-white py-20">
+    <div class="mx-auto px-6 container">
+      <p *ngIf="isLoading" class="text-gray-600 text-center text-lg">Chargement...</p>
+
+      <div *ngIf="!isLoading && !destination" class="text-center">
+        <p class="mb-6 text-gray-600 text-lg">Destination introuvable.</p>
+        <a routerLink="/destinations" class="inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-full font-bold text-white transition-all">
+          Retour aux destinations
+        </a>
+      </div>
+
+      <div *ngIf="!isLoading && destination" class="gap-12 grid lg:grid-cols-2 items-center">
+        <div>
+          <h2 class="mb-6 font-bold text-blue-900 text-3xl">Excellence et Culture</h2>
+          <p class="mb-6 text-gray-600 text-lg leading-relaxed">
+            {{ destination.paragraph || destination.description }}
+          </p>
+          <p class="text-gray-600 text-lg leading-relaxed">
+            Etudiez en {{ destination.countryName }} avec l'accompagnement LinkedU.
+          </p>
+        </div>
+        <div class="group relative shadow-2xl rounded-2xl overflow-hidden">
+          <img [src]="getImageUrl()" [alt]="destination.countryName" class="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-500 transform" />
+          <div class="right-0 bottom-0 left-0 absolute bg-gradient-to-t from-black/70 to-transparent p-6">
+            <p class="font-medium text-white">Symbole des etudes en {{ destination.countryName }} pour etudiants internationaux</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section *ngIf="!isLoading && destination" class="bg-gray-50 py-20">
+    <div class="mx-auto px-6 container">
+      <div class="gap-12 grid lg:grid-cols-2">
+        <div class="bg-white shadow-xl rounded-3xl overflow-hidden">
+          <div class="bg-blue-900 p-8 text-white">
+            <h3 class="font-bold text-2xl">Universites</h3>
+          </div>
+          <div class="p-8">
+            <ul class="space-y-3">
+              <li *ngFor="let uni of splitLines(destination.universities)" class="bg-gray-50 p-3 rounded-lg text-gray-700">{{ uni }}</li>
+              <li *ngIf="splitLines(destination.universities).length === 0" class="text-gray-500">Informations a venir.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="bg-white shadow-xl rounded-3xl overflow-hidden">
+          <div class="bg-yellow-500 p-8 text-white">
+            <h3 class="font-bold text-2xl">Offres</h3>
+          </div>
+          <div class="p-8">
+            <ul class="space-y-3">
+              <li *ngFor="let offer of splitLines(destination.offers)" class="bg-gray-50 p-3 rounded-lg text-gray-700">{{ offer }}</li>
+              <li *ngIf="splitLines(destination.offers).length === 0" class="text-gray-500">Informations a venir.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

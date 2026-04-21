@@ -39,7 +39,9 @@
   </div>
 
   <form class="chatbot-input" (ngSubmit)="sendMessage()">
+    <label for="chatbot-question" class="sr-only">Votre question</label>
     <input
+      id="chatbot-question"
       type="text"
       name="question"
       [(ngModel)]="question"

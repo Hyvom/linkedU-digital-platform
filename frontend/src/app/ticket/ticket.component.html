@@ -76,7 +76,7 @@
             Votre disponibilité *
           </label>
           <p class="form-hint">Quand êtes-vous disponible pour une réunion ?</p>
-          <input type="datetime-local" [(ngModel)]="createForm.availabilityDateTime"
+          <input id="availability-date-time" type="datetime-local" [(ngModel)]="createForm.availabilityDateTime"
             name="availabilityDateTime" class="form-input" required />
         </div>
 
@@ -226,7 +226,7 @@
                 <i class="fa-solid fa-link"></i>
                 Lien Google Meet *
               </label>
-              <input type="url" [(ngModel)]="acceptForm.googleMeetLink"
+              <input id="google-meet-link" name="googleMeetLink" type="url" [(ngModel)]="acceptForm.googleMeetLink"
                 placeholder="https://meet.google.com/xxx-xxxx-xxx"
                 class="form-input" />
             </div>
@@ -254,7 +254,7 @@
                 <i class="fa-solid fa-comment"></i>
                 Raison du rejet *
               </label>
-              <textarea [(ngModel)]="rejectForm.reason" rows="3"
+              <textarea id="ticket-rejection-reason" name="ticketRejectionReason" [(ngModel)]="rejectForm.reason" rows="3"
                 placeholder="Expliquez pourquoi vous rejetez ce ticket..."
                 class="form-input form-textarea"></textarea>
             </div>
@@ -278,7 +278,7 @@
               Ajouter une réponse
             </h4>
             <div class="form-group">
-              <textarea [(ngModel)]="responseText" rows="3"
+              <textarea id="ticket-response-text" name="ticketResponseText" [(ngModel)]="responseText" rows="3"
                 placeholder="Écrivez votre réponse à l'étudiant..."
                 class="form-input form-textarea"></textarea>
             </div>

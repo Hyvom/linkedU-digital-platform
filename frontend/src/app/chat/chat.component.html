@@ -131,10 +131,14 @@
 
       <!-- Message Input -->
       <div class="message-input-area">
+        <label for="chat-new-message" class="sr-only">Nouveau message</label>
         <textarea
+          id="chat-new-message"
+          name="chatNewMessage"
           [(ngModel)]="newMessage"
           (keydown)="onKeyDown($event)"
           placeholder="Tapez un message... (Entrée pour envoyer)"
+          autocomplete="off"
           rows="1"
           [disabled]="isSending"
           class="message-input">

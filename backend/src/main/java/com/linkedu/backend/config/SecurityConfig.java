@@ -49,6 +49,7 @@ public class SecurityConfig {
                                 "/api/documents/**",
                                 "/uploads/**",
                                 "/documents/**",
+                                "/api/destinations",
                                 "/api/destinations/**",
                                 "/api/agent-profile/**",
                                 "/api/guest-profile/**",
@@ -66,7 +67,7 @@ public class SecurityConfig {
                                 "/api/student-profile/**",
                                 "/api/chatbot/**"
                         ).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
