@@ -15,19 +15,6 @@ import { GuestSignupComponent } from '../signup/guest-signup/guest-signup.compon
 import { ContractSignupComponent } from '../signup/contract-signup/contract-signup.component';
 
 // Destinations
-import { DestinationsComponent } from '../destinations/destinations.component';
-import { AllemagneComponent } from '../destinations/pays/allemagne.component';
-import { BelgiqueComponent } from '../destinations/pays/belgique.component';
-import { ChineComponent } from '../destinations/pays/chine.component';
-import { DubaiComponent } from '../destinations/pays/dubai.component';
-import { EspagneComponent } from '../destinations/pays/espagne.component';
-import { FranceComponent } from '../destinations/pays/france.component';
-import { GeorgieComponent } from '../destinations/pays/georgie.component';
-import { ItalieComponent } from '../destinations/pays/italie.component';
-import { MalteComponent } from '../destinations/pays/malte.component';
-import { RomanieComponent } from '../destinations/pays/romanie.component';
-import { SuisseComponent } from '../destinations/pays/suisse.component';
-import { TurkiyeComponent } from '../destinations/pays/turkiye.component';
 import { DestinationCountryComponent } from '../destinations/pays/destination-country.component';
 
 // Protected pages
