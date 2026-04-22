@@ -31,7 +31,9 @@ export class AdminService {
   }
 
   deleteUser(userId: number): Observable<void> {
-    return this.http.delete<void>(`${this.adminBase}/users/${userId}`);
+    return this.http.post<void>(`${this.adminBase}/users/delete`, null, {
+      params: { userId: userId.toString() }
+    });
   }
 
   assignAgentToStudent(studentId: number, agentId: number): Observable<any> {

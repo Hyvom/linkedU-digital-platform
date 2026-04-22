@@ -129,10 +129,11 @@ export class UsersComponent implements OnInit {
         error: (err: any) => {
           console.error(`Delete failed (Status: ${err.status}):`, err.error || err.message);
           if (err.status === 404) {
-            this.removeUserFromLists(user.id);
-            this.successMsg = `User ${user.firstName} ${user.lastName} removed from the list.`;
+            this.errorMsg = 'Utilisateur introuvable (404).';
           } else if (err.status === 403) {
             this.errorMsg = 'Accès refusé (403). Vérifiez vos permissions de sécurité.';
+          } else if (err.status === 409) {
+            this.errorMsg = 'Suppression impossible: cet utilisateur est lié à d\'autres données.';
           } else if (err.status === 500) {
             this.errorMsg = 'Erreur serveur (500). Cela est probablement dû à une contrainte de base de données (clés étrangères).';
           } else {
@@ -142,14 +143,6 @@ export class UsersComponent implements OnInit {
         }
       });
     }
-  }
-
-  private removeUserFromLists(userId: number): void {
-    this.users = this.users.filter(u => u.id !== userId);
-    this.agents = this.agents.filter(u => u.id !== userId);
-    this.students = this.students.filter(u => u.id !== userId);
-    delete this.selectedRoleMap[userId];
-    delete this.selectedAgentMap[userId];
   }
 
   private closeRoleConfirmModal(): void {
