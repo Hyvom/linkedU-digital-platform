@@ -12,4 +12,5 @@ public interface QuizAttemptRepository extends JpaRepository<QuizAttempt, Long> 
     List<QuizAttempt> findByStudent(User student);
     List<QuizAttempt> findByQuiz(Quiz quiz);
     List<QuizAttempt> findByStudentAndQuizOrderByCompletedAtDesc(User student, Quiz quiz);
+    List<QuizAttempt> findByReviewedBy(User reviewedBy);
 }
