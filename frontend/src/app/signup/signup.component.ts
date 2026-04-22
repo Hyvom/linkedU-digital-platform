@@ -90,6 +90,12 @@ export class SignupComponent {
         this.isSubmitting = false;
         return;
       }
+      if (f.password !== f.confirmPassword) {
+        this.errorMessage = 'Les mots de passe ne correspondent pas.';
+        this.isSubmitting = false;
+        return;
+      }
+
       this.authService.registerGuest(f).subscribe({
         next: (res) => {
           this.successMessage = res.message || 'Compte créé ! Veuillez vérifier votre e-mail pour valider votre compte.';
@@ -108,6 +114,12 @@ export class SignupComponent {
         this.isSubmitting = false;
         return;
       }
+      if (f.password !== f.confirmPassword) {
+        this.errorMessage = 'Les mots de passe ne correspondent pas.';
+        this.isSubmitting = false;
+        return;
+      }
+
       this.authService.registerContract(f).subscribe({
         next: (res) => {
           this.successMessage = res.message || 'Compte créé ! Veuillez vérifier votre e-mail pour valider votre compte.';

@@ -115,6 +115,43 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  deleteUser(user: User): void {
+    if (confirm(`Are you sure you want to delete user ${user.firstName} ${user.lastName}?`)) {
+      this.successMsg = '';
+      this.errorMsg = '';
+      this.loading = true;
+      this.adminService.deleteUser(user.id).subscribe({
+        next: () => {
+          this.successMsg = `User ${user.firstName} ${user.lastName} deleted successfully.`;
+          this.loading = false;
+          this.loadUsers();
+        },
+        error: (err: any) => {
+          console.error(`Delete failed (Status: ${err.status}):`, err.error || err.message);
+          if (err.status === 404) {
+            this.removeUserFromLists(user.id);
+            this.successMsg = `User ${user.firstName} ${user.lastName} removed from the list.`;
+          } else if (err.status === 403) {
+            this.errorMsg = 'Accès refusé (403). Vérifiez vos permissions de sécurité.';
+          } else if (err.status === 500) {
+            this.errorMsg = 'Erreur serveur (500). Cela est probablement dû à une contrainte de base de données (clés étrangères).';
+          } else {
+            this.errorMsg = `Échec de la suppression: ${err.message || 'Erreur inconnue'}`;
+          }
+          this.loading = false;
+        }
+      });
+    }
+  }
+
+  private removeUserFromLists(userId: number): void {
+    this.users = this.users.filter(u => u.id !== userId);
+    this.agents = this.agents.filter(u => u.id !== userId);
+    this.students = this.students.filter(u => u.id !== userId);
+    delete this.selectedRoleMap[userId];
+    delete this.selectedAgentMap[userId];
+  }
+
   private closeRoleConfirmModal(): void {
     this.roleConfirmOpen = false;
     this.roleConfirmUser = null;

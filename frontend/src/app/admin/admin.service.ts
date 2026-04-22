@@ -1,68 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { AdminDashboardStatistics, ProductKey, User } from '../shared/models/models';
+import { Observable, forkJoin, of } from 'rxjs';
+import { AdminDashboardStatistics, ProductKey, User, UserRole } from '../shared/models/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private readonly base = 'http://localhost:8080/api/admin';
+  private readonly API_URL = 'http://localhost:8080/api';
+  private readonly adminBase = `${this.API_URL}/admin`;
 
   constructor(private http: HttpClient) {}
 
   getDashboardStatistics(): Observable<AdminDashboardStatistics> {
-    return this.http.get<AdminDashboardStatistics>(`${this.base}/statistics`);
+    return this.http.get<AdminDashboardStatistics>(`${this.adminBase}/statistics`);
   }
 
+  
   // ── Users ─────────────────────────────────────────────
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.base}/users`);
+    return this.http.get<User[]>(`${this.adminBase}/users`);
   }
 
-  assignRole(userId: number, role: string): Observable<any> {
+  assignRole(userId: number, role: UserRole): Observable<any> {
     return this.http.put<any>(
-      `${this.base}/users/${userId}/role`,
+      `${this.adminBase}/users/${userId}/role`,
       null,
       { params: { role } }
     );
   }
 
+  deleteUser(userId: number): Observable<void> {
+    return this.http.delete<void>(`${this.adminBase}/users/${userId}`);
+  }
+
   assignAgentToStudent(studentId: number, agentId: number): Observable<any> {
     return this.http.post<any>(
-      `http://localhost:8080/api/students/assign-agent`,
+      `${this.API_URL}/students/assign-agent`,
       null,
       { params: { studentId: studentId.toString(), agentId: agentId.toString() } }
     );
   }
   // ── Product Keys ─────────────────────────────────────
   createProductKeys(quantity: number): Observable<ProductKey[]> {
-    const requests: Observable<ProductKey>[] = [];
-    for (let i = 0; i < quantity; i++) {
-      const keyValue = this.generateKey();
-      requests.push(
-        this.http.post<ProductKey>(`${this.base}/product-keys`, keyValue, {
-          headers: { 'Content-Type': 'text/plain' }
-        })
-      );
+    if (quantity <= 0) {
+      return of([]);
     }
-    return new Observable(observer => {
-      const results: ProductKey[] = [];
-      let completed = 0;
-      requests.forEach(req => {
-        req.subscribe({
-          next: (key: ProductKey) => {
-            results.push(key);
-            completed++;
-            if (completed === requests.length) {
-              observer.next(results);
-              observer.complete();
-            }
-          },
-          error: (err: unknown) => observer.error(err)
-        });
+
+    const requests = Array.from({ length: quantity }, () => {
+      const keyValue = this.generateKey();
+      return this.http.post<ProductKey>(`${this.adminBase}/product-keys`, keyValue, {
+        headers: { 'Content-Type': 'text/plain' }
       });
     });
+
+    return forkJoin(requests);
   }
 
   private generateKey(): string {
@@ -73,6 +65,6 @@ export class AdminService {
   }
 
   getAvailableProductKeys(): Observable<ProductKey[]> {
-    return this.http.get<ProductKey[]>(`${this.base}/product-keys/available`);
+    return this.http.get<ProductKey[]>(`${this.adminBase}/product-keys/available`);
   }
 }

@@ -7,27 +7,28 @@ import { Destination } from '../shared/models/models';
   providedIn: 'root'
 })
 export class DestinationService {
-  private readonly API = 'http://localhost:8080/api/admin/destinations';  // Update if backend port differs
+  private readonly API_BASE_URL = 'http://localhost:8080/api'; // Centraliser la base de l'API
+  private readonly DESTINATIONS_API = `${this.API_BASE_URL}/admin/destinations`;
 
   constructor(private http: HttpClient) {}
 
   getAll(): Observable<Destination[]> {
-    return this.http.get<Destination[]>(this.API);
+    return this.http.get<Destination[]>(this.DESTINATIONS_API);
   }
 
   getById(id: number): Observable<Destination> {
-    return this.http.get<Destination>(`${this.API}/${id}`);
+    return this.http.get<Destination>(`${this.DESTINATIONS_API}/${id}`);
   }
 
   create(destination: Destination): Observable<any> {
-    return this.http.post(this.API, destination);
+    return this.http.post(this.DESTINATIONS_API, destination);
   }
 
   update(id: number, destination: Destination): Observable<any> {
-    return this.http.put(`${this.API}/${id}`, destination);
+    return this.http.put(`${this.DESTINATIONS_API}/${id}`, destination);
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.API}/${id}`);
+    return this.http.delete(`${this.DESTINATIONS_API}/${id}`);
   }
 }

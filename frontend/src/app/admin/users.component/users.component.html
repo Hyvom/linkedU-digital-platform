@@ -31,6 +31,7 @@
             <th><i class="fas fa-toggle-on"></i> Statut</th>
             <th><i class="fas fa-cogs"></i> Attribuer un rôle</th>
             <th><i class="fas fa-check"></i> </th>
+            <th><i class="fas fa-trash-can"></i></th>
           </tr>
         </thead>
         <tbody>
@@ -60,6 +61,14 @@
                 (click)="assignRole(user)"
                 [disabled]="assigningRole === user.id || selectedRoleMap[user.id] === user.role">
                 {{ assigningRole === user.id ? '...' : 'Appliquer' }}
+              </button>
+            </td>
+            <td>
+              <button
+                class="btn-delete"
+                (click)="deleteUser(user)"
+                title="Supprimer l'utilisateur">
+                <i class="fas fa-trash-alt"></i>
               </button>
             </td>
           </tr>
