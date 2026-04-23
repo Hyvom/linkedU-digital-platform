@@ -1,77 +1,76 @@
-<div class="signup-page">
+<div class="blur-bg-overlay"></div>
 
-  <!-- LEFT SIDE FORM -->
-  <div class="signup-card">
+<div class="form-popup">
 
-    <!-- Accent bar -->
-    <div class="card-accent-bar"></div>
+  <div class="form-box login">
 
-    <!-- LOGO -->
-    <div class="logo-container">
-      <img src="/pics/logo.png" alt="LinkedU Logo" />
-    </div>
-
-    <!-- HEADER -->
-    <div class="signup-header">
-      <h2>Bon retour !</h2>
-      <p>Connectez-vous pour continuer votre parcours</p>
-    </div>
-
-    <!-- FORM -->
-    <form class="signup-form" (ngSubmit)="onSubmit()">
-
-      <!-- EMAIL -->
-      <div class="form-group">
-        <label class="form-label">Email ou nom d'utilisateur</label>
-        <input class="form-input"
-          id="email"
-          name="email"
-          type="text"
-          [(ngModel)]="form.identifier"
-          placeholder="vous@exemple.com"
-          required />
-      </div>
-
-      <!-- PASSWORD -->
-      <div class="form-group">
-        <label class="form-label">Mot de passe</label>
-        <input class="form-input"
-          id="password"
-          name="password"
-          type="password"
-          [(ngModel)]="form.password"
-          placeholder="••••••••"
-          required />
-      </div>
-
-      <!-- ERROR -->
-      <div *ngIf="errorMessage" class="error-message">
-        ⚠️ {{ errorMessage }}
-      </div>
-
-      <!-- SUBMIT -->
-      <button type="submit" class="submit-btn" [disabled]="isSubmitting">
-        {{ isSubmitting ? 'Connexion en cours...' : 'Se connecter' }}
-      </button>
-
-      <!-- FOOTER -->
-      <div class="signup-footer">
-        <br />
-        Vous n'avez pas de compte ? <a routerLink="/signup" class="link-yellow">Créer un compte</a>
-        <br>
-        <a routerLink="/forgot-password" class="link-blue">Mot de passe oublié ? - Accéder à la page de réinitialisation</a>
-      </div>
-
-    </form>
-
-  </div>
-
-  <!-- RIGHT SIDE IMAGE -->
-  <div class="left-panel">
-    <div class="carousel-container">
+    <!-- LEFT: Image panel -->
+    <div class="form-details">
       <div class="login-image"></div>
-      <div class="carousel-overlay"></div>
+      <div class="panel-overlay">
+        <h2>Bon retour !</h2>
+        <p>Connectez-vous pour continuer votre parcours académique avec LinkedU.</p>
+      </div>
     </div>
+
+    <!-- RIGHT: Form -->
+    <div class="form-content">
+
+      <!-- LOGO — sits above "CONNEXION" title and email field -->
+      <div class="logo-container">
+        <img src="/pics/logo.png" alt="LinkedU Logo" />
+      </div>
+
+      <h2>CONNEXION</h2>
+
+      <form (ngSubmit)="onSubmit()">
+
+        <!-- EMAIL -->
+        <div class="input-field">
+          <input
+            type="text"
+            id="identifier"
+            name="email"
+            [(ngModel)]="form.identifier"
+            required />
+          <label for="identifier">Email ou nom d'utilisateur</label>
+        </div>
+
+        <!-- PASSWORD -->
+        <div class="input-field">
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="form.password"
+            required />
+          <label for="password">Mot de passe</label>
+        </div>
+
+        <!-- ERROR MESSAGE -->
+        <div *ngIf="errorMessage" class="error-message">
+          ⚠️ {{ errorMessage }}
+        </div>
+
+        <!-- FORGOT PASSWORD -->
+        <a routerLink="/forgot-password" class="forgot-pass-link">
+          Mot de passe oublié ?
+        </a>
+
+        <!-- SUBMIT -->
+        <button type="submit" [disabled]="isSubmitting">
+          <span *ngIf="!isSubmitting">Se connecter</span>
+          <span *ngIf="isSubmitting" class="spinner"></span>
+        </button>
+
+      </form>
+
+      <div class="bottom-link">
+        Vous n'avez pas de compte ?
+        <a routerLink="/signup">Créer un compte</a>
+      </div>
+    </div>
+
   </div>
 
 </div>
