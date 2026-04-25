@@ -9,6 +9,7 @@ import { ProgressService } from '../core/services/progress.service';
 import { ChatService } from '../core/services/chat.service';
 import { QuizService } from '../core/services/quiz.service';
 import { RecommendationService } from '../core/services/recommendation.service';
+import { AgentService } from '../core/services/agent.service';
 import {
   StudentProfileResponse,
   StudentDocument,
@@ -22,7 +23,7 @@ import {
 } from '../shared/models/models';
 
 
-type ActiveSection = 'profile' | 'documents' | 'progress' | 'quizzes' | 'recommendations';
+type ActiveSection = 'profile' | 'documents' | 'progress' | 'quizzes' | 'recommendations' | 'agent';
 type DocumentTab = 'cv' | 'passport' | 'idcard' | 'diploma' | 'transcript' | 'coverletter' | 'other';
 
 @Component({
@@ -48,6 +49,11 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   // ── Profile ──
   profile: StudentProfileResponse | null = null;
   isLoadingProfile = true;
+
+  // ── Agent ──
+  assignedAgent: any = null;
+  isLoadingAgent = false;
+  hasAgent = false;
 
   // ── Documents ──
   documents: StudentDocument[] = [];
@@ -92,7 +98,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   otherForm = { documentTitle: '', notes: '' };
 
   // ── Progress ──
-  
+
   progressList: Progress[] = [];
   isLoadingProgress = false;
 
@@ -101,7 +107,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   // ── Recommendations ──
   recommendations: any[] = [];
   isLoadingRecommendations = false;
-  
+
   // Form object for the ML model inputs
   recommendationForm = {
     country: '',
@@ -184,6 +190,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     private readonly progressService: ProgressService,
     private readonly chatService: ChatService,
     private readonly quizService: QuizService,
+    private readonly agentService: AgentService,
     private readonly router: Router,
     private readonly recommendationService: RecommendationService,
     @Inject(PLATFORM_ID) private readonly platformId: Object
@@ -196,7 +203,8 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     console.log('Student userId:', this.userId);
     this.loadProfile();
     this.loadUnreadMessagesCount();
-    
+    this.loadMyAgent();
+
     // Refresh unread count every 30 seconds only in the browser to avoid SSR hangs
     if (isPlatformBrowser(this.platformId)) {
       setInterval(() => {
@@ -208,7 +216,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   // ── Unread Messages ──
   loadUnreadMessagesCount(): void {
     if (!this.userId) return;
-    
+
     this.chatService.getUnreadMessages(this.userId).subscribe({
       next: (messages) => {
         this.unreadMessagesCount = messages.length;
@@ -223,7 +231,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   setSection(section: ActiveSection): void {
     // If we're already in this section, don't re-trigger initial loads
     if (this.activeSection === section && section !== 'recommendations') return;
-    
+
     this.activeSection = section;
 
     if (section === 'documents') this.loadDocuments();
@@ -267,9 +275,9 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   loadRecommendations(): void {
     // Prevent multiple concurrent requests
     if (this.isLoadingRecommendations) return;
-    
+
     console.log('Sending recommendation request to ML backend...', this.recommendationForm);
-    
+
     this.isLoadingRecommendations = true;
 
     this.recommendationService.getRecommendations(this.recommendationForm).subscribe({
@@ -325,7 +333,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       this.timeExpiredMessage = '';
       return;
     }
-    
+
     const updateTimer = () => {
       const now = new Date().getTime();
       const start = this.getQuizStartTime(quiz).getTime();
@@ -509,7 +517,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     this.isUploading = true;
     this.uploadError = '';
     this.uploadSuccess = '';
-    
+
     this.documentService.uploadCv(
       this.userId, this.cvFile,
       this.cvForm.summary, this.cvForm.experience, this.cvForm.skills
@@ -565,7 +573,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     return text.split('|').map(s => s.trim()).filter(s => s.length > 0);
   }
 
-  
+
 
   uploadPassport(): void {
     if (!this.passportFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
@@ -612,7 +620,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
       }
     });
   }
-  
+
   uploadDiploma(): void {
     if (!this.diplomaFile) { this.uploadError = 'Veuillez sélectionner un fichier.'; return; }
     this.isUploading = true;
@@ -744,13 +752,13 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   }
 
   getQuizStartTime(quiz: any): Date {
-    const val = quiz?.startTime || quiz?.start_time || quiz?.startDate || quiz?.start || 
+    const val = quiz?.startTime || quiz?.start_time || quiz?.startDate || quiz?.start ||
                 quiz?.startsAt || quiz?.starts_at || quiz?.startingDate || quiz?.openingDate;
     return this.parseDate(val);
   }
 
   getQuizEndTime(quiz: any): Date {
-    const val = quiz?.endTime || quiz?.end_time || quiz?.endDate || quiz?.end || 
+    const val = quiz?.endTime || quiz?.end_time || quiz?.endDate || quiz?.end ||
                 quiz?.endsAt || quiz?.ends_at || quiz?.deadline || quiz?.endingDate || quiz?.closingDate;
     return this.parseDate(val);
   }
@@ -760,7 +768,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     // Extract values with fallbacks for potential naming variations from backend
     const startVal = this.getQuizStartTime(quiz);
     const endVal = this.getQuizEndTime(quiz);
-    
+
     const start = startVal.getTime();
     const end = endVal.getTime();
     return start > 0 && end > 0;
@@ -769,7 +777,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
   parseDate(dateInput: any): Date {
     // If input is null, undefined, or empty string, return a zero date
     if (dateInput === null || dateInput === undefined || dateInput === '') return new Date(0);
-    
+
     // If it's already a Date object
     if (dateInput instanceof Date) return dateInput;
 
@@ -788,7 +796,7 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
     // Try direct parsing
     let d = new Date(dateInput);
-    
+
     // If direct parsing fails and it's a string, try fixing common ISO issues
     if (isNaN(d.getTime()) && typeof dateInput === 'string') {
       // Replace space with T (e.g., "2024-04-13 18:00" -> "2024-04-13T18:00")
@@ -815,5 +823,27 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.quizTimer) clearInterval(this.quizTimer);
+  }
+
+  // ── Agent ──
+  loadMyAgent(): void {
+    if (!this.userId) return;
+    this.isLoadingAgent = true;
+    this.agentService.getMyAgent(this.userId).subscribe({
+      next: (data) => {
+        this.hasAgent = data.hasAgent;
+        this.assignedAgent = data.hasAgent ? data : null;
+        this.isLoadingAgent = false;
+      },
+      error: () => {
+        this.hasAgent = false;
+        this.isLoadingAgent = false;
+      }
+    });
+  }
+
+  getAgentInitials(): string {
+    if (!this.assignedAgent) return '??';
+    return `${this.assignedAgent.firstName?.charAt(0) || ''}${this.assignedAgent.lastName?.charAt(0) || ''}`.toUpperCase();
   }
 }

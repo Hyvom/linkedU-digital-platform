@@ -30,4 +30,25 @@ public class StudentService {
         User agent = userRepository.findById(agentId).orElseThrow();
         return userRepository.findByAssignedAgent(agent);
     }
+
+    public java.util.Map<String, Object> getAssignedAgent(Long studentId) {
+        User student = userRepository.findById(studentId)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        User agent = student.getAssignedAgent();
+        if (agent == null) {
+            return java.util.Map.of("hasAgent", false);
+        }
+
+        java.util.Map<String, Object> result = new java.util.HashMap<>();
+        result.put("hasAgent", true);
+        result.put("id", agent.getId());
+        result.put("firstName", agent.getFirstName());
+        result.put("lastName", agent.getLastName());
+        result.put("email", agent.getEmail());
+        result.put("username", agent.getUsername());
+        result.put("phoneNumber", agent.getPhoneNumber());
+        result.put("role", agent.getRole());
+        return result;
+    }
 }

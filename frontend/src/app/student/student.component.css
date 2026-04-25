@@ -703,7 +703,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(90deg, 
+  background: linear-gradient(90deg,
     rgba(255, 255, 255, 0.2) 0%,
     rgba(255, 255, 255, 0.1) 50%,
     rgba(255, 255, 255, 0.2) 100%);
@@ -1173,7 +1173,7 @@
     padding: 0.15rem 0.4rem;
     min-width: 18px;
   }
-  
+
   .chat-nav-btn {
     padding: 0.75rem 0.875rem;
   }
@@ -2130,26 +2130,26 @@
   .ai-analysis-card {
     padding: 1rem;
   }
-  
+
   .score-circle {
     width: 65px;
     height: 65px;
   }
-  
+
   .score-circle span {
     width: 52px;
     height: 52px;
     font-size: 1.2rem;
   }
-  
+
   .ai-title i {
     font-size: 1.4rem;
   }
-  
+
   .ai-title h4 {
     font-size: 1rem;
   }
-  
+
   .analysis-list li {
     font-size: 0.8rem;
     padding: 0.5rem 0;
@@ -2483,4 +2483,331 @@
   .score-number {
     font-size: 2rem;
   }
+}
+
+/*Agent Space (demo css) REDO LATER !!!!*/
+/* ── Agent Sidebar Dot ── */
+.agent-dot {
+  width: 8px; height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── No Agent State ── */
+.no-agent-state {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.no-agent-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.no-agent-state h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem;
+}
+
+.no-agent-state p {
+  color: #6b7280;
+  font-size: 0.9375rem;
+  margin: 0 0 1.5rem;
+}
+
+.no-agent-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Agent Profile View ── */
+.agent-profile-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* ── Agent Hero Card ── */
+.agent-hero-card {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.agent-hero-card::before {
+  content: '';
+  position: absolute;
+  top: -40px; right: -40px;
+  width: 200px; height: 200px;
+  background: rgba(245, 158, 11, 0.1);
+  border-radius: 50%;
+}
+
+.agent-hero-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.agent-initials-large {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: 3px solid rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  display: block;
+  line-height: 90px;
+  text-align: center;
+}
+
+.agent-online-indicator {
+  position: absolute;
+  bottom: 4px; right: 4px;
+  width: 18px; height: 18px;
+  background: #22c55e;
+  border-radius: 50%;
+  border: 3px solid #1d4ed8;
+}
+
+.agent-hero-info { flex: 1; }
+
+.agent-hero-info h2 {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.5rem;
+}
+
+.agent-role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: rgba(245, 158, 11, 0.25);
+  color: #fbbf24;
+  padding: 4px 12px;
+  border-radius: 99px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.agent-hero-email {
+  color: rgba(255,255,255,0.75);
+  font-size: 0.9375rem;
+  margin: 0.5rem 0 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.agent-hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  flex-shrink: 0;
+}
+
+/* ── Action Buttons ── */
+.agent-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.chat-btn {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.3);
+}
+
+.chat-btn:hover {
+  background: rgba(255,255,255,0.25);
+}
+
+.ticket-btn {
+  background: #f59e0b;
+  color: #1e3a8a;
+}
+
+.ticket-btn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+/* ── Agent Info Grid ── */
+.agent-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.agent-info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+.agent-card-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #eff6ff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── Agent Info Rows ── */
+.agent-info-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.agent-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.agent-info-row:last-child { border-bottom: none; }
+
+.agent-info-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.agent-info-value {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.agent-info-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #1d4ed8;
+  text-decoration: none;
+}
+
+.agent-info-link:hover { text-decoration: underline; }
+
+/* ── Quick Actions ── */
+.quick-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.quick-action-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 12px;
+  text-decoration: none;
+  background: #f8fafc;
+  border: 1.5px solid #e5e7eb;
+  transition: all 0.2s;
+  color: #374151;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.quick-action-item:hover {
+  border-color: #1d4ed8;
+  background: #eff6ff;
+  transform: translateY(-2px);
+}
+
+.quick-action-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  color: #fff;
+}
+
+.chat-icon   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
+.ticket-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.email-icon  { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+.phone-icon  { background: linear-gradient(135deg, #16a34a, #22c55e); }
+
+/* ── Info Banner ── */
+.agent-info-banner {
+  grid-column: 1 / -1;
+  background: #eff6ff;
+  border: 1.5px solid #bfdbfe;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.banner-icon {
+  font-size: 1.5rem;
+  color: #1d4ed8;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.banner-content h4 {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #1d4ed8;
+  margin: 0 0 0.375rem;
+}
+
+.banner-content p {
+  font-size: 0.875rem;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .agent-hero-card { flex-direction: column; text-align: center; }
+  .agent-hero-actions { flex-direction: row; justify-content: center; }
+  .agent-info-grid { grid-template-columns: 1fr; }
+  .agent-info-banner { grid-column: 1; }
 }

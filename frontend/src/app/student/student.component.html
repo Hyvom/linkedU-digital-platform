@@ -50,6 +50,12 @@
         <i class="fa-solid fa-id-card"></i>
         Profil complet
       </a>
+      <button (click)="setSection('agent')"
+        [class.active]="activeSection === 'agent'" class="nav-btn">
+        <i class="fa-solid fa-user-tie"></i>
+        Mon Agent
+        <span *ngIf="hasAgent" class="agent-dot"></span>
+      </button>
       <a routerLink="/chat" class="nav-btn chat-nav-btn">
         <i class="fa-solid fa-comment-dots"></i>
         Discuter avec l'agent
@@ -248,20 +254,20 @@
           <h3 *ngIf="getQuizStatus(selectedQuiz) === 'Upcoming'">Quiz Not Started Yet</h3>
           <h3 *ngIf="getQuizStatus(selectedQuiz) === 'Expired'">Quiz Has Ended</h3>
           <p>This quiz is only available between:<br>
-            <strong>{{ getQuizStartTime(selectedQuiz) | date:'medium' }}</strong> and 
+            <strong>{{ getQuizStartTime(selectedQuiz) | date:'medium' }}</strong> and
             <strong>{{ getQuizEndTime(selectedQuiz) | date:'medium' }}</strong>
           </p>
         </div>
 
         <!-- Quiz Content (Only show if Active) -->
         <div *ngIf="getQuizStatus(selectedQuiz) === 'Active'" style="display: flex; gap: 24px; align-items: flex-start;">
-          
+
           <!-- Left Sidebar: Quiz Timing & Status -->
           <aside style="flex: 0 0 240px; background: #0A0F2A; border: 1px solid rgba(217, 198, 130, 0.3); border-radius: 16px; padding: 20px; position: sticky; top: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4);">
             <h4 style="color: #d9c682; margin: 0 0 15px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid rgba(217,198,130,0.2); padding-bottom: 10px;">
               <i class="fa-solid fa-hourglass-half"></i> Quiz Schedule
             </h4>
-            
+
             <div style="margin-bottom: 15px;">
               <p style="font-size: 0.7rem; color: #94a3b8; margin: 0 0 4px; font-weight: 600;">STARTS</p>
               <p style="font-weight: 600; color: #f8fafc; margin: 0; font-size: 0.85rem;">{{ hasValidTiming(selectedQuiz) ? (getQuizStartTime(selectedQuiz) | date:'medium') : 'Not Set' }}</p>
@@ -1187,6 +1193,172 @@
         <p>Adjust your criteria above and click 'Generate Recommendations' to see matching universities.</p>
       </div>
     </div>
+    <!-- ═══════════ AGENT SECTION ═══════════ -->
+    <div *ngIf="activeSection === 'agent'">
 
+      <div class="section-header">
+        <h2>
+          <i class="fa-solid fa-user-tie"></i>
+          Mon Agent
+        </h2>
+        <p class="section-sub">Votre agent assigné vous accompagne dans votre parcours d'études à l'étranger.</p>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="isLoadingAgent" class="loading-state">
+        <div class="spinner"></div>
+        <p>Chargement des informations de l'agent...</p>
+      </div>
+
+      <!-- No agent assigned -->
+      <div *ngIf="!isLoadingAgent && !hasAgent" class="no-agent-state">
+        <div class="no-agent-icon">👤</div>
+        <h3>Aucun agent assigné</h3>
+        <p>Vous n'avez pas encore d'agent assigné. Contactez l'administration pour être pris en charge.</p>
+        <div class="no-agent-actions">
+          <a routerLink="/ticket" class="agent-action-btn ticket-btn">
+            <i class="fa-solid fa-ticket"></i>
+            Soumettre un ticket
+          </a>
+          <a routerLink="/chat" class="agent-action-btn chat-btn">
+            <i class="fa-solid fa-comment-dots"></i>
+            Contacter le support
+          </a>
+        </div>
+      </div>
+
+      <!-- Agent Profile -->
+      <div *ngIf="!isLoadingAgent && hasAgent && assignedAgent" class="agent-profile-view">
+
+        <!-- Agent Hero Card -->
+        <div class="agent-hero-card">
+          <div class="agent-hero-avatar">
+            <span class="agent-initials-large">{{ getAgentInitials() }}</span>
+            <div class="agent-online-indicator"></div>
+          </div>
+          <div class="agent-hero-info">
+            <h2>{{ assignedAgent.firstName }} {{ assignedAgent.lastName }}</h2>
+            <span class="agent-role-badge">
+              <i class="fa-solid fa-briefcase"></i>
+              Agent LinkedU
+            </span>
+            <p class="agent-hero-email">
+              <i class="fa-solid fa-envelope"></i>
+              {{ assignedAgent.email }}
+            </p>
+          </div>
+          <div class="agent-hero-actions">
+            <a routerLink="/chat" class="agent-action-btn chat-btn">
+              <i class="fa-solid fa-comment-dots"></i>
+              Envoyer un message
+            </a>
+            <a routerLink="/ticket" class="agent-action-btn ticket-btn">
+              <i class="fa-solid fa-ticket"></i>
+              Soumettre un ticket
+            </a>
+          </div>
+        </div>
+
+        <!-- Agent Info Cards -->
+        <div class="agent-info-grid">
+
+          <!-- Contact Info -->
+          <div class="agent-info-card">
+            <h4 class="agent-card-title">
+              <i class="fa-solid fa-address-card"></i>
+              Informations de contact
+            </h4>
+            <div class="agent-info-rows">
+              <div class="agent-info-row">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-user"></i>
+                  Nom complet
+                </span>
+                <span class="agent-info-value">
+                  {{ assignedAgent.firstName }} {{ assignedAgent.lastName }}
+                </span>
+              </div>
+              <div class="agent-info-row">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-at"></i>
+                  Nom d'utilisateur
+                </span>
+                <span class="agent-info-value">@{{ assignedAgent.username }}</span>
+              </div>
+              <div class="agent-info-row">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-envelope"></i>
+                  Email
+                </span>
+                <a [href]="'mailto:' + assignedAgent.email" class="agent-info-link">
+                  {{ assignedAgent.email }}
+                </a>
+              </div>
+              <div class="agent-info-row" *ngIf="assignedAgent.phoneNumber">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-phone"></i>
+                  Téléphone
+                </span>
+                <a [href]="'tel:' + assignedAgent.phoneNumber" class="agent-info-link">
+                  {{ assignedAgent.phoneNumber }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="agent-info-card">
+            <h4 class="agent-card-title">
+              <i class="fa-solid fa-bolt"></i>
+              Actions rapides
+            </h4>
+            <div class="quick-actions-grid">
+              <a routerLink="/chat" class="quick-action-item">
+                <div class="quick-action-icon chat-icon">
+                  <i class="fa-solid fa-comment-dots"></i>
+                </div>
+                <span>Chat</span>
+              </a>
+              <a routerLink="/ticket" class="quick-action-item">
+                <div class="quick-action-icon ticket-icon">
+                  <i class="fa-solid fa-ticket"></i>
+                </div>
+                <span>Ticket</span>
+              </a>
+              <a [href]="'mailto:' + assignedAgent.email" class="quick-action-item">
+                <div class="quick-action-icon email-icon">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <span>Email</span>
+              </a>
+              <a [href]="'tel:' + assignedAgent.phoneNumber" class="quick-action-item"
+                 *ngIf="assignedAgent.phoneNumber">
+                <div class="quick-action-icon phone-icon">
+                  <i class="fa-solid fa-phone"></i>
+                </div>
+                <span>Appeler</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Info Banner -->
+          <div class="agent-info-banner">
+            <div class="banner-icon">
+              <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="banner-content">
+              <h4>Votre agent vous accompagne</h4>
+              <p>
+                Votre agent est là pour vous aider à chaque étape de votre parcours :
+                préparation du dossier, choix des universités, obtention du visa et bien plus encore.
+                N'hésitez pas à le contacter via le chat ou un ticket de support.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
   </main>
 </div>

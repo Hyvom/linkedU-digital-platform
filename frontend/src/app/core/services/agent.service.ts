@@ -74,4 +74,10 @@ export class AgentService {
     );
   }
 
+  getMyAgent(studentId: number): Observable<any> {
+    return this.http.get<any>(
+      `${this.api}/api/students/${studentId}/agent`
+    );
+  }
+
 }

@@ -31,4 +31,9 @@ public class StudentController {
     public ResponseEntity<?> getAgentStudents(@PathVariable Long agentId) {
         return ResponseEntity.ok(studentService.getStudentsByAgent(agentId));
     }
+
+    @GetMapping("/{studentId}/agent")
+    public ResponseEntity<?> getMyAgent(@PathVariable Long studentId) {
+        return ResponseEntity.ok(studentService.getAssignedAgent(studentId));
+    }
 }
