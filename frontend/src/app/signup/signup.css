@@ -28,12 +28,12 @@
 
 /* Form input focus styles with blue and yellow */
 .focus\:ring-blue-500:focus {
-  --tw-ring-color: #3b82f6;
-  box-shadow: 0 0 0 2px #3b82f6;
+  --tw-ring-color: #00072D;
+  box-shadow: 0 0 0 2px #00072D;
 }
 
 .focus\:border-blue-500:focus {
-  border-color: #3b82f6;
+  border-color: #00072D;
 }
 
 /* Custom focus ring with yellow for enhanced inputs */
@@ -48,7 +48,7 @@
 }
 
 .from-blue-600 {
-  --tw-gradient-from: #2563eb;
+  --tw-gradient-from: #00072D;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(37, 99, 235, 0));
 }
 
@@ -57,7 +57,7 @@
 }
 
 .to-blue-600 {
-  --tw-gradient-to: #2563eb;
+  --tw-gradient-to: #00072D;
 }
 
 /* Background gradients */
@@ -66,11 +66,11 @@
 }
 
 .from-blue-600 {
-  --tw-gradient-from: #2563eb;
+  --tw-gradient-from: #00072D;
 }
 
 .to-blue-800 {
-  --tw-gradient-to: #1e40af;
+  --tw-gradient-to: #00072D;
 }
 
 /* Text gradient */
@@ -210,12 +210,12 @@ select::-webkit-scrollbar-track {
 }
 
 select::-webkit-scrollbar-thumb {
-  background: #3b82f6;
+  background: #00072D;
   border-radius: 10px;
 }
 
 select::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
+  background: #00072D;
 }
 
 /* Password strength indicator animations */
