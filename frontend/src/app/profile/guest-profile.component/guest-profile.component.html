@@ -1,5 +1,6 @@
 <div class="profile-page">
 
+  <!-- ── Loading ──────────────────────────────────────────── -->
   <div *ngIf="isLoading" class="profile-loading">
     <div class="loading-spinner"></div>
     <p>
@@ -8,25 +9,27 @@
     </p>
   </div>
 
+  <!-- ── Main ─────────────────────────────────────────────── -->
   <div *ngIf="!isLoading" class="profile-container">
 
-    <!-- Left Panel -->
+    <!-- ════ LEFT SIDEBAR ════ -->
     <div class="profile-sidebar">
+
       <div class="avatar-section">
         <div class="avatar-circle">
           <div *ngIf="isUploadingAvatar" class="avatar-uploading">
             <div class="avatar-spinner"></div>
           </div>
           <img *ngIf="!isUploadingAvatar && (avatarPreview || profile?.avatar)"
-            [src]="avatarPreview || 'http://localhost:8080' + profile!.avatar"
-            alt="Avatar" class="avatar-img" />
+               [src]="avatarPreview || 'http://localhost:8080' + profile!.avatar"
+               alt="Avatar" class="avatar-img" />
           <span *ngIf="!isUploadingAvatar && !avatarPreview && !profile?.avatar"
-            class="avatar-initials">{{ getInitials() }}</span>
+                class="avatar-initials">{{ getInitials() }}</span>
         </div>
 
         <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar" title="Change avatar">
           <input type="file" accept="image/*" (change)="onAvatarSelected($event)"
-            [disabled]="isUploadingAvatar" style="display:none" />
+                 [disabled]="isUploadingAvatar" style="display:none" />
           <i *ngIf="!isUploadingAvatar" class="fa-solid fa-camera"></i>
           <i *ngIf="isUploadingAvatar" class="fa-solid fa-spinner fa-spin"></i>
         </label>
@@ -53,24 +56,15 @@
 
       <div class="sidebar-stats">
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-regular fa-calendar"></i>
-            Member Since
-          </span>
+          <span class="stat-label"><i class="fa-regular fa-calendar"></i> Member Since</span>
           <span class="stat-value">2024</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-solid fa-tag"></i>
-            Role
-          </span>
+          <span class="stat-label"><i class="fa-solid fa-tag"></i> Role</span>
           <span class="stat-value">{{ userRole }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-solid fa-check-circle"></i>
-            Profile
-          </span>
+          <span class="stat-label"><i class="fa-solid fa-check-circle"></i> Profile</span>
           <span class="stat-value" [class.text-green]="hasProfile" [class.text-gray]="!hasProfile">
             {{ hasProfile ? 'Complete' : 'Incomplete' }}
           </span>
@@ -82,80 +76,60 @@
         {{ hasProfile ? 'Edit Profile' : 'Create Profile' }}
       </button>
       <button *ngIf="isEditing" (click)="cancelEditing()" class="cancel-btn">
-        <i class="fa-solid fa-times"></i>
-        Cancel
+        <i class="fa-solid fa-times"></i> Cancel
       </button>
     </div>
 
-    <!-- Right Panel -->
+    <!-- ════ RIGHT MAIN ════ -->
     <div class="profile-main">
 
       <div *ngIf="successMessage" class="alert alert-success">
-        <i class="fa-solid fa-circle-check"></i>
-        {{ successMessage }}
+        <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
       </div>
       <div *ngIf="errorMessage" class="alert alert-error">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        {{ errorMessage }}
+        <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
       </div>
 
-      <!-- VIEW MODE -->
+      <!-- ── VIEW MODE ── -->
       <div *ngIf="!isEditing">
+
         <div *ngIf="!hasProfile" class="no-profile">
-          <div class="no-profile-icon">
-            <i class="fa-solid fa-user"></i>
-          </div>
+          <div class="no-profile-icon"><i class="fa-solid fa-user"></i></div>
           <h3>No profile yet</h3>
           <p>Click "Create Profile" to set up your guest profile.</p>
         </div>
 
         <div *ngIf="hasProfile">
 
-          <!-- About -->
           <div class="profile-section">
             <h3 class="section-title">
-              <i class="fa-solid fa-address-card"></i>
-              About
+              <i class="fa-solid fa-address-card"></i> About
             </h3>
             <p class="bio-text">{{ profile?.bio || 'No bio added yet.' }}</p>
           </div>
 
-          <!-- Contact & Status -->
           <div class="profile-section">
             <h3 class="section-title">
-              <i class="fa-solid fa-phone"></i>
-              Contact & Status
+              <i class="fa-solid fa-phone"></i> Contact & Status
             </h3>
             <div class="info-grid">
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-circle"></i>
-                  Status
-                </span>
+                <span class="info-label"><i class="fa-solid fa-circle"></i> Status</span>
                 <span class="info-value">
                   <span class="status-dot" [ngClass]="getStatusClass()"></span>
                   {{ profile?.onlineStatus || '—' }}
                 </span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-regular fa-clock"></i>
-                  Availability
-                </span>
+                <span class="info-label"><i class="fa-regular fa-clock"></i> Availability</span>
                 <span class="info-value">{{ profile?.availabilityTime || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-location-dot"></i>
-                  Address
-                </span>
+                <span class="info-label"><i class="fa-solid fa-location-dot"></i> Address</span>
                 <span class="info-value">{{ profile?.address || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-phone"></i>
-                  Phone
-                </span>
+                <span class="info-label"><i class="fa-solid fa-phone"></i> Phone</span>
                 <span class="info-value">{{ profile?.phoneNumber || '—' }}</span>
               </div>
             </div>
@@ -164,7 +138,7 @@
         </div>
       </div>
 
-      <!-- EDIT MODE -->
+      <!-- ── EDIT MODE ── -->
       <div *ngIf="isEditing">
         <h3 class="form-title">
           <i class="fa-solid fa-pen"></i>
@@ -173,75 +147,49 @@
 
         <form class="profile-form" (ngSubmit)="onSave()">
 
-          <!-- Bio -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-solid fa-align-left"></i>
-              Bio
-            </label>
+            <label class="form-label"><i class="fa-solid fa-align-left"></i> Bio</label>
             <textarea name="bio" [(ngModel)]="form.bio" rows="3"
-              placeholder="Tell us about yourself..."
-              class="form-input form-textarea"></textarea>
+                      placeholder="Tell us about yourself..."
+                      class="form-input form-textarea"></textarea>
           </div>
 
-          <!-- Date of Birth -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-regular fa-calendar"></i>
-              Date of Birth
-            </label>
-            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth"
-              class="form-input" />
+            <label class="form-label"><i class="fa-regular fa-calendar"></i> Date of Birth</label>
+            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth" class="form-input" />
           </div>
 
-          <!-- Online Status + Availability -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-circle"></i>
-                Online Status
-              </label>
-              <select name="onlineStatus" [(ngModel)]="form.onlineStatus"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-circle"></i> Online Status</label>
+              <select name="onlineStatus" [(ngModel)]="form.onlineStatus" class="form-input form-select">
                 <option [ngValue]="undefined">— Select —</option>
                 <option *ngFor="let s of onlineStatusOptions" [value]="s">{{ s }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-regular fa-clock"></i>
-                Availability Time
-              </label>
+              <label class="form-label"><i class="fa-regular fa-clock"></i> Availability Time</label>
               <input type="text" name="availabilityTime" [(ngModel)]="form.availabilityTime"
-                placeholder="e.g. 9AM – 5PM" class="form-input" />
+                     placeholder="e.g. 9AM – 5PM" class="form-input" />
             </div>
           </div>
 
-          <!-- Address + Phone -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-location-dot"></i>
-                Address
-              </label>
+              <label class="form-label"><i class="fa-solid fa-location-dot"></i> Address</label>
               <input type="text" name="address" [(ngModel)]="form.address"
-                placeholder="e.g. 12 Rue de Paris, Tunis" class="form-input" />
+                     placeholder="e.g. 12 Rue de Paris, Tunis" class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-phone"></i>
-                Phone Number
-              </label>
+              <label class="form-label"><i class="fa-solid fa-phone"></i> Phone Number</label>
               <input type="text" name="phoneNumber" [(ngModel)]="form.phoneNumber"
-                placeholder="e.g. +216 XX XXX XXX" class="form-input" />
+                     placeholder="e.g. +216 XX XXX XXX" class="form-input" />
             </div>
           </div>
 
-          <!-- Submit -->
           <div class="form-actions">
             <button type="button" (click)="cancelEditing()" class="cancel-btn">
-              <i class="fa-solid fa-times"></i>
-              Cancel
+              <i class="fa-solid fa-times"></i> Cancel
             </button>
             <button type="submit" [disabled]="isSaving" class="save-btn">
               <i *ngIf="!isSaving" class="fa-solid fa-save"></i>

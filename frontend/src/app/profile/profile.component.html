@@ -1,6 +1,6 @@
 <div class="profile-page">
 
-  <!-- Loading -->
+  <!-- ── Loading ──────────────────────────────────────────── -->
   <div *ngIf="isLoading" class="profile-loading">
     <div class="loading-spinner"></div>
     <p>
@@ -9,31 +9,28 @@
     </p>
   </div>
 
-  <!-- Main Content -->
+  <!-- ── Main ─────────────────────────────────────────────── -->
   <div *ngIf="!isLoading" class="profile-container">
 
-    <!-- Left Panel — Avatar + Basic Info -->
+    <!-- ════ LEFT SIDEBAR ════ -->
     <div class="profile-sidebar">
+
+      <!-- Avatar -->
       <div class="avatar-section">
         <div class="avatar-circle">
-          <!-- Uploading spinner -->
           <div *ngIf="isUploadingAvatar" class="avatar-uploading">
             <div class="avatar-spinner"></div>
           </div>
-          <!-- Preview or current avatar -->
           <img *ngIf="!isUploadingAvatar && (avatarPreview || profile?.avatar)"
-            [src]="avatarPreview || getAvatarUrl()"
-            alt="Avatar" class="avatar-img" />
-          <!-- Initials fallback -->
+               [src]="avatarPreview || getAvatarUrl()"
+               alt="Avatar" class="avatar-img" />
           <span *ngIf="!isUploadingAvatar && !avatarPreview && !profile?.avatar"
-            class="avatar-initials">{{ getInitials() }}</span>
+                class="avatar-initials">{{ getInitials() }}</span>
         </div>
 
-        <!-- Camera overlay button -->
-        <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar"
-          title="Changer l'avatar">
+        <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar" title="Changer l'avatar">
           <input type="file" accept="image/*" (change)="onAvatarSelected($event)"
-            [disabled]="isUploadingAvatar" style="display:none" />
+                 [disabled]="isUploadingAvatar" style="display:none" />
           <i *ngIf="!isUploadingAvatar" class="fa-solid fa-camera"></i>
           <i *ngIf="isUploadingAvatar" class="fa-solid fa-spinner fa-spin"></i>
         </label>
@@ -44,6 +41,7 @@
         </div>
       </div>
 
+      <!-- Identity -->
       <div class="sidebar-info">
         <h2 class="sidebar-name">
           {{ profile?.user?.firstName || '—' }} {{ profile?.user?.lastName || '' }}
@@ -58,6 +56,7 @@
         </p>
       </div>
 
+      <!-- Stats -->
       <div class="sidebar-stats">
         <div class="stat-item">
           <span class="stat-label">
@@ -84,7 +83,7 @@
         </div>
       </div>
 
-      <!-- Edit Button -->
+      <!-- Actions -->
       <button *ngIf="!isEditing" (click)="startEditing()" class="edit-btn">
         <i class="fa-solid fa-pen"></i>
         {{ hasProfile ? 'Modifier le profil' : 'Créer le profil' }}
@@ -95,35 +94,28 @@
       </button>
     </div>
 
-    <!-- Right Panel — Profile Details / Edit Form -->
+    <!-- ════ RIGHT MAIN ════ -->
     <div class="profile-main">
 
-      <!-- Messages -->
       <div *ngIf="successMessage" class="alert alert-success">
-        <i class="fa-solid fa-circle-check"></i>
-        {{ successMessage }}
+        <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
       </div>
       <div *ngIf="errorMessage" class="alert alert-error">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        {{ errorMessage }}
+        <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
       </div>
 
-      <!-- VIEW MODE -->
+      <!-- ── VIEW MODE ── -->
       <div *ngIf="!isEditing">
 
-        <!-- No profile yet -->
         <div *ngIf="!hasProfile" class="no-profile">
-          <div class="no-profile-icon">
-            <i class="fa-solid fa-user-graduate"></i>
-          </div>
+          <div class="no-profile-icon"><i class="fa-solid fa-user-graduate"></i></div>
           <h3>Aucun profil pour le moment</h3>
           <p>Cliquez sur "Créer le profil" pour configurer votre profil étudiant.</p>
         </div>
 
-        <!-- Profile View -->
         <div *ngIf="hasProfile">
 
-          <!-- Section: About -->
+          <!-- About -->
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-address-card"></i>
@@ -132,7 +124,7 @@
             <p class="bio-text">{{ profile?.bio || 'Aucune bio ajoutée pour le moment.' }}</p>
           </div>
 
-          <!-- Section: Contact & Status -->
+          <!-- Contact & Status -->
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-phone"></i>
@@ -140,40 +132,28 @@
             </h3>
             <div class="info-grid">
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-circle"></i>
-                  Statut
-                </span>
+                <span class="info-label"><i class="fa-solid fa-circle"></i> Statut</span>
                 <span class="info-value">
                   <span class="status-dot" [ngClass]="getStatusClass()"></span>
                   {{ profile?.onlineStatus || '—' }}
                 </span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-regular fa-clock"></i>
-                  Disponibilité
-                </span>
+                <span class="info-label"><i class="fa-regular fa-clock"></i> Disponibilité</span>
                 <span class="info-value">{{ profile?.availabilityTime || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-location-dot"></i>
-                  Adresse
-                </span>
+                <span class="info-label"><i class="fa-solid fa-location-dot"></i> Adresse</span>
                 <span class="info-value">{{ profile?.address || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-phone"></i>
-                  Téléphone
-                </span>
+                <span class="info-label"><i class="fa-solid fa-phone"></i> Téléphone</span>
                 <span class="info-value">{{ profile?.phoneNumber || '—' }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section: Academic -->
+          <!-- Academic -->
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-graduation-cap"></i>
@@ -181,51 +161,33 @@
             </h3>
             <div class="info-grid">
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-book-open"></i>
-                  Niveau actuel
-                </span>
+                <span class="info-label"><i class="fa-solid fa-book-open"></i> Niveau actuel</span>
                 <span class="info-value">{{ profile?.currentStudyLevel || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-chart-line"></i>
-                  Niveau souhaité
-                </span>
+                <span class="info-label"><i class="fa-solid fa-chart-line"></i> Niveau souhaité</span>
                 <span class="info-value">{{ profile?.wishedStudyLevel || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-flask"></i>
-                  Spécialité
-                </span>
+                <span class="info-label"><i class="fa-solid fa-flask"></i> Spécialité</span>
                 <span class="info-value">{{ profile?.speciality || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-regular fa-calendar-alt"></i>
-                  Année universitaire
-                </span>
+                <span class="info-label"><i class="fa-regular fa-calendar-alt"></i> Année universitaire</span>
                 <span class="info-value">{{ profile?.universityYear ? 'Année ' + profile?.universityYear : '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-building"></i>
-                  Type d'établissement
-                </span>
+                <span class="info-label"><i class="fa-solid fa-building"></i> Type d'établissement</span>
                 <span class="info-value">{{ profile?.collegeType || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-dollar-sign"></i>
-                  Budget
-                </span>
+                <span class="info-label"><i class="fa-solid fa-dollar-sign"></i> Budget</span>
                 <span class="info-value">{{ profile?.budget ? '$' + profile?.budget : '—' }}</span>
               </div>
             </div>
           </div>
 
-          <!-- Section: Languages -->
+          <!-- Languages -->
           <div class="profile-section">
             <h3 class="section-title">
               <i class="fa-solid fa-language"></i>
@@ -238,15 +200,14 @@
               </div>
             </div>
             <p *ngIf="languages.length === 0" class="text-muted">
-              <i class="fa-solid fa-info-circle"></i>
-              Aucune langue ajoutée.
+              <i class="fa-solid fa-info-circle"></i> Aucune langue ajoutée.
             </p>
           </div>
 
         </div>
       </div>
 
-      <!-- EDIT MODE -->
+      <!-- ── EDIT MODE ── -->
       <div *ngIf="isEditing">
         <h3 class="form-title">
           <i class="fa-solid fa-pen"></i>
@@ -255,166 +216,108 @@
 
         <form class="profile-form" (ngSubmit)="onSave()">
 
-          <!-- Bio -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-solid fa-align-left"></i>
-              Bio
-            </label>
+            <label class="form-label"><i class="fa-solid fa-align-left"></i> Bio</label>
             <textarea name="bio" [(ngModel)]="form.bio" rows="3"
-              placeholder="Parlez-nous de vous..."
-              class="form-input form-textarea"></textarea>
+                      placeholder="Parlez-nous de vous..."
+                      class="form-input form-textarea"></textarea>
           </div>
 
-          <!-- Date of Birth -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-regular fa-calendar"></i>
-              Date de naissance
-            </label>
-            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth"
-              class="form-input" />
+            <label class="form-label"><i class="fa-regular fa-calendar"></i> Date de naissance</label>
+            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth" class="form-input" />
           </div>
 
-          <!-- Online Status + Availability -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-circle"></i>
-                Statut en ligne
-              </label>
-              <select name="onlineStatus" [(ngModel)]="form.onlineStatus"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-circle"></i> Statut en ligne</label>
+              <select name="onlineStatus" [(ngModel)]="form.onlineStatus" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let s of onlineStatusOptions" [value]="s">{{ s }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-regular fa-clock"></i>
-                Disponibilité horaire
-              </label>
+              <label class="form-label"><i class="fa-regular fa-clock"></i> Disponibilité horaire</label>
               <input type="text" name="availabilityTime" [(ngModel)]="form.availabilityTime"
-                placeholder="ex: 9h – 17h"
-                class="form-input" />
+                     placeholder="ex: 9h – 17h" class="form-input" />
             </div>
           </div>
 
-          <!-- Address + Phone -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-location-dot"></i>
-                Adresse
-              </label>
+              <label class="form-label"><i class="fa-solid fa-location-dot"></i> Adresse</label>
               <input type="text" name="address" [(ngModel)]="form.address"
-                placeholder="ex: 12 Rue de Paris, Tunis"
-                class="form-input" />
+                     placeholder="ex: 12 Rue de Paris, Tunis" class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-phone"></i>
-                Numéro de téléphone
-              </label>
+              <label class="form-label"><i class="fa-solid fa-phone"></i> Numéro de téléphone</label>
               <input type="text" name="phoneNumber" [(ngModel)]="form.phoneNumber"
-                placeholder="ex: +216 XX XXX XXX"
-                class="form-input" />
+                     placeholder="ex: +216 XX XXX XXX" class="form-input" />
             </div>
           </div>
 
-          <!-- Academic Row -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-graduation-cap"></i>
-                Niveau d'études actuel
-              </label>
-              <select name="currentStudyLevel" [(ngModel)]="form.currentStudyLevel"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-graduation-cap"></i> Niveau actuel</label>
+              <select name="currentStudyLevel" [(ngModel)]="form.currentStudyLevel" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let level of studyLevels" [value]="level">{{ level }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-chart-line"></i>
-                Niveau d'études souhaité
-              </label>
-              <select name="wishedStudyLevel" [(ngModel)]="form.wishedStudyLevel"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-chart-line"></i> Niveau souhaité</label>
+              <select name="wishedStudyLevel" [(ngModel)]="form.wishedStudyLevel" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let level of studyLevels" [value]="level">{{ level }}</option>
               </select>
             </div>
           </div>
 
-          <!-- Speciality + Year -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-flask"></i>
-                Spécialité
-              </label>
+              <label class="form-label"><i class="fa-solid fa-flask"></i> Spécialité</label>
               <input type="text" name="speciality" [(ngModel)]="form.speciality"
-                placeholder="ex: Informatique"
-                class="form-input" />
+                     placeholder="ex: Informatique" class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-regular fa-calendar-alt"></i>
-                Année universitaire
-              </label>
-              <select name="universityYear" [(ngModel)]="form.universityYear"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-regular fa-calendar-alt"></i> Année universitaire</label>
+              <select name="universityYear" [(ngModel)]="form.universityYear" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let y of universityYears" [value]="y">Année {{ y }}</option>
               </select>
             </div>
           </div>
 
-          <!-- College Type + Budget -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-building"></i>
-                Type d'établissement
-              </label>
-              <select name="collegeType" [(ngModel)]="form.collegeType"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-building"></i> Type d'établissement</label>
+              <select name="collegeType" [(ngModel)]="form.collegeType" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let type of collegeTypes" [value]="type">{{ type }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-dollar-sign"></i>
-                Budget (USD)
-              </label>
+              <label class="form-label"><i class="fa-solid fa-dollar-sign"></i> Budget (USD)</label>
               <input type="number" name="budget" [(ngModel)]="form.budget"
-                placeholder="ex: 15000"
-                class="form-input" />
+                     placeholder="ex: 15000" class="form-input" />
             </div>
           </div>
 
           <!-- Languages -->
           <div class="form-group">
             <div class="languages-header">
-              <label class="form-label">
-                <i class="fa-solid fa-language"></i>
-                Langues
-              </label>
+              <label class="form-label"><i class="fa-solid fa-language"></i> Langues</label>
               <button type="button" (click)="addLanguage()" class="add-lang-btn">
-                <i class="fa-solid fa-plus"></i>
-                Ajouter
+                <i class="fa-solid fa-plus"></i> Ajouter
               </button>
             </div>
             <div *ngFor="let lang of languages; let i = index" class="lang-row">
               <input [(ngModel)]="lang.name" [name]="'lang_name_' + i"
-                (ngModelChange)="updateLanguage()"
-                placeholder="Langue" class="form-input lang-input" />
+                     (ngModelChange)="updateLanguage()"
+                     placeholder="Langue" class="form-input lang-input" />
               <select [(ngModel)]="lang.level" [name]="'lang_level_' + i"
-                (ngModelChange)="updateLanguage()"
-                class="form-input form-select lang-select">
+                      (ngModelChange)="updateLanguage()"
+                      class="form-input form-select lang-select">
                 <option *ngFor="let lvl of languageLevels" [value]="lvl">{{ lvl }}</option>
               </select>
               <button type="button" (click)="removeLanguage(i)" class="remove-lang-btn">
@@ -423,27 +326,20 @@
             </div>
           </div>
 
-          <!-- Avatar URL -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-solid fa-image"></i>
-              URL de l'avatar (optionnel)
-            </label>
+            <label class="form-label"><i class="fa-solid fa-image"></i> URL de l'avatar (optionnel)</label>
             <input type="text" name="avatar" [(ngModel)]="form.avatar"
-              placeholder="https://..."
-              class="form-input" />
+                   placeholder="https://..." class="form-input" />
           </div>
 
-          <!-- Submit -->
           <div class="form-actions">
             <button type="button" (click)="cancelEditing()" class="cancel-btn">
-              <i class="fa-solid fa-times"></i>
-              Annuler
+              <i class="fa-solid fa-times"></i> Annuler
             </button>
             <button type="submit" [disabled]="isSaving" class="save-btn">
               <i *ngIf="!isSaving" class="fa-solid fa-save"></i>
               <i *ngIf="isSaving" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isSaving ? 'Enregistrement...' : hasProfile ? 'Mettre à jour le profil' : 'Créer le profil' }}
+              {{ isSaving ? 'Enregistrement...' : hasProfile ? 'Mettre à jour' : 'Créer le profil' }}
             </button>
           </div>
 

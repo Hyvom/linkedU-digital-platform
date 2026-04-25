@@ -10,6 +10,8 @@ import { BlogsComponent } from '../blogs/blogs.component';
 import { AboutUsComponent } from '../about-us/about-us.component';
 import { LoginComponent } from '../login/login.component';
 import { VerifyComponent } from '../verify/verify.component';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { ResetPasswordComponent} from '../reset-password/reset-password.component';
 import { ProfileComponent } from '../profile/profile.component';
 import { GuestSignupComponent } from '../signup/guest-signup/guest-signup.component';
 import { ContractSignupComponent } from '../signup/contract-signup/contract-signup.component';
@@ -39,6 +41,8 @@ export const routes: Routes = [
   // ── Public ──────────────────────────────────────────
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
   { path: 'verify', component: VerifyComponent },
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
   { path: 'signup', redirectTo: 'signup/guest', pathMatch: 'full' },
@@ -59,7 +63,7 @@ export const routes: Routes = [
   { path: 'profile/guest',   component: GuestProfileComponent,  canActivate: [authGuard] },
   { path: 'profile/agent',   component: AgentProfileComponent,  canActivate: [authGuard] },
   { path: 'profile',         canActivate: [profileRedirectGuard], component: StudentProfileComponent },
-  
+
   // ── Admin only ───────────────────────────────────────
   {
     path: 'admin',
@@ -105,7 +109,7 @@ export const routes: Routes = [
     canActivate: [authGuard, roleGuard],
     data: { roles: ['STUDENT', 'USER', 'GUEST'] }
   },
-  
+
   //Agent Dashboard
   {
     path: 'agent',

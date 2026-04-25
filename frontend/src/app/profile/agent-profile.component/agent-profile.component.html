@@ -1,5 +1,6 @@
 <div class="profile-page">
 
+  <!-- ── Loading ──────────────────────────────────────────── -->
   <div *ngIf="isLoading" class="profile-loading">
     <div class="loading-spinner"></div>
     <p>
@@ -8,25 +9,27 @@
     </p>
   </div>
 
+  <!-- ── Main ─────────────────────────────────────────────── -->
   <div *ngIf="!isLoading" class="profile-container">
 
-    <!-- Left Panel -->
+    <!-- ════ LEFT SIDEBAR ════ -->
     <div class="profile-sidebar">
+
       <div class="avatar-section">
         <div class="avatar-circle">
           <div *ngIf="isUploadingAvatar" class="avatar-uploading">
             <div class="avatar-spinner"></div>
           </div>
           <img *ngIf="!isUploadingAvatar && (avatarPreview || profile?.avatar)"
-            [src]="avatarPreview || 'http://localhost:8080' + profile!.avatar"
-            alt="Avatar" class="avatar-img" />
+               [src]="avatarPreview || 'http://localhost:8080' + profile!.avatar"
+               alt="Avatar" class="avatar-img" />
           <span *ngIf="!isUploadingAvatar && !avatarPreview && !profile?.avatar"
-            class="avatar-initials">{{ getInitials() }}</span>
+                class="avatar-initials">{{ getInitials() }}</span>
         </div>
 
         <label class="avatar-upload-btn" [class.disabled]="isUploadingAvatar" title="Changer l'avatar">
           <input type="file" accept="image/*" (change)="onAvatarSelected($event)"
-            [disabled]="isUploadingAvatar" style="display:none" />
+                 [disabled]="isUploadingAvatar" style="display:none" />
           <i *ngIf="!isUploadingAvatar" class="fa-solid fa-camera"></i>
           <i *ngIf="isUploadingAvatar" class="fa-solid fa-spinner fa-spin"></i>
         </label>
@@ -53,24 +56,15 @@
 
       <div class="sidebar-stats">
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-regular fa-calendar"></i>
-            Membre depuis
-          </span>
+          <span class="stat-label"><i class="fa-regular fa-calendar"></i> Membre depuis</span>
           <span class="stat-value">2024</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-solid fa-tag"></i>
-            Rôle
-          </span>
+          <span class="stat-label"><i class="fa-solid fa-tag"></i> Rôle</span>
           <span class="stat-value">{{ userRole }}</span>
         </div>
         <div class="stat-item">
-          <span class="stat-label">
-            <i class="fa-solid fa-check-circle"></i>
-            Profil
-          </span>
+          <span class="stat-label"><i class="fa-solid fa-check-circle"></i> Profil</span>
           <span class="stat-value" [class.text-green]="hasProfile" [class.text-gray]="!hasProfile">
             {{ hasProfile ? 'Complet' : 'Incomplet' }}
           </span>
@@ -82,94 +76,68 @@
         {{ hasProfile ? 'Modifier le profil' : 'Créer le profil' }}
       </button>
       <button *ngIf="isEditing" (click)="cancelEditing()" class="cancel-btn">
-        <i class="fa-solid fa-times"></i>
-        Annuler
+        <i class="fa-solid fa-times"></i> Annuler
       </button>
     </div>
 
-    <!-- Right Panel -->
+    <!-- ════ RIGHT MAIN ════ -->
     <div class="profile-main">
 
       <div *ngIf="successMessage" class="alert alert-success">
-        <i class="fa-solid fa-circle-check"></i>
-        {{ successMessage }}
+        <i class="fa-solid fa-circle-check"></i> {{ successMessage }}
       </div>
       <div *ngIf="errorMessage" class="alert alert-error">
-        <i class="fa-solid fa-circle-exclamation"></i>
-        {{ errorMessage }}
+        <i class="fa-solid fa-circle-exclamation"></i> {{ errorMessage }}
       </div>
 
-      <!-- VIEW MODE -->
+      <!-- ── VIEW MODE ── -->
       <div *ngIf="!isEditing">
+
         <div *ngIf="!hasProfile" class="no-profile">
-          <div class="no-profile-icon">
-            <i class="fa-solid fa-user"></i>
-          </div>
+          <div class="no-profile-icon"><i class="fa-solid fa-user-tie"></i></div>
           <h3>Aucun profil pour le moment</h3>
           <p>Cliquez sur "Créer le profil" pour configurer votre profil d'agent.</p>
         </div>
 
         <div *ngIf="hasProfile">
 
-          <!-- About -->
           <div class="profile-section">
             <h3 class="section-title">
-              <i class="fa-solid fa-address-card"></i>
-              À propos
+              <i class="fa-solid fa-address-card"></i> À propos
             </h3>
             <p class="bio-text">{{ profile?.bio || 'Aucune bio ajoutée pour le moment.' }}</p>
           </div>
 
-          <!-- Contact & Status -->
           <div class="profile-section">
             <h3 class="section-title">
-              <i class="fa-solid fa-phone"></i>
-              Contact et Statut
+              <i class="fa-solid fa-phone"></i> Contact et Statut
             </h3>
             <div class="info-grid">
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-circle"></i>
-                  Statut
-                </span>
+                <span class="info-label"><i class="fa-solid fa-circle"></i> Statut</span>
                 <span class="info-value">
                   <span class="status-dot" [ngClass]="getStatusClass()"></span>
                   {{ profile?.onlineStatus || '—' }}
                 </span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-regular fa-clock"></i>
-                  Disponibilité
-                </span>
+                <span class="info-label"><i class="fa-regular fa-clock"></i> Disponibilité</span>
                 <span class="info-value">{{ profile?.availabilityTime || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-location-dot"></i>
-                  Adresse
-                </span>
+                <span class="info-label"><i class="fa-solid fa-location-dot"></i> Adresse</span>
                 <span class="info-value">{{ profile?.address || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-phone"></i>
-                  Téléphone
-                </span>
+                <span class="info-label"><i class="fa-solid fa-phone"></i> Téléphone</span>
                 <span class="info-value">{{ profile?.phoneNumber || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-user"></i>
-                  Nom de contact
-                </span>
+                <span class="info-label"><i class="fa-solid fa-user"></i> Nom de contact</span>
                 <span class="info-value">{{ profile?.contactName || '—' }}</span>
               </div>
               <div class="info-item">
-                <span class="info-label">
-                  <i class="fa-solid fa-envelope"></i>
-                  Email de contact
-                </span>
+                <span class="info-label"><i class="fa-solid fa-envelope"></i> Email de contact</span>
                 <span class="info-value">{{ profile?.email || '—' }}</span>
               </div>
             </div>
@@ -178,7 +146,7 @@
         </div>
       </div>
 
-      <!-- EDIT MODE -->
+      <!-- ── EDIT MODE ── -->
       <div *ngIf="isEditing">
         <h3 class="form-title">
           <i class="fa-solid fa-pen"></i>
@@ -187,100 +155,67 @@
 
         <form class="profile-form" (ngSubmit)="onSave()">
 
-          <!-- Bio -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-solid fa-align-left"></i>
-              Bio
-            </label>
+            <label class="form-label"><i class="fa-solid fa-align-left"></i> Bio</label>
             <textarea name="bio" [(ngModel)]="form.bio" rows="3"
-              placeholder="Dites-nous en plus sur vous..."
-              class="form-input form-textarea"></textarea>
+                      placeholder="Dites-nous en plus sur vous..."
+                      class="form-input form-textarea"></textarea>
           </div>
 
-          <!-- Date of Birth -->
           <div class="form-group">
-            <label class="form-label">
-              <i class="fa-regular fa-calendar"></i>
-              Date de naissance
-            </label>
-            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth"
-              class="form-input" />
+            <label class="form-label"><i class="fa-regular fa-calendar"></i> Date de naissance</label>
+            <input type="date" name="dateOfBirth" [(ngModel)]="form.dateOfBirth" class="form-input" />
           </div>
 
-          <!-- Online Status + Availability -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-circle"></i>
-                Statut en ligne
-              </label>
-              <select name="onlineStatus" [(ngModel)]="form.onlineStatus"
-                class="form-input form-select">
+              <label class="form-label"><i class="fa-solid fa-circle"></i> Statut en ligne</label>
+              <select name="onlineStatus" [(ngModel)]="form.onlineStatus" class="form-input form-select">
                 <option [ngValue]="undefined">— Sélectionner —</option>
                 <option *ngFor="let s of onlineStatusOptions" [value]="s">{{ s }}</option>
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-regular fa-clock"></i>
-                Disponibilité horaire
-              </label>
+              <label class="form-label"><i class="fa-regular fa-clock"></i> Disponibilité horaire</label>
               <input type="text" name="availabilityTime" [(ngModel)]="form.availabilityTime"
-                placeholder="ex: Lun–Ven 9h–18h" class="form-input" />
+                     placeholder="ex: Lun–Ven 9h–18h" class="form-input" />
             </div>
           </div>
 
-          <!-- Address + Phone -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-location-dot"></i>
-                Adresse
-              </label>
+              <label class="form-label"><i class="fa-solid fa-location-dot"></i> Adresse</label>
               <input type="text" name="address" [(ngModel)]="form.address"
-                placeholder="ex: 12 Rue de Paris, Tunis" class="form-input" />
+                     placeholder="ex: 12 Rue de Paris, Tunis" class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-phone"></i>
-                Numéro de téléphone
-              </label>
+              <label class="form-label"><i class="fa-solid fa-phone"></i> Numéro de téléphone</label>
               <input type="text" name="phoneNumber" [(ngModel)]="form.phoneNumber"
-                placeholder="ex: +216 XX XXX XXX" class="form-input" />
+                     placeholder="ex: +216 XX XXX XXX" class="form-input" />
             </div>
           </div>
 
-          <!-- Contact Name + Contact Email -->
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-user"></i>
-                Nom de contact
-              </label>
+              <label class="form-label"><i class="fa-solid fa-user"></i> Nom de contact</label>
               <input type="text" name="contactName" [(ngModel)]="form.contactName"
-                placeholder="ex: Jean Dupont" class="form-input" />
+                     placeholder="ex: Jean Dupont" class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">
-                <i class="fa-solid fa-envelope"></i>
-                Email de contact
-              </label>
+              <label class="form-label"><i class="fa-solid fa-envelope"></i> Email de contact</label>
               <input type="email" name="email" [(ngModel)]="form.email"
-                placeholder="ex: agent@societe.com" class="form-input" />
+                     placeholder="ex: agent@societe.com" class="form-input" />
             </div>
           </div>
 
-          <!-- Submit -->
           <div class="form-actions">
             <button type="button" (click)="cancelEditing()" class="cancel-btn">
-              <i class="fa-solid fa-times"></i>
-              Annuler
+              <i class="fa-solid fa-times"></i> Annuler
             </button>
             <button type="submit" [disabled]="isSaving" class="save-btn">
               <i *ngIf="!isSaving" class="fa-solid fa-save"></i>
               <i *ngIf="isSaving" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isSaving ? 'Enregistrement...' : hasProfile ? 'Mettre à jour le profil' : 'Créer le profil' }}
+              {{ isSaving ? 'Enregistrement...' : hasProfile ? 'Mettre à jour' : 'Créer le profil' }}
             </button>
           </div>
 
