@@ -1229,24 +1229,38 @@
 
       <!-- Agent Profile -->
       <div *ngIf="!isLoadingAgent && hasAgent && assignedAgent" class="agent-profile-view">
-
-        <!-- Agent Hero Card -->
-        <div class="agent-hero-card">
+          <!-- Agent Hero Card -->
+          <div class="agent-hero-card">
           <div class="agent-hero-avatar">
-            <span class="agent-initials-large">{{ getAgentInitials() }}</span>
-            <div class="agent-online-indicator"></div>
+            <img *ngIf="getAgentAvatarUrl()"
+                 [src]="getAgentAvatarUrl()"
+                 alt="Agent Avatar"
+                 class="agent-avatar-img" />
+            <span *ngIf="!getAgentAvatarUrl()"
+                  class="agent-initials-large">{{ getAgentInitials() }}</span>
+            <div class="agent-online-indicator" [ngClass]="getAgentStatusClass()"></div>
           </div>
-          <div class="agent-hero-info">
-            <h2>{{ assignedAgent.firstName }} {{ assignedAgent.lastName }}</h2>
-            <span class="agent-role-badge">
+            <div class="agent-hero-info">
+              <h2>{{ assignedAgent.firstName }} {{ assignedAgent.lastName }}</h2>
+              <span class="agent-role-badge">
               <i class="fa-solid fa-briefcase"></i>
               Agent LinkedU
             </span>
-            <p class="agent-hero-email">
-              <i class="fa-solid fa-envelope"></i>
-              {{ assignedAgent.email }}
-            </p>
-          </div>
+              <div class="agent-status-row">
+              <span class="agent-status-badge" [ngClass]="getAgentStatusClass()">
+                <span class="status-dot-small"></span>
+                {{ getAgentStatusLabel() }}
+              </span>
+                <span *ngIf="assignedAgent.availabilityTime" class="agent-availability">
+                <i class="fa-regular fa-clock"></i>
+                  {{ assignedAgent.availabilityTime }}
+              </span>
+              </div>
+              <p class="agent-hero-email">
+                <i class="fa-solid fa-envelope"></i>
+                {{ assignedAgent.email }}
+              </p>
+            </div>
           <div class="agent-hero-actions">
             <a routerLink="/chat" class="agent-action-btn chat-btn">
               <i class="fa-solid fa-comment-dots"></i>
@@ -1271,8 +1285,7 @@
             <div class="agent-info-rows">
               <div class="agent-info-row">
                 <span class="agent-info-label">
-                  <i class="fa-solid fa-user"></i>
-                  Nom complet
+                  <i class="fa-solid fa-user"></i> Nom complet
                 </span>
                 <span class="agent-info-value">
                   {{ assignedAgent.firstName }} {{ assignedAgent.lastName }}
@@ -1280,28 +1293,45 @@
               </div>
               <div class="agent-info-row">
                 <span class="agent-info-label">
-                  <i class="fa-solid fa-at"></i>
-                  Nom d'utilisateur
+                  <i class="fa-solid fa-at"></i> Nom d'utilisateur
                 </span>
                 <span class="agent-info-value">@{{ assignedAgent.username }}</span>
               </div>
               <div class="agent-info-row">
                 <span class="agent-info-label">
-                  <i class="fa-solid fa-envelope"></i>
-                  Email
+                  <i class="fa-solid fa-envelope"></i> Email
                 </span>
                 <a [href]="'mailto:' + assignedAgent.email" class="agent-info-link">
                   {{ assignedAgent.email }}
                 </a>
               </div>
+              <div class="agent-info-row" *ngIf="assignedAgent.contactEmail">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-envelope-open"></i> Email contact
+                </span>
+                <a [href]="'mailto:' + assignedAgent.contactEmail" class="agent-info-link">
+                  {{ assignedAgent.contactEmail }}
+                </a>
+              </div>
               <div class="agent-info-row" *ngIf="assignedAgent.phoneNumber">
                 <span class="agent-info-label">
-                  <i class="fa-solid fa-phone"></i>
-                  Téléphone
+                  <i class="fa-solid fa-phone"></i> Téléphone
                 </span>
                 <a [href]="'tel:' + assignedAgent.phoneNumber" class="agent-info-link">
                   {{ assignedAgent.phoneNumber }}
                 </a>
+              </div>
+              <div class="agent-info-row" *ngIf="assignedAgent.address">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-location-dot"></i> Adresse
+                </span>
+                <span class="agent-info-value">{{ assignedAgent.address }}</span>
+              </div>
+              <div class="agent-info-row" *ngIf="assignedAgent.contactName">
+                <span class="agent-info-label">
+                  <i class="fa-solid fa-id-badge"></i> Nom de contact
+                </span>
+                <span class="agent-info-value">{{ assignedAgent.contactName }}</span>
               </div>
             </div>
           </div>
@@ -1339,8 +1369,15 @@
                 <span>Appeler</span>
               </a>
             </div>
-          </div>
 
+            <!-- Bio section -->
+            <div *ngIf="assignedAgent.bio" class="agent-bio-section">
+              <h5 class="agent-bio-label">
+                <i class="fa-solid fa-quote-left"></i> À propos
+              </h5>
+              <p class="agent-bio-text">{{ assignedAgent.bio }}</p>
+            </div>
+          </div>
           <!-- Info Banner -->
           <div class="agent-info-banner">
             <div class="banner-icon">

@@ -193,14 +193,14 @@
         </button>
       </div>
       <!-- ── PROFILE TAB ── -->
-<div *ngIf="activeTab === 'profile'">
-  <div *ngIf="isLoadingProfile" class="loading-state">
-    <div class="spinner"></div>
-    <p>
-      <i class="fa-solid fa-spinner fa-spin"></i>
-      Chargement du profil...
-    </p>
-  </div>
+      <div *ngIf="activeTab === 'profile'">
+        <div *ngIf="isLoadingProfile" class="loading-state">
+          <div class="spinner"></div>
+          <p>
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Chargement du profil...
+          </p>
+        </div>
 
   <div *ngIf="!isLoadingProfile && !studentProfile" class="empty-state">
     <div class="empty-icon">
@@ -521,7 +521,7 @@
                 <div class="stage-info">
                   <h4 class="stage-name">{{ getStageLabel(stage) }}</h4>
                   <div class="stage-status-control">
-                    <select 
+                    <select
                       [ngModel]="getStageStatus(stage)"
                       (ngModelChange)="updateStageStatus(stage, $event)"
                       [disabled]="isUpdatingProgress"

@@ -5,6 +5,7 @@ import com.linkedu.backend.entities.enums.Role;
 import com.linkedu.backend.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import com.linkedu.backend.repositories.AgentProfileRepository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class StudentService {
 
     private final UserRepository userRepository;
+    private final AgentProfileRepository agentProfileRepository;
 
     public User assignAgentToStudent(Long studentId, Long agentId) {
         User student = userRepository.findById(studentId).orElseThrow();
@@ -49,6 +51,21 @@ public class StudentService {
         result.put("username", agent.getUsername());
         result.put("phoneNumber", agent.getPhoneNumber());
         result.put("role", agent.getRole());
+
+        // Include agent profile data if exists
+        agentProfileRepository.findByUserId(agent.getId()).ifPresent(profile -> {
+            result.put("bio", profile.getBio());
+            result.put("avatar", profile.getAvatar());
+            result.put("address", profile.getAddress());
+            result.put("contactName", profile.getContactName());
+            result.put("contactEmail", profile.getEmail());
+            result.put("availabilityTime", profile.getAvailabilityTime());
+            result.put("onlineStatus", profile.getOnlineStatus() != null
+                    ? profile.getOnlineStatus().name() : "OFFLINE");
+            result.put("dateOfBirth", profile.getDateOfBirth() != null
+                    ? profile.getDateOfBirth().toString() : null);
+        });
+
         return result;
     }
 }

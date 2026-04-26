@@ -846,4 +846,28 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
     if (!this.assignedAgent) return '??';
     return `${this.assignedAgent.firstName?.charAt(0) || ''}${this.assignedAgent.lastName?.charAt(0) || ''}`.toUpperCase();
   }
+
+  getAgentAvatarUrl(): string {
+    if (!this.assignedAgent?.avatar) return '';
+    if (this.assignedAgent.avatar.startsWith('http')) return this.assignedAgent.avatar;
+    return 'http://localhost:8080' + this.assignedAgent.avatar;
+  }
+
+  getAgentStatusClass(): string {
+    switch (this.assignedAgent?.onlineStatus) {
+      case 'ONLINE':  return 'status-online';
+      case 'AWAY':    return 'status-away';
+      case 'OFFLINE': return 'status-offline';
+      default:        return 'status-offline';
+    }
+  }
+
+  getAgentStatusLabel(): string {
+    switch (this.assignedAgent?.onlineStatus) {
+      case 'ONLINE':  return 'En ligne';
+      case 'AWAY':    return 'Absent';
+      case 'OFFLINE': return 'Hors ligne';
+      default:        return 'Inconnu';
+    }
+  }
 }

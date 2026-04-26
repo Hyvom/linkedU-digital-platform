@@ -2485,41 +2485,45 @@
   }
 }
 
-/*Agent Space (demo css) REDO LATER !!!!*/
-/* ── Agent Sidebar Dot ── */
-.agent-dot {
-  width: 8px; height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  margin-left: auto;
-  flex-shrink: 0;
-}
+/* ============================================================
+   AGENT SECTION · LinkedU Student Dashboard
+   Navy #00072D dominant · Gold #fbbf24 as accent only
+   ============================================================ */
 
-/* ── No Agent State ── */
+/* ── No Agent State ──────────────────────────────────────────*/
 .no-agent-state {
   text-align: center;
-  padding: 4rem 2rem;
-  background: #fff;
+  padding: 4.5rem 2rem;
+  background: linear-gradient(160deg, #0a1045 0%, #00072D 100%);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
 }
 
 .no-agent-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
+  font-size: 3.75rem;
+  margin-bottom: 1.25rem;
+  display: block;
+  animation: iconPulse 3s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+  0%,100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.08); opacity: 0.8; }
 }
 
 .no-agent-state h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  color: #111827;
+  color: #fff;
   margin: 0 0 0.5rem;
 }
 
 .no-agent-state p {
-  color: #6b7280;
-  font-size: 0.9375rem;
-  margin: 0 0 1.5rem;
+  color: #94a3b8;
+  font-size: 0.92rem;
+  margin: 0 0 2rem;
+  line-height: 1.6;
 }
 
 .no-agent-actions {
@@ -2529,209 +2533,412 @@
   flex-wrap: wrap;
 }
 
-/* ── Agent Profile View ── */
+/* ── Section Header ──────────────────────────────────────────*/
+.section-header {
+  margin-bottom: 1.75rem;
+  animation: fadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.section-header h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.section-header h2 i {
+  color: #fbbf24;
+  font-size: 1.25rem;
+}
+
+.section-sub {
+  color: #94a3b8;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* ── Loading State ───────────────────────────────────────────*/
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(251,191,36,0.15);
+  border-top-color: #fbbf24;
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Profile View Container ──────────────────────────────────*/
 .agent-profile-view {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both;
 }
 
-/* ── Agent Hero Card ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Agent Hero Card ─────────────────────────────────────────*/
 .agent-hero-card {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e3a8a 100%);
+  background: linear-gradient(135deg, #050d3a 0%, #00072D 60%, #071040 100%);
+  border: 1px solid rgba(251,191,36,0.2);
+  border-top: 3px solid #fbbf24;
   border-radius: 20px;
-  padding: 2rem;
+  padding: 2rem 2.25rem;
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2rem;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s;
 }
 
+.agent-hero-card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,0.55), 0 0 0 1px rgba(251,191,36,0.15);
+}
+
+/* Subtle dot grid on hero */
 .agent-hero-card::before {
   content: '';
   position: absolute;
-  top: -40px; right: -40px;
-  width: 200px; height: 200px;
-  background: rgba(245, 158, 11, 0.1);
-  border-radius: 50%;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 26px 26px;
+  pointer-events: none;
 }
 
+/* Gold glow orb top-right */
+.agent-hero-card::after {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(251,191,36,0.12) 0%, transparent 70%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: orb 8s ease-in-out infinite alternate;
+}
+
+@keyframes orb {
+  from { transform: scale(1) translate(0,0); }
+  to   { transform: scale(1.2) translate(-15px,15px); }
+}
+
+/* ── Avatar ──────────────────────────────────────────────────*/
 .agent-hero-avatar {
   position: relative;
+  width: 96px;
+  height: 96px;
   flex-shrink: 0;
 }
 
-.agent-initials-large {
-  width: 90px;
-  height: 90px;
+.agent-avatar-img {
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.2);
-  border: 3px solid rgba(255,255,255,0.4);
+  object-fit: cover;
+  border: 3px solid rgba(251,191,36,0.5);
+  box-shadow: 0 0 0 6px rgba(251,191,36,0.08);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.agent-hero-card:hover .agent-avatar-img {
+  border-color: #fbbf24;
+  box-shadow: 0 0 0 8px rgba(251,191,36,0.14);
+}
+
+.agent-initials-large {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(251,191,36,0.2), rgba(251,191,36,0.08));
+  border: 3px solid rgba(251,191,36,0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
-  color: #fff;
-  display: block;
-  line-height: 90px;
-  text-align: center;
+  color: #fbbf24;
+  letter-spacing: -1px;
 }
 
+/* Online dot */
 .agent-online-indicator {
   position: absolute;
-  bottom: 4px; right: 4px;
-  width: 18px; height: 18px;
-  background: #22c55e;
+  bottom: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  border: 3px solid #1d4ed8;
+  border: 3px solid #00072D;
 }
 
-.agent-hero-info { flex: 1; }
+.agent-online-indicator.status-online  { background: #34d399; box-shadow: 0 0 0 3px rgba(52,211,153,0.25); }
+.agent-online-indicator.status-away    { background: #fbbf24; box-shadow: 0 0 0 3px rgba(251,191,36,0.25); }
+.agent-online-indicator.status-offline { background: #475569; }
+
+/* ── Hero Info ───────────────────────────────────────────────*/
+.agent-hero-info {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
 
 .agent-hero-info h2 {
-  font-size: 1.625rem;
+  font-size: 1.6rem;
   font-weight: 800;
   color: #fff;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.02em;
 }
 
 .agent-role-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  background: rgba(245, 158, 11, 0.25);
+  gap: 0.4rem;
+  background: rgba(251,191,36,0.12);
   color: #fbbf24;
-  padding: 4px 12px;
+  border: 1px solid rgba(251,191,36,0.28);
+  padding: 3px 12px;
   border-radius: 99px;
-  font-size: 0.8125rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.03em;
+  margin-bottom: 0.65rem;
 }
 
-.agent-hero-email {
-  color: rgba(255,255,255,0.75);
-  font-size: 0.9375rem;
-  margin: 0.5rem 0 0;
+.agent-status-row {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.6rem;
 }
 
-.agent-hero-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
+.agent-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 3px 10px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.agent-status-badge.status-online  { background: rgba(52,211,153,0.15);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.25); }
+.agent-status-badge.status-away    { background: rgba(251,191,36,0.15);  color: #fcd34d; border: 1px solid rgba(251,191,36,0.25); }
+.agent-status-badge.status-offline { background: rgba(71,85,105,0.25);   color: #94a3b8; border: 1px solid rgba(71,85,105,0.3); }
+
+.status-dot-small {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
   flex-shrink: 0;
 }
 
-/* ── Action Buttons ── */
+.agent-availability {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.agent-hero-email {
+  color: #64748b;
+  font-size: 0.88rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.agent-hero-email i { color: #fbbf24; font-size: 0.8rem; }
+
+/* ── Hero Action Buttons ─────────────────────────────────────*/
+.agent-hero-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
 .agent-action-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
+  padding: 0.6rem 1.2rem;
   border-radius: 10px;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
-  transition: all 0.2s;
+  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
   white-space: nowrap;
 }
 
+/* Chat = navy outline style */
 .chat-btn {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-  border: 1.5px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.06);
+  color: #e2e8f0;
+  border: 1.5px solid rgba(255,255,255,0.15);
 }
 
 .chat-btn:hover {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
 }
 
+/* Ticket = gold filled */
 .ticket-btn {
-  background: #f59e0b;
-  color: #1e3a8a;
+  background: #fbbf24;
+  color: #00072D;
+  border: 1.5px solid transparent;
 }
 
 .ticket-btn:hover {
-  background: #d97706;
-  transform: translateY(-1px);
+  background: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(251,191,36,0.3);
 }
 
-/* ── Agent Info Grid ── */
+/* ── Info Grid ───────────────────────────────────────────────*/
 .agent-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
 }
 
+/* ── Info Cards ──────────────────────────────────────────────*/
 .agent-info-card {
-  background: #fff;
+  background: linear-gradient(160deg, #0a1045 0%, #00072D 100%);
+  border: 1px solid rgba(255,255,255,0.08);
   border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+.agent-info-card:nth-child(1) { animation-delay: 0.05s; }
+.agent-info-card:nth-child(2) { animation-delay: 0.12s; }
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.agent-info-card:hover {
+  border-color: rgba(251,191,36,0.2);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.4), 0 0 0 1px rgba(251,191,36,0.1);
+  transform: translateY(-3px);
 }
 
 .agent-card-title {
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #1d4ed8;
+  color: #fff;
   margin: 0 0 1.25rem;
   padding-bottom: 0.75rem;
-  border-bottom: 2px solid #eff6ff;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-/* ── Agent Info Rows ── */
+.agent-card-title i {
+  color: #fbbf24;
+  font-size: 0.85rem;
+  background: rgba(251,191,36,0.1);
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(251,191,36,0.2);
+  flex-shrink: 0;
+}
+
+/* ── Info Rows ───────────────────────────────────────────────*/
 .agent-info-rows {
   display: flex;
   flex-direction: column;
-  gap: 0.875rem;
+  gap: 0;
 }
 
 .agent-info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f8fafc;
+  padding: 0.65rem 0.6rem;
+  border-radius: 8px;
+  transition: background 0.18s;
 }
 
-.agent-info-row:last-child { border-bottom: none; }
+.agent-info-row:hover { background: rgba(255,255,255,0.04); }
 
 .agent-info-label {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8125rem;
-  color: #9ca3af;
-  font-weight: 500;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
+.agent-info-label i { color: #fbbf24; font-size: 0.72rem; }
+
 .agent-info-value {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #111827;
+  font-size: 0.87rem;
+  font-weight: 500;
+  color: #e2e8f0;
 }
 
 .agent-info-link {
-  font-size: 0.875rem;
+  font-size: 0.87rem;
   font-weight: 600;
-  color: #1d4ed8;
+  color: #38bdf8; /* sky blue — distinct from gold, readable on dark */
   text-decoration: none;
+  transition: color 0.15s;
 }
 
-.agent-info-link:hover { text-decoration: underline; }
+.agent-info-link:hover {
+  color: #7dd3fc;
+  text-decoration: underline;
+}
 
-/* ── Quick Actions ── */
+/* ── Quick Actions ───────────────────────────────────────────*/
 .quick-actions-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .quick-action-item {
@@ -2739,75 +2946,163 @@
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
-  padding: 1rem;
+  padding: 1rem 0.75rem;
   border-radius: 12px;
   text-decoration: none;
-  background: #f8fafc;
-  border: 1.5px solid #e5e7eb;
-  transition: all 0.2s;
-  color: #374151;
-  font-size: 0.8125rem;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: all 0.22s cubic-bezier(0.4,0,0.2,1);
+  color: #94a3b8;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
 .quick-action-item:hover {
-  border-color: #1d4ed8;
-  background: #eff6ff;
-  transform: translateY(-2px);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(251,191,36,0.25);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
 .quick-action-icon {
-  width: 44px; height: 44px;
-  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.125rem;
+  font-size: 1.05rem;
   color: #fff;
+  transition: transform 0.2s;
 }
 
-.chat-icon   { background: linear-gradient(135deg, #1d4ed8, #3b82f6); }
-.ticket-icon { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.email-icon  { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
-.phone-icon  { background: linear-gradient(135deg, #16a34a, #22c55e); }
+.quick-action-item:hover .quick-action-icon {
+  transform: scale(1.1);
+}
 
-/* ── Info Banner ── */
+/* Icon colors — purposefully varied, not all gold */
+.chat-icon   { background: linear-gradient(135deg, #0a1045, #1e40af); border: 1px solid rgba(59,130,246,0.3); }
+.ticket-icon { background: linear-gradient(135deg, #78350f, #d97706); border: 1px solid rgba(245,158,11,0.3); }
+.email-icon  { background: linear-gradient(135deg, #3b0764, #7c3aed); border: 1px solid rgba(139,92,246,0.3); }
+.phone-icon  { background: linear-gradient(135deg, #064e3b, #059669); border: 1px solid rgba(16,185,129,0.3); }
+
+/* ── Agent Bio ───────────────────────────────────────────────*/
+.agent-bio-section {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.agent-bio-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.agent-bio-label i { color: #fbbf24; }
+
+.agent-bio-text {
+  font-size: 0.875rem;
+  color: #64748b;
+  line-height: 1.65;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ── Info Banner ─────────────────────────────────────────────*/
 .agent-info-banner {
   grid-column: 1 / -1;
-  background: #eff6ff;
-  border: 1.5px solid #bfdbfe;
-  border-radius: 16px;
-  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(251,191,36,0.07) 0%, rgba(0,7,45,0.6) 100%);
+  border: 1px solid rgba(251,191,36,0.18);
+  border-left: 3px solid #fbbf24;
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
   display: flex;
   align-items: flex-start;
   gap: 1rem;
+  animation: cardIn 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s both;
 }
 
 .banner-icon {
-  font-size: 1.5rem;
-  color: #1d4ed8;
+  font-size: 1.3rem;
+  color: #fbbf24;
   flex-shrink: 0;
   margin-top: 2px;
+  background: rgba(251,191,36,0.1);
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(251,191,36,0.2);
 }
 
 .banner-content h4 {
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: 700;
-  color: #1d4ed8;
-  margin: 0 0 0.375rem;
+  color: #fbbf24;
+  margin: 0 0 0.35rem;
 }
 
 .banner-content p {
-  font-size: 0.875rem;
-  color: #374151;
-  line-height: 1.6;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.65;
   margin: 0;
 }
 
-/* ── Responsive ── */
-@media (max-width: 768px) {
-  .agent-hero-card { flex-direction: column; text-align: center; }
-  .agent-hero-actions { flex-direction: row; justify-content: center; }
-  .agent-info-grid { grid-template-columns: 1fr; }
-  .agent-info-banner { grid-column: 1; }
+/* ── Agent dot (sidebar indicator) ──────────────────────────*/
+.agent-dot {
+  width: 8px;
+  height: 8px;
+  background: #34d399;
+  border-radius: 50%;
+  margin-left: auto;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(52,211,153,0.2);
+  animation: dotPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%,100% { box-shadow: 0 0 0 3px rgba(52,211,153,0.2); }
+  50%      { box-shadow: 0 0 0 5px rgba(52,211,153,0.08); }
+}
+
+/* ── Responsive ──────────────────────────────────────────────*/
+@media (max-width: 900px) {
+  .agent-hero-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .agent-hero-actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .agent-status-row,
+  .agent-hero-email {
+    justify-content: center;
+  }
+
+  .agent-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-info-banner {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .agent-hero-card { padding: 1.5rem 1.25rem; }
+  .quick-actions-grid { grid-template-columns: repeat(2, 1fr); }
 }
