@@ -14,7 +14,7 @@ import {
 @Component({
   selector: 'app-ml-model',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, FormsModule],
   templateUrl: './ml-model.html',
   styleUrl: './ml-model.component.css'
 })
