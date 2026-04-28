@@ -61,7 +61,7 @@ export class NavbarComponent implements OnInit {
         return [{ label: 'Panneau d\'administration', path: '/admin' }];
       case 'AGENT':
         return [
-          { label: 'Portail Agent', path: '/agent' }
+          { label: 'Portail Agent', path: '/agent' },
         ];
       case 'STUDENT':
         return [

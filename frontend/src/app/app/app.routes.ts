@@ -123,7 +123,7 @@ export const routes: Routes = [
     path: 'ml-model',
     component: MlModelComponent,
     canActivate: [authGuard, roleGuard],
-    data: { roles: ['AGENT'] }
+    data: { roles: ['AGENT', 'STUDENT', 'USER', 'GUEST'] }
   },
 
   {

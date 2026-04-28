@@ -41,11 +41,10 @@
         <i class="fa-solid fa-list-check"></i>
         Mes quiz
       </button>
-      <button (click)="setSection('recommendations')"
-        [class.active]="activeSection === 'recommendations'" class="nav-btn">
-        <i class="fa-solid fa-wand-magic-sparkles"></i>
-        Recommandations IA
-      </button>
+      <a routerLink="/ml-model" class="nav-btn nav-link-btn">
+        <i class="fa-solid fa-robot"></i>
+        Prédiction d'admission
+      </a>
       <a routerLink="/profile" class="nav-btn nav-link-btn">
         <i class="fa-solid fa-id-card"></i>
         Profil complet
