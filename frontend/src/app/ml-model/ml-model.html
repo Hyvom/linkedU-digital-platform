@@ -3,8 +3,8 @@
   <main class="agent-main">
     <div class="ml-model-container">
       <div class="card">
-        <h2>Admission Chance Predictor </h2>
-        <p class="hint">Enter student data to predict their admission chances to a study-abroad program.</p>
+        <h2>Prédicteur de chances d'admission</h2>
+        <p class="hint">Saisissez les données de l'étudiant pour prédire ses chances d'admission à un programme d'études à l'étranger.</p>
 
         <form (ngSubmit)="onSubmit()" #mlForm="ngForm">
           <!-- Relation with existing students -->
@@ -40,7 +40,7 @@
           </div>
 
           <div class="form-group">
-            <label for="moyenne">Moyenne (Academic Score out of 20)</label>
+            <label for="moyenne">Moyenne (Score académique sur 20)</label>
             <select id="moyenne" name="moyenne" [(ngModel)]="predictionForm.moyenne" class="form-input" required style="width: 100%; background: transparent; border: 1.5px solid var(--border); border-radius: var(--radius); color: #fbbf24; padding: 11px;">
               <option [ngValue]="null" disabled>Choisir une moyenne...</option>
               <option *ngFor="let m of moyennesList" [ngValue]="m">{{ m }}</option>
@@ -58,7 +58,7 @@
           <div class="actions-row">
             <button type="submit" class="primary" [disabled]="isLoading || !mlForm.valid">
               <span *ngIf="isLoading" class="spinner-small"></span>
-              {{ isLoading ? 'Predicting...' : 'Get Prediction' }}
+              {{ isLoading ? 'Prédiction en cours...' : 'Obtenir la prédiction' }}
             </button>
           </div>
         </form>
@@ -88,8 +88,8 @@
                 <span><i class="fa-solid fa-language" style="width: 20px; color: #fbbf24;"></i> {{ rec.language }}</span>
                 
                 <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;">
-                  <span style="background: rgba(251,191,36,0.1); color: #fbbf24; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">Match: {{ (rec.similarity * 100).toFixed(1) }}%</span>
-                  <span style="font-size: 0.75rem; color: #64748b;">Moyenne: {{ rec.moyenne }}/20</span>
+                  <span style="background: rgba(251,191,36,0.1); color: #fbbf24; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.85rem;">Correspondance : {{ (rec.similarity * 100).toFixed(1) }}%</span>
+                  <span style="font-size: 0.75rem; color: #64748b;">Moyenne : {{ rec.moyenne }}/20</span>
                 </div>
               </div>
             </div>
