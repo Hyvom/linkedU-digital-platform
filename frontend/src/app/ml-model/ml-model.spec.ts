@@ -1,23 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MlModelComponent } from './ml-model.component';
 
-import { MlModel } from './ml-model';
-
-describe('MlModel', () => {
-  let component: MlModel;
-  let fixture: ComponentFixture<MlModel>;
+describe('MlModelComponent', () => {
+  let component: MlModelComponent;
+  let fixture: ComponentFixture<MlModelComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MlModel]
-    })
-    .compileComponents();
+      imports: [MlModelComponent]
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(MlModel);
+    fixture = TestBed.createComponent(MlModelComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create component', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize form with empty values', () => {
+    expect(component.predictionForm.country).toBe('');
+    expect(component.predictionForm.major).toBe('');
+    expect(component.predictionForm.language).toBe('');
+    expect(component.predictionForm.moyenne).toBeNull();
+    expect(component.predictionForm.tuitionTier).toBeNull();
+  });
+
+  it('should show error if form is empty on submit', () => {
+    component.onSubmit();
+    expect(component.error).toBe('Please fill all fields');
+    expect(component.isLoading).toBeFalse();
   });
 });
