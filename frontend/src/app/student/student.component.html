@@ -364,18 +364,18 @@
       </div>
       </div>
     </div>
-    <!-- ═══════════ DOCUMENTS SECTION ═══════════ -->
+    <!-- ═══════════ SECTION DOCUMENTS ═══════════ -->
     <div *ngIf="activeSection === 'documents'">
 
       <div class="section-header">
         <h2>
           <i class="fa-solid fa-file-alt"></i>
-          My Documents
+          Mes Documents
         </h2>
-        <p class="section-sub">Upload and manage your required documents</p>
+        <p class="section-sub">Téléchargez et gérez vos documents requis pour votre dossier</p>
       </div>
 
-      <!-- Alerts -->
+      <!-- Alertes -->
       <div *ngIf="uploadSuccess" class="alert alert-success">
         <i class="fa-solid fa-circle-check"></i>
         {{ uploadSuccess }}
@@ -385,78 +385,78 @@
         {{ uploadError }}
       </div>
 
-      <!-- Document Tabs -->
+      <!-- Onglets documents -->
       <div class="doc-tabs">
         <button (click)="activeDocTab = 'cv'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'cv'" class="doc-tab">
+                [class.active]="activeDocTab === 'cv'" class="doc-tab">
           <i class="fa-solid fa-file-pdf"></i>
           CV
           <span *ngIf="getDocumentByType('CV')"
-            [ngClass]="getStatusClass(getDocumentByType('CV')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('CV')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'passport'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'passport'" class="doc-tab">
+                [class.active]="activeDocTab === 'passport'" class="doc-tab">
           <i class="fa-solid fa-passport"></i>
-          Passport
+          Passeport
           <span *ngIf="getDocumentByType('PASSPORT')"
-            [ngClass]="getStatusClass(getDocumentByType('PASSPORT')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('PASSPORT')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'idcard'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'idcard'" class="doc-tab">
+                [class.active]="activeDocTab === 'idcard'" class="doc-tab">
           <i class="fa-solid fa-id-card"></i>
-          ID Card
+          Carte d'identité
           <span *ngIf="getDocumentByType('ID_CARD')"
-            [ngClass]="getStatusClass(getDocumentByType('ID_CARD')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('ID_CARD')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'diploma'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'diploma'" class="doc-tab">
+                [class.active]="activeDocTab === 'diploma'" class="doc-tab">
           <i class="fa-solid fa-graduation-cap"></i>
-          Diploma
+          Diplôme
           <span *ngIf="getDocumentByType('DIPLOMA')"
-            [ngClass]="getStatusClass(getDocumentByType('DIPLOMA')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('DIPLOMA')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'transcript'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'transcript'" class="doc-tab">
+                [class.active]="activeDocTab === 'transcript'" class="doc-tab">
           <i class="fa-solid fa-scroll"></i>
-          Transcript
+          Relevé de notes
           <span *ngIf="getDocumentByType('TRANSCRIPT')"
-            [ngClass]="getStatusClass(getDocumentByType('TRANSCRIPT')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('TRANSCRIPT')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'coverletter'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'coverletter'" class="doc-tab">
+                [class.active]="activeDocTab === 'coverletter'" class="doc-tab">
           <i class="fa-solid fa-envelope-open-text"></i>
-          Cover Letter
+          Lettre de motivation
           <span *ngIf="getDocumentByType('COVER_LETTER')"
-            [ngClass]="getStatusClass(getDocumentByType('COVER_LETTER')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('COVER_LETTER')!.status)"
+                class="tab-status-dot"></span>
         </button>
         <button (click)="activeDocTab = 'other'; uploadError = ''; uploadSuccess = ''"
-          [class.active]="activeDocTab === 'other'" class="doc-tab">
+                [class.active]="activeDocTab === 'other'" class="doc-tab">
           <i class="fa-solid fa-folder-open"></i>
-          Other
+          Autre
           <span *ngIf="getDocumentByType('OTHER')"
-            [ngClass]="getStatusClass(getDocumentByType('OTHER')!.status)"
-            class="tab-status-dot"></span>
+                [ngClass]="getStatusClass(getDocumentByType('OTHER')!.status)"
+                class="tab-status-dot"></span>
         </button>
       </div>
 
-      <!-- Loading -->
+      <!-- Chargement -->
       <div *ngIf="isLoadingDocs" class="loading-state">
         <div class="spinner"></div>
         <p>
           <i class="fa-solid fa-spinner fa-spin"></i>
-          Loading documents...
+          Chargement des documents...
         </p>
       </div>
 
       <div *ngIf="!isLoadingDocs" class="doc-content">
 
-        <!-- ── CV TAB ── -->
+        <!-- ── Onglet CV ── -->
         <div *ngIf="activeDocTab === 'cv'">
           <div *ngIf="getDocumentByType('CV')" class="doc-existing">
             <div class="doc-existing-header">
@@ -467,7 +467,7 @@
                 </p>
                 <p class="doc-date">
                   <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('CV')!.uploadedAt | date:'mediumDate' }}
+                  Envoyé le : {{ getDocumentByType('CV')!.uploadedAt | date:'mediumDate' }}
                 </p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('CV')!.status)">
@@ -483,76 +483,74 @@
             <h4>
               <i *ngIf="!getDocumentByType('CV')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('CV')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('CV') ? 'Replace CV' : 'Upload CV' }}
+              {{ getDocumentByType('CV') ? 'Remplacer le CV' : 'Envoyer mon CV' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">CV File (PDF/DOC) *</label>
+              <label class="form-label">Fichier CV (PDF/DOC) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,.doc,.docx" (change)="onFileSelected($event, 'cv')" class="file-input" id="cv-file" />
                 <label for="cv-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ cvFile ? cvFile.name : 'Choose file...' }}
+                  {{ cvFile ? cvFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Professional Summary</label>
+              <label class="form-label">Résumé professionnel</label>
               <textarea name="cvSummary" [(ngModel)]="cvForm.summary" rows="3"
-                placeholder="Brief summary of your background..."
-                class="form-input form-textarea"></textarea>
+                        placeholder="Bref aperçu de votre parcours..."
+                        class="form-input form-textarea"></textarea>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Experience</label>
+                <label class="form-label">Expérience</label>
                 <textarea name="cvExp" [(ngModel)]="cvForm.experience" rows="3"
-                  placeholder="Work/internship experience..."
-                  class="form-input form-textarea"></textarea>
+                          placeholder="Expériences professionnelles / stages..."
+                          class="form-input form-textarea"></textarea>
               </div>
               <div class="form-group">
-                <label class="form-label">Skills</label>
+                <label class="form-label">Compétences</label>
                 <textarea name="cvSkills" [(ngModel)]="cvForm.skills" rows="3"
-                  placeholder="Technical and soft skills..."
-                  class="form-input form-textarea"></textarea>
+                          placeholder="Compétences techniques et soft skills..."
+                          class="form-input form-textarea"></textarea>
               </div>
             </div>
             <button (click)="uploadCv()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload CV' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer le CV' }}
             </button>
-            <!-- ── AI CV ANALYSIS ── -->
+
+            <!-- ── Analyse IA du CV ── -->
             <div *ngIf="getDocumentByType('CV')" class="cv-analysis-section">
 
               <div class="analysis-trigger">
                 <div class="analysis-trigger-info">
                   <h4>
                     <i class="fa-solid fa-robot"></i>
-                    AI CV Analysis
+                    Analyse IA de votre CV
                   </h4>
-                  <p>Get an AI-powered score and feedback on your CV</p>
+                  <p>Obtenez un score et des recommandations personnalisées grâce à l'IA</p>
                 </div>
                 <button (click)="analyzeExistingCv()" [disabled]="isAnalyzingCv" class="analyze-btn">
                   <span *ngIf="!isAnalyzingCv">
                     <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    Analyze My CV
+                    Analyser mon CV
                   </span>
                   <span *ngIf="isAnalyzingCv" class="analyzing-text">
                     <i class="fa-solid fa-spinner fa-spin"></i>
-                    Analyzing...
+                    Analyse en cours...
                   </span>
                 </button>
               </div>
 
-              <!-- Analysis Error -->
               <div *ngIf="analysisError" class="alert alert-error">
                 <i class="fa-solid fa-circle-exclamation"></i>
                 {{ analysisError }}
               </div>
 
-              <!-- Analysis Results -->
               <div *ngIf="cvAnalysis && !isAnalyzingCv" class="analysis-results">
 
-                <!-- Score Card -->
                 <div class="score-card">
                   <div class="score-circle" [style.borderColor]="getScoreColor(cvAnalysis.score)">
                     <span class="score-number" [style.color]="getScoreColor(cvAnalysis.score)">
@@ -569,92 +567,61 @@
                   </div>
                 </div>
 
-                <!-- Score Bar -->
                 <div class="score-bar-wrapper">
                   <div class="score-bar-fill"
-                    [style.width]="cvAnalysis.score + '%'"
-                    [style.background]="getScoreColor(cvAnalysis.score)">
+                       [style.width]="cvAnalysis.score + '%'"
+                       [style.background]="getScoreColor(cvAnalysis.score)">
                   </div>
                 </div>
 
-                <!-- Analysis Grid -->
                 <div class="analysis-grid">
 
-                  <!-- Strengths -->
                   <div class="analysis-card strengths-card">
-                    <h4>
-                      <i class="fa-solid fa-circle-check"></i>
-                      Strengths
-                    </h4>
+                    <h4><i class="fa-solid fa-circle-check"></i> Points forts</h4>
                     <ul>
                       <li *ngFor="let s of parseList(cvAnalysis.strengths)">
-                        <i class="fa-solid fa-check"></i>
-                        {{ s }}
+                        <i class="fa-solid fa-check"></i> {{ s }}
                       </li>
                     </ul>
                   </div>
 
-                  <!-- Weaknesses -->
                   <div class="analysis-card weaknesses-card">
-                    <h4>
-                      <i class="fa-solid fa-circle-exclamation"></i>
-                      Weaknesses
-                    </h4>
+                    <h4><i class="fa-solid fa-circle-exclamation"></i> Points faibles</h4>
                     <ul>
                       <li *ngFor="let w of parseList(cvAnalysis.weaknesses)">
-                        <i class="fa-solid fa-xmark"></i>
-                        {{ w }}
+                        <i class="fa-solid fa-xmark"></i> {{ w }}
                       </li>
                     </ul>
                   </div>
 
-                  <!-- Suggestions -->
                   <div class="analysis-card suggestions-card">
-                    <h4>
-                      <i class="fa-solid fa-lightbulb"></i>
-                      Suggestions
-                    </h4>
+                    <h4><i class="fa-solid fa-lightbulb"></i> Suggestions</h4>
                     <ul>
                       <li *ngFor="let s of parseList(cvAnalysis.suggestions)">
-                        <i class="fa-solid fa-arrow-right"></i>
-                        {{ s }}
+                        <i class="fa-solid fa-arrow-right"></i> {{ s }}
                       </li>
                     </ul>
                   </div>
 
-                  <!-- Formatting -->
                   <div class="analysis-card formatting-card">
-                    <h4>
-                      <i class="fa-solid fa-file-lines"></i>
-                      Formatting
-                    </h4>
+                    <h4><i class="fa-solid fa-file-lines"></i> Mise en forme</h4>
                     <p>{{ cvAnalysis.formattingFeedback }}</p>
                   </div>
 
-                  <!-- Keywords Found -->
                   <div class="analysis-card keywords-card">
-                    <h4>
-                      <i class="fa-solid fa-key"></i>
-                      Keywords Found
-                    </h4>
+                    <h4><i class="fa-solid fa-key"></i> Mots-clés détectés</h4>
                     <div class="keyword-chips">
                       <span *ngFor="let k of parseList(cvAnalysis.keywordsFound)" class="keyword-chip found-chip">
-                        <i class="fa-solid fa-check-circle"></i>
-                        {{ k }}
+                        <i class="fa-solid fa-check-circle"></i> {{ k }}
                       </span>
                     </div>
                   </div>
 
-                  <!-- Missing Keywords -->
                   <div class="analysis-card missing-card">
-                    <h4>
-                      <i class="fa-solid fa-key"></i>
-                      Missing Keywords
-                    </h4>
+                    <h4><i class="fa-solid fa-key"></i> Mots-clés manquants</h4>
                     <div class="keyword-chips">
                       <span *ngFor="let k of parseList(cvAnalysis.missingKeywords)" class="keyword-chip missing-chip">
-                        <i class="fa-solid fa-times-circle"></i>
-                        {{ k }}
+                        <i class="fa-solid fa-times-circle"></i> {{ k }}
                       </span>
                     </div>
                   </div>
@@ -665,19 +632,13 @@
           </div>
         </div>
 
-        <!-- ── PASSPORT TAB ── -->
+        <!-- ── Onglet Passeport ── -->
         <div *ngIf="activeDocTab === 'passport'">
           <div *ngIf="getDocumentByType('PASSPORT')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('PASSPORT')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('PASSPORT')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('PASSPORT')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('PASSPORT')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('PASSPORT')!.status)">
                 <i *ngIf="getDocumentByType('PASSPORT')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -687,59 +648,51 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('PASSPORT')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('PASSPORT')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('PASSPORT') ? 'Replace Passport' : 'Upload Passport' }}
+              {{ getDocumentByType('PASSPORT') ? 'Remplacer le passeport' : 'Envoyer mon passeport' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">Passport File (PDF/Image) *</label>
+              <label class="form-label">Fichier passeport (PDF/Image) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,image/*" (change)="onFileSelected($event, 'passport')" class="file-input" id="passport-file" />
                 <label for="passport-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ passportFile ? passportFile.name : 'Choose file...' }}
+                  {{ passportFile ? passportFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Issue Date *</label>
+                <label class="form-label">Date d'émission *</label>
                 <input type="date" [(ngModel)]="passportForm.issueDate" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Expiry Date *</label>
+                <label class="form-label">Date d'expiration *</label>
                 <input type="date" [(ngModel)]="passportForm.expiryDate" class="form-input" />
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Issuing Country *</label>
-              <input type="text" [(ngModel)]="passportForm.issuingCountry"
-                placeholder="e.g. Tunisia" class="form-input" />
+              <label class="form-label">Pays émetteur *</label>
+              <input type="text" [(ngModel)]="passportForm.issuingCountry" placeholder="ex : Tunisie" class="form-input" />
             </div>
             <button (click)="uploadPassport()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload Passport' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer le passeport' }}
             </button>
           </div>
         </div>
 
-        <!-- ── ID CARD TAB ── -->
+        <!-- ── Onglet Carte d'identité ── -->
         <div *ngIf="activeDocTab === 'idcard'">
           <div *ngIf="getDocumentByType('ID_CARD')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('ID_CARD')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('ID_CARD')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('ID_CARD')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('ID_CARD')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('ID_CARD')!.status)">
                 <i *ngIf="getDocumentByType('ID_CARD')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -749,55 +702,47 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('ID_CARD')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('ID_CARD')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('ID_CARD') ? 'Replace ID Card' : 'Upload ID Card' }}
+              {{ getDocumentByType('ID_CARD') ? 'Remplacer la carte d\'identité' : 'Envoyer ma carte d\'identité' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">ID Card File (PDF/Image) *</label>
+              <label class="form-label">Fichier carte d'identité (PDF/Image) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,image/*" (change)="onFileSelected($event, 'idcard')" class="file-input" id="idcard-file" />
                 <label for="idcard-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ idCardFile ? idCardFile.name : 'Choose file...' }}
+                  {{ idCardFile ? idCardFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">ID Number *</label>
-                <input type="text" [(ngModel)]="idCardForm.numId"
-                  placeholder="e.g. 12345678" class="form-input" />
+                <label class="form-label">Numéro CIN *</label>
+                <input type="text" [(ngModel)]="idCardForm.numId" placeholder="ex : 12345678" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Date of Birth *</label>
+                <label class="form-label">Date de naissance *</label>
                 <input type="date" [(ngModel)]="idCardForm.birthday" class="form-input" />
               </div>
             </div>
             <button (click)="uploadIdCard()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload ID Card' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer la carte d\'identité' }}
             </button>
           </div>
         </div>
 
-        <!-- ── DIPLOMA TAB ── -->
+        <!-- ── Onglet Diplôme ── -->
         <div *ngIf="activeDocTab === 'diploma'">
           <div *ngIf="getDocumentByType('DIPLOMA')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('DIPLOMA')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('DIPLOMA')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('DIPLOMA')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('DIPLOMA')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('DIPLOMA')!.status)">
                 <i *ngIf="getDocumentByType('DIPLOMA')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -807,64 +752,57 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('DIPLOMA')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('DIPLOMA')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('DIPLOMA') ? 'Replace Diploma' : 'Upload Diploma' }}
+              {{ getDocumentByType('DIPLOMA') ? 'Remplacer le diplôme' : 'Envoyer mon diplôme' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">Diploma File (PDF) *</label>
+              <label class="form-label">Fichier diplôme (PDF) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,image/*" (change)="onFileSelected($event, 'diploma')" class="file-input" id="diploma-file" />
                 <label for="diploma-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ diplomaFile ? diplomaFile.name : 'Choose file...' }}
+                  {{ diplomaFile ? diplomaFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Degree</label>
-                <input type="text" [(ngModel)]="diplomaForm.degree" placeholder="e.g. Bachelor of Science" class="form-input" />
+                <label class="form-label">Titre du diplôme</label>
+                <input type="text" [(ngModel)]="diplomaForm.degree" placeholder="ex : Licence en Informatique" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Field of Study</label>
-                <input type="text" [(ngModel)]="diplomaForm.fieldOfStudy" placeholder="e.g. Computer Science" class="form-input" />
+                <label class="form-label">Domaine d'études</label>
+                <input type="text" [(ngModel)]="diplomaForm.fieldOfStudy" placeholder="ex : Génie logiciel" class="form-input" />
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Institution</label>
-                <input type="text" [(ngModel)]="diplomaForm.institution" placeholder="University name" class="form-input" />
+                <label class="form-label">Établissement</label>
+                <input type="text" [(ngModel)]="diplomaForm.institution" placeholder="Nom de l'université" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Graduation Year</label>
-                <input type="text" [(ngModel)]="diplomaForm.graduationYear" placeholder="e.g. 2024" class="form-input" />
+                <label class="form-label">Année d'obtention</label>
+                <input type="text" [(ngModel)]="diplomaForm.graduationYear" placeholder="ex : 2024" class="form-input" />
               </div>
             </div>
             <button (click)="uploadDiploma()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload Diploma' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer le diplôme' }}
             </button>
           </div>
         </div>
 
-        <!-- ── TRANSCRIPT TAB ── -->
+        <!-- ── Onglet Relevé de notes ── -->
         <div *ngIf="activeDocTab === 'transcript'">
           <div *ngIf="getDocumentByType('TRANSCRIPT')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('TRANSCRIPT')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('TRANSCRIPT')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('TRANSCRIPT')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('TRANSCRIPT')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('TRANSCRIPT')!.status)">
                 <i *ngIf="getDocumentByType('TRANSCRIPT')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -874,58 +812,51 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('TRANSCRIPT')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('TRANSCRIPT')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('TRANSCRIPT') ? 'Replace Transcript' : 'Upload Transcript' }}
+              {{ getDocumentByType('TRANSCRIPT') ? 'Remplacer le relevé' : 'Envoyer mon relevé de notes' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">Transcript File (PDF) *</label>
+              <label class="form-label">Fichier relevé (PDF) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,image/*" (change)="onFileSelected($event, 'transcript')" class="file-input" id="transcript-file" />
                 <label for="transcript-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ transcriptFile ? transcriptFile.name : 'Choose file...' }}
+                  {{ transcriptFile ? transcriptFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Institution</label>
-                <input type="text" [(ngModel)]="transcriptForm.institution" placeholder="University name" class="form-input" />
+                <label class="form-label">Établissement</label>
+                <input type="text" [(ngModel)]="transcriptForm.institution" placeholder="Nom de l'université" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Academic Year</label>
-                <input type="text" [(ngModel)]="transcriptForm.academicYear" placeholder="e.g. 2023-2024" class="form-input" />
+                <label class="form-label">Année académique</label>
+                <input type="text" [(ngModel)]="transcriptForm.academicYear" placeholder="ex : 2023-2024" class="form-input" />
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Average / GPA</label>
-              <input type="text" [(ngModel)]="transcriptForm.average" placeholder="e.g. 15.5/20 or 3.8/4.0" class="form-input" />
+              <label class="form-label">Moyenne / GPA</label>
+              <input type="text" [(ngModel)]="transcriptForm.average" placeholder="ex : 15,5/20 ou 3,8/4,0" class="form-input" />
             </div>
             <button (click)="uploadTranscript()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload Transcript' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer le relevé de notes' }}
             </button>
           </div>
         </div>
 
-        <!-- ── COVER LETTER TAB ── -->
+        <!-- ── Onglet Lettre de motivation ── -->
         <div *ngIf="activeDocTab === 'coverletter'">
           <div *ngIf="getDocumentByType('COVER_LETTER')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('COVER_LETTER')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('COVER_LETTER')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('COVER_LETTER')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('COVER_LETTER')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('COVER_LETTER')!.status)">
                 <i *ngIf="getDocumentByType('COVER_LETTER')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -935,60 +866,53 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('COVER_LETTER')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('COVER_LETTER')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('COVER_LETTER') ? 'Replace Cover Letter' : 'Upload Cover Letter' }}
+              {{ getDocumentByType('COVER_LETTER') ? 'Remplacer la lettre de motivation' : 'Envoyer ma lettre de motivation' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">Cover Letter File (PDF) *</label>
+              <label class="form-label">Fichier lettre de motivation (PDF) *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,.doc,.docx" (change)="onFileSelected($event, 'coverletter')" class="file-input" id="coverletter-file" />
                 <label for="coverletter-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ coverLetterFile ? coverLetterFile.name : 'Choose file...' }}
+                  {{ coverLetterFile ? coverLetterFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">Target University</label>
-                <input type="text" [(ngModel)]="coverLetterForm.targetUniversity" placeholder="e.g. University of Paris" class="form-input" />
+                <label class="form-label">Université cible</label>
+                <input type="text" [(ngModel)]="coverLetterForm.targetUniversity" placeholder="ex : Université Paris-Saclay" class="form-input" />
               </div>
               <div class="form-group">
-                <label class="form-label">Target Program</label>
-                <input type="text" [(ngModel)]="coverLetterForm.targetProgram" placeholder="e.g. MSc Data Science" class="form-input" />
+                <label class="form-label">Formation visée</label>
+                <input type="text" [(ngModel)]="coverLetterForm.targetProgram" placeholder="ex : Master IA" class="form-input" />
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Letter Content (optional)</label>
+              <label class="form-label">Contenu de la lettre (optionnel)</label>
               <textarea [(ngModel)]="coverLetterForm.content" rows="4"
-                placeholder="Paste your cover letter text here (optional)..."
-                class="form-input form-textarea"></textarea>
+                        placeholder="Copiez ici le texte de votre lettre de motivation (optionnel)..."
+                        class="form-input form-textarea"></textarea>
             </div>
             <button (click)="uploadCoverLetter()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload Cover Letter' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer la lettre de motivation' }}
             </button>
           </div>
         </div>
 
-        <!-- ── OTHER DOCUMENTS TAB ── -->
+        <!-- ── Onglet Autre document ── -->
         <div *ngIf="activeDocTab === 'other'">
           <div *ngIf="getDocumentByType('OTHER')" class="doc-existing">
             <div class="doc-existing-header">
               <div>
-                <p class="doc-filename">
-                  <i class="fa-solid fa-paperclip"></i>
-                  {{ getDocumentByType('OTHER')!.fileName }}
-                </p>
-                <p class="doc-date">
-                  <i class="fa-regular fa-calendar"></i>
-                  Uploaded: {{ getDocumentByType('OTHER')!.uploadedAt | date:'mediumDate' }}
-                </p>
+                <p class="doc-filename"><i class="fa-solid fa-paperclip"></i> {{ getDocumentByType('OTHER')!.fileName }}</p>
+                <p class="doc-date"><i class="fa-regular fa-calendar"></i> Envoyé le : {{ getDocumentByType('OTHER')!.uploadedAt | date:'mediumDate' }}</p>
               </div>
               <span class="status-badge" [ngClass]="getStatusClass(getDocumentByType('OTHER')!.status)">
                 <i *ngIf="getDocumentByType('OTHER')!.status === 'APPROVED'" class="fa-solid fa-check-circle"></i>
@@ -998,44 +922,44 @@
               </span>
             </div>
           </div>
-
           <div class="doc-form-card">
             <h4>
               <i *ngIf="!getDocumentByType('OTHER')" class="fa-solid fa-upload"></i>
               <i *ngIf="getDocumentByType('OTHER')" class="fa-solid fa-rotate"></i>
-              {{ getDocumentByType('OTHER') ? 'Replace Document' : 'Upload Other Document' }}
+              {{ getDocumentByType('OTHER') ? 'Remplacer le document' : 'Envoyer un autre document' }}
             </h4>
             <div class="form-group">
-              <label class="form-label">File *</label>
+              <label class="form-label">Fichier *</label>
               <div class="file-input-wrapper">
                 <input type="file" accept=".pdf,.doc,.docx,image/*" (change)="onFileSelected($event, 'other')" class="file-input" id="other-file" />
                 <label for="other-file" class="file-label">
                   <i class="fa-solid fa-folder-open"></i>
-                  {{ otherFile ? otherFile.name : 'Choose file...' }}
+                  {{ otherFile ? otherFile.name : 'Choisir un fichier...' }}
                 </label>
               </div>
             </div>
             <div class="form-group">
-              <label class="form-label">Document Title *</label>
-              <input type="text" [(ngModel)]="otherForm.documentTitle" placeholder="e.g. Reference Letter, Certificate..." class="form-input" />
+              <label class="form-label">Titre du document *</label>
+              <input type="text" [(ngModel)]="otherForm.documentTitle" placeholder="ex : Lettre de recommandation, Certificat..." class="form-input" />
             </div>
             <div class="form-group">
-              <label class="form-label">Notes (optional)</label>
+              <label class="form-label">Notes (optionnel)</label>
               <textarea [(ngModel)]="otherForm.notes" rows="3"
-                placeholder="Any additional information about this document..."
-                class="form-input form-textarea"></textarea>
+                        placeholder="Informations complémentaires sur ce document..."
+                        class="form-input form-textarea"></textarea>
             </div>
             <button (click)="uploadOtherDoc()" [disabled]="isUploading" class="upload-btn">
               <i *ngIf="!isUploading" class="fa-solid fa-cloud-upload-alt"></i>
               <i *ngIf="isUploading" class="fa-solid fa-spinner fa-spin"></i>
-              {{ isUploading ? 'Uploading...' : 'Upload Document' }}
+              {{ isUploading ? 'Envoi en cours...' : 'Envoyer le document' }}
             </button>
           </div>
         </div>
 
       </div>
     </div>
-<!-- ═══════════ PROGRESS SECTION ═══════════ -->
+
+    <!-- ═══════════ PROGRESS SECTION ═══════════ -->
 <div *ngIf="activeSection === 'progress'">
 
   <div class="section-header">

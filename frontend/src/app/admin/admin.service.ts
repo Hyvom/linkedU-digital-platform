@@ -16,7 +16,7 @@ export class AdminService {
     return this.http.get<AdminDashboardStatistics>(`${this.adminBase}/statistics`);
   }
 
-  
+
   // ── Users ─────────────────────────────────────────────
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.adminBase}/users`);
