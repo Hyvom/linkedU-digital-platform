@@ -30,6 +30,7 @@ import { GuestProfileComponent } from '../profile/guest-profile.component/guest-
 import { AgentProfileComponent } from '../profile/agent-profile.component/agent-profile.component';
 import { AgentComponent } from '../agent/agent.component';
 import { LanguageTeacherComponent } from '../language-teacher/language-teacher.component';
+import { MlModelComponent } from '../ml-model/ml-model.component';
 
 //Ticket
 import { TicketComponent } from '../ticket/ticket.component';
@@ -116,6 +117,13 @@ export const routes: Routes = [
     component: AgentComponent,
     canActivate: [authGuard, roleGuard],
     data: { roles: ['AGENT'] }
+  },
+
+  {
+    path: 'ml-model',
+    component: MlModelComponent,
+    canActivate: [authGuard, roleGuard],
+    data: { roles: ['AGENT', 'STUDENT', 'USER', 'GUEST'] }
   },
 
   {

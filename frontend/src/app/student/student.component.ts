@@ -236,61 +236,8 @@ export class StudentProfileComponent implements OnInit, OnDestroy {
 
     if (section === 'documents') this.loadDocuments();
     if (section === 'progress') this.loadProgress();
-    if (section === 'quizzes') this.loadAssignedQuizzes();
-    if (section === 'recommendations' && this.recommendations.length === 0) {
-      this.initRecommendationForm();
-      this.loadRecommendations();
-    }
+    if (section === 'quizzes') this.loadAssignedQuizzes()
   }
-
-  initRecommendationForm(): void {
-    // Set sensible default values first, ensuring they are never empty
-    this.recommendationForm = {
-      country: 'N\'importe lequel', // Default country
-      major: 'N\'importe quel domaine', // Default major
-      language: 'Français', // Default language
-      skills: 'Résolution de problèmes, Communication, Travail d\'équipe', // Default skills
-      moyenne: 15 // Default average grade (e.g., out of 20), ensuring it's a number
-    };
-
-    // If profile exists, override with actual profile data
-    if (this.profile) {
-      // Ensure profile properties are not null/undefined before assigning
-      // Use logical OR (||) to fall back to default if profile property is empty or null
-      // For languages, parse and join, or use default
-      const langs = this.parseLanguages(this.profile.languages || '[]');
-      const languageNames = langs.map(l => l.name).join(', ');
-
-      this.recommendationForm.country = this.profile.address || this.recommendationForm.country;
-      this.recommendationForm.major = this.profile.speciality || this.recommendationForm.major;
-      this.recommendationForm.language = languageNames || this.recommendationForm.language;
-      // Assuming skills and moyenne are not directly in profile yet, keep defaults
-      // If they were, you would update them here:
-      // this.recommendationForm.skills = this.profile.skills || this.recommendationForm.skills;
-      // this.recommendationForm.moyenne = this.profile.moyenne || this.recommendationForm.moyenne;
-    }
-    console.log('Recommendation form initialized:', this.recommendationForm);
-  }
-
-  loadRecommendations(): void {
-    // Prevent multiple concurrent requests
-    if (this.isLoadingRecommendations) return;
-
-    console.log('Sending recommendation request to ML backend...', this.recommendationForm);
-
-    this.isLoadingRecommendations = true;
-
-    this.recommendationService.getRecommendations(this.recommendationForm).subscribe({
-      next: (data: any) => {
-        console.log('ML Response Data:', data); // IMPORTANT: Check this in your browser console!
-        this.recommendations = data.recommendations;
-        this.recommendationMeta = data.meta;
-        this.isLoadingRecommendations = false;
-      },
-      error: () => { this.isLoadingRecommendations = false; }
-    });
-  }
-
   loadAssignedQuizzes(): void {
     this.isLoadingQuizzes = true;
     this.quizError = '';

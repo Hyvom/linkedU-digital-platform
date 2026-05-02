@@ -1,0 +1,195 @@
+/* /home/dhia/final pfe/linkedU-digital-platform/linkedU-digital-platform/frontend/src/app/ml-model/ml-model.component.css */
+
+/* Inherit tokens from language-teacher.component.css for consistency */
+:host {
+  --navy:        #00072D;
+  --navy-deep:   #0A0F2A;
+  --navy-mid:    #1E4F70;
+  --navy-muted:  #94a3b8;
+  --navy-faint:  #e2e8f0;
+
+  --yellow:      #d9c682;
+  --yellow-deep: #c4b56a;
+  --yellow-pale: rgba(217,198,130,.08);
+  --yellow-soft: rgba(217,198,130,.15);
+
+  --bg:          #00072D;
+  --surface:     #0A0F2A;
+  --border:      rgba(217,198,130,.2);
+  --border-dark: rgba(217,198,130,.35);
+
+  --green:       #10b981;
+  --red:         #ef4444;
+
+  --radius:      12px;
+  --shadow-sm:   0 2px 8px rgba(0,0,0,.3), 0 0 0 1px rgba(217,198,130,.08);
+  --shadow-md:   0 8px 32px rgba(0,0,0,.4), 0 0 0 1px rgba(217,198,130,.1);
+
+  --font-head:   'Playfair Display', Georgia, serif;
+  --font-body:   'DM Sans', system-ui, sans-serif;
+  --transition:  180ms ease;
+
+  display: block;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--navy-faint);
+  min-height: 100vh;
+}
+
+.ml-model-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--border-dark);
+  box-shadow: var(--shadow-md);
+}
+
+.card h2 {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -.01em;
+}
+
+.hint {
+  font-size: .82rem;
+  color: var(--navy-muted);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+label {
+  display: block;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  margin-bottom: 7px;
+  opacity: .85;
+}
+
+input[type="number"] {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: .875rem;
+  color: #fff;
+  background: rgba(255,255,255,.05);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 11px 14px;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  -webkit-appearance: none;
+}
+
+input[type="number"]:focus {
+  border-color: var(--yellow);
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 0 0 3px rgba(217,198,130,.15);
+}
+
+.actions-row {
+  margin-top: 25px;
+}
+
+.primary {
+  background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-deep) 100%);
+  color: var(--navy-deep);
+  border: none;
+  border-radius: var(--radius);
+  padding: 11px 24px;
+  font-size: .85rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(217,198,130,.3);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--yellow-deep) 0%, #b8a258 100%);
+  box-shadow: 0 4px 16px rgba(217,198,130,.45);
+  transform: translateY(-2px);
+}
+
+.primary:disabled {
+  opacity: .4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.msg {
+  font-size: .83rem;
+  font-weight: 500;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  margin-top: 20px; /* Adjusted margin-top */
+  animation: fadeIn .25s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.msg.success {
+  background: linear-gradient(135deg, rgba(16,185,129,.15) 0%, rgba(16,185,129,.08) 100%);
+  color: var(--green);
+  border: 1px solid rgba(16,185,129,.3);
+}
+
+.msg.error {
+  background: linear-gradient(135deg, rgba(239,68,68,.15) 0%, rgba(239,68,68,.08) 100%);
+  color: var(--red);
+  border: 1px solid rgba(239,68,68,.3);
+}
+
+/* FontAwesome icons (assuming they are included in the project) */
+.fas {
+  font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+  .ml-model-container { padding: 0 16px; }
+  .card { padding: 20px; }
+}
