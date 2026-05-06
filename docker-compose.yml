@@ -59,6 +59,16 @@ services:
     ports:
       - "4200:80"
 
+  ml-service:
+    build: ./ml-model
+    container_name: linkedu_ml
+
+    ports:
+      - "8000:8000"
+
+    restart: always
+
+
 volumes:
   postgres_data:
   uploads_data:
